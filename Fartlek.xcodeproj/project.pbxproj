@@ -21,6 +21,8 @@
 		96A98EC918DA079700E55F1D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EAB18DA079700E55F1D /* UIKit.framework */; };
 		96A98ED118DA079700E55F1D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96A98ECF18DA079700E55F1D /* InfoPlist.strings */; };
 		96A98ED318DA079700E55F1D /* FartlekTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98ED218DA079700E55F1D /* FartlekTests.m */; };
+		96A98EDD18DA07B500E55F1D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EDC18DA07B500E55F1D /* CoreLocation.framework */; };
+		96A98EDF18DA07BB00E55F1D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EDE18DA07BB00E55F1D /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		96A98ECE18DA079700E55F1D /* FartlekTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FartlekTests-Info.plist"; sourceTree = "<group>"; };
 		96A98ED018DA079700E55F1D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		96A98ED218DA079700E55F1D /* FartlekTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FartlekTests.m; sourceTree = "<group>"; };
+		96A98EDC18DA07B500E55F1D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		96A98EDE18DA07BB00E55F1D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96A98EDF18DA07BB00E55F1D /* AVFoundation.framework in Frameworks */,
+				96A98EDD18DA07B500E55F1D /* CoreLocation.framework in Frameworks */,
 				96A98EAA18DA079700E55F1D /* CoreGraphics.framework in Frameworks */,
 				96A98EAC18DA079700E55F1D /* UIKit.framework in Frameworks */,
 				96A98EA818DA079700E55F1D /* Foundation.framework in Frameworks */,
@@ -101,6 +107,8 @@
 		96A98EA618DA079700E55F1D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96A98EDE18DA07BB00E55F1D /* AVFoundation.framework */,
+				96A98EDC18DA07B500E55F1D /* CoreLocation.framework */,
 				96A98EA718DA079700E55F1D /* Foundation.framework */,
 				96A98EA918DA079700E55F1D /* CoreGraphics.framework */,
 				96A98EAB18DA079700E55F1D /* UIKit.framework */,
@@ -112,12 +120,11 @@
 		96A98EAD18DA079700E55F1D /* Fartlek */ = {
 			isa = PBXGroup;
 			children = (
-				96A98EB618DA079700E55F1D /* AppDelegate.h */,
-				96A98EB718DA079700E55F1D /* AppDelegate.m */,
-				96A98EB918DA079700E55F1D /* Main.storyboard */,
-				96A98EBC18DA079700E55F1D /* ViewController.h */,
-				96A98EBD18DA079700E55F1D /* ViewController.m */,
-				96A98EBF18DA079700E55F1D /* Images.xcassets */,
+				96A98EE418DA08A600E55F1D /* helpers */,
+				96A98EE318DA080A00E55F1D /* external */,
+				96A98EE218DA080200E55F1D /* controllers */,
+				96A98EE118DA07C800E55F1D /* models */,
+				96A98EE018DA07C300E55F1D /* views */,
 				96A98EAE18DA079700E55F1D /* Supporting Files */,
 			);
 			path = Fartlek;
@@ -126,6 +133,7 @@
 		96A98EAE18DA079700E55F1D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				96A98EBF18DA079700E55F1D /* Images.xcassets */,
 				96A98EAF18DA079700E55F1D /* Fartlek-Info.plist */,
 				96A98EB018DA079700E55F1D /* InfoPlist.strings */,
 				96A98EB318DA079700E55F1D /* main.m */,
@@ -150,6 +158,46 @@
 				96A98ECF18DA079700E55F1D /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		96A98EE018DA07C300E55F1D /* views */ = {
+			isa = PBXGroup;
+			children = (
+				96A98EB918DA079700E55F1D /* Main.storyboard */,
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		96A98EE118DA07C800E55F1D /* models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = models;
+			sourceTree = "<group>";
+		};
+		96A98EE218DA080200E55F1D /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				96A98EBC18DA079700E55F1D /* ViewController.h */,
+				96A98EBD18DA079700E55F1D /* ViewController.m */,
+			);
+			name = controllers;
+			sourceTree = "<group>";
+		};
+		96A98EE318DA080A00E55F1D /* external */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = external;
+			sourceTree = "<group>";
+		};
+		96A98EE418DA08A600E55F1D /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				96A98EB618DA079700E55F1D /* AppDelegate.h */,
+				96A98EB718DA079700E55F1D /* AppDelegate.m */,
+			);
+			name = helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,6 +247,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "PopUp Inc.";
 				TargetAttributes = {
+					96A98EA318DA079700E55F1D = {
+						DevelopmentTeam = V6XSFQJX4G;
+					};
 					96A98EC418DA079700E55F1D = {
 						TestTargetID = 96A98EA318DA079700E55F1D;
 					};
@@ -376,9 +427,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Fartlek/Fartlek-Prefix.pch";
 				INFOPLIST_FILE = "Fartlek/Fartlek-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -389,9 +442,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Fartlek/Fartlek-Prefix.pch";
 				INFOPLIST_FILE = "Fartlek/Fartlek-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
