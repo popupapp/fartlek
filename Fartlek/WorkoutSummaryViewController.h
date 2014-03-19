@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  WorkoutSummaryViewController.h
 //  Fartlek
 //
 //  Created by Jason Humphries on 3/19/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface WorkoutSummaryViewController : UIViewController
 
 @end

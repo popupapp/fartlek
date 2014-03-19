@@ -14,7 +14,7 @@
 		96A98EB418DA079700E55F1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98EB318DA079700E55F1D /* main.m */; };
 		96A98EB818DA079700E55F1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98EB718DA079700E55F1D /* AppDelegate.m */; };
 		96A98EBB18DA079700E55F1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96A98EB918DA079700E55F1D /* Main.storyboard */; };
-		96A98EBE18DA079700E55F1D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98EBD18DA079700E55F1D /* ViewController.m */; };
+		96A98EBE18DA079700E55F1D /* SetupFartlekViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98EBD18DA079700E55F1D /* SetupFartlekViewController.m */; };
 		96A98EC018DA079700E55F1D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96A98EBF18DA079700E55F1D /* Images.xcassets */; };
 		96A98EC718DA079700E55F1D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EC618DA079700E55F1D /* XCTest.framework */; };
 		96A98EC818DA079700E55F1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA718DA079700E55F1D /* Foundation.framework */; };
@@ -23,6 +23,10 @@
 		96A98ED318DA079700E55F1D /* FartlekTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98ED218DA079700E55F1D /* FartlekTests.m */; };
 		96A98EDD18DA07B500E55F1D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EDC18DA07B500E55F1D /* CoreLocation.framework */; };
 		96A98EDF18DA07BB00E55F1D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EDE18DA07BB00E55F1D /* AVFoundation.framework */; };
+		96A98EEB18DA10C600E55F1D /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EE918DA10C600E55F1D /* libTestFlight.a */; };
+		96A98EEF18DA17FF00E55F1D /* WorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98EEE18DA17FF00E55F1D /* WorkoutViewController.m */; };
+		96A98EF218DA1B5200E55F1D /* WorkoutSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98EF118DA1B5200E55F1D /* WorkoutSummaryViewController.m */; };
+		96A98EF518DA219100E55F1D /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98EF418DA219100E55F1D /* HistoryViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,8 +51,8 @@
 		96A98EB618DA079700E55F1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		96A98EB718DA079700E55F1D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		96A98EBA18DA079700E55F1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		96A98EBC18DA079700E55F1D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		96A98EBD18DA079700E55F1D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		96A98EBC18DA079700E55F1D /* SetupFartlekViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetupFartlekViewController.h; sourceTree = "<group>"; };
+		96A98EBD18DA079700E55F1D /* SetupFartlekViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetupFartlekViewController.m; sourceTree = "<group>"; };
 		96A98EBF18DA079700E55F1D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		96A98EC518DA079700E55F1D /* FartlekTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FartlekTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A98EC618DA079700E55F1D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -57,6 +61,14 @@
 		96A98ED218DA079700E55F1D /* FartlekTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FartlekTests.m; sourceTree = "<group>"; };
 		96A98EDC18DA07B500E55F1D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		96A98EDE18DA07BB00E55F1D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		96A98EE918DA10C600E55F1D /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		96A98EEA18DA10C600E55F1D /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		96A98EED18DA17FF00E55F1D /* WorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutViewController.h; sourceTree = "<group>"; };
+		96A98EEE18DA17FF00E55F1D /* WorkoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutViewController.m; sourceTree = "<group>"; };
+		96A98EF018DA1B5200E55F1D /* WorkoutSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutSummaryViewController.h; sourceTree = "<group>"; };
+		96A98EF118DA1B5200E55F1D /* WorkoutSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutSummaryViewController.m; sourceTree = "<group>"; };
+		96A98EF318DA219100E55F1D /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		96A98EF418DA219100E55F1D /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +79,7 @@
 				96A98EDF18DA07BB00E55F1D /* AVFoundation.framework in Frameworks */,
 				96A98EDD18DA07B500E55F1D /* CoreLocation.framework in Frameworks */,
 				96A98EAA18DA079700E55F1D /* CoreGraphics.framework in Frameworks */,
+				96A98EEB18DA10C600E55F1D /* libTestFlight.a in Frameworks */,
 				96A98EAC18DA079700E55F1D /* UIKit.framework in Frameworks */,
 				96A98EA818DA079700E55F1D /* Foundation.framework in Frameworks */,
 			);
@@ -178,8 +191,14 @@
 		96A98EE218DA080200E55F1D /* controllers */ = {
 			isa = PBXGroup;
 			children = (
-				96A98EBC18DA079700E55F1D /* ViewController.h */,
-				96A98EBD18DA079700E55F1D /* ViewController.m */,
+				96A98EBC18DA079700E55F1D /* SetupFartlekViewController.h */,
+				96A98EBD18DA079700E55F1D /* SetupFartlekViewController.m */,
+				96A98EED18DA17FF00E55F1D /* WorkoutViewController.h */,
+				96A98EEE18DA17FF00E55F1D /* WorkoutViewController.m */,
+				96A98EF018DA1B5200E55F1D /* WorkoutSummaryViewController.h */,
+				96A98EF118DA1B5200E55F1D /* WorkoutSummaryViewController.m */,
+				96A98EF318DA219100E55F1D /* HistoryViewController.h */,
+				96A98EF418DA219100E55F1D /* HistoryViewController.m */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -187,6 +206,7 @@
 		96A98EE318DA080A00E55F1D /* external */ = {
 			isa = PBXGroup;
 			children = (
+				96A98EEC18DA10CA00E55F1D /* Testflight */,
 			);
 			name = external;
 			sourceTree = "<group>";
@@ -198,6 +218,15 @@
 				96A98EB718DA079700E55F1D /* AppDelegate.m */,
 			);
 			name = helpers;
+			sourceTree = "<group>";
+		};
+		96A98EEC18DA10CA00E55F1D /* Testflight */ = {
+			isa = PBXGroup;
+			children = (
+				96A98EE918DA10C600E55F1D /* libTestFlight.a */,
+				96A98EEA18DA10C600E55F1D /* TestFlight.h */,
+			);
+			name = Testflight;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,9 +329,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96A98EBE18DA079700E55F1D /* ViewController.m in Sources */,
+				96A98EEF18DA17FF00E55F1D /* WorkoutViewController.m in Sources */,
+				96A98EF218DA1B5200E55F1D /* WorkoutSummaryViewController.m in Sources */,
+				96A98EBE18DA079700E55F1D /* SetupFartlekViewController.m in Sources */,
 				96A98EB818DA079700E55F1D /* AppDelegate.m in Sources */,
 				96A98EB418DA079700E55F1D /* main.m in Sources */,
+				96A98EF518DA219100E55F1D /* HistoryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +464,10 @@
 				GCC_PREFIX_HEADER = "Fartlek/Fartlek-Prefix.pch";
 				INFOPLIST_FILE = "Fartlek/Fartlek-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Fartlek",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -447,6 +483,10 @@
 				GCC_PREFIX_HEADER = "Fartlek/Fartlek-Prefix.pch";
 				INFOPLIST_FILE = "Fartlek/Fartlek-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Fartlek",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -511,6 +551,7 @@
 				96A98ED818DA079700E55F1D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		96A98ED918DA079700E55F1D /* Build configuration list for PBXNativeTarget "FartlekTests" */ = {
 			isa = XCConfigurationList;
@@ -519,6 +560,7 @@
 				96A98EDB18DA079700E55F1D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
