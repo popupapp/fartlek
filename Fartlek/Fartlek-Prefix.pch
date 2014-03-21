@@ -8,6 +8,7 @@
 
 #define TESTFLIGHT_TOKEN @"33cfd47f-b3b9-400f-b5fa-28bebdede50d"
 #define FARTLEK_YELLOW [UIColor colorWithRed:237.0/255.0 green:246.0/255.0 blue:63.0/255.0 alpha:1.0]
+#define BESTLY_KEY @"2a0a390078d4020f5ccaa90cc49de3df"
 
 #ifndef __IPHONE_5_0
 #warning "This project uses features only available in iOS SDK 5.0 and later."

@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <TestFlightSDK/TestFlight.h>
+#import <Bestly/Bestly.h>
 
 @interface AppDelegate ()
 @property (assign, nonatomic) BOOL deferringUpdates;
@@ -17,10 +19,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // FRAMEWORKS
+    [Bestly setupWithKey:BESTLY_KEY];
+    [TestFlight takeOff:TESTFLIGHT_TOKEN];
+    
+    // LOCATION
     self.deferringUpdates = NO;
     self.locationManager = [CLLocationManager new];
     self.locationManager.activityType = CLActivityTypeFitness;
     [self.locationManager startUpdatingLocation];
+    
     return YES;
 }
 

@@ -8,12 +8,15 @@
 
 #import "SetupFartlekViewController.h"
 #import "WorkoutViewController.h"
+#import <Bestly/Bestly.h>
+#import "JBLineChartView.h"
 
-@interface SetupFartlekViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface SetupFartlekViewController () <UIPickerViewDataSource, UIPickerViewDelegate, JBLineChartViewDataSource, JBLineChartViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *averagePaceField;
 @property (weak, nonatomic) IBOutlet UITextField *workoutLengthField;
 @property (weak, nonatomic) IBOutlet UITextField *workoutIntensityField;
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
+@property (weak, nonatomic) IBOutlet UILabel *workoutSummaryLabel;
 
 @property (strong, nonatomic) UIPickerView *pacePickerView;
 @property (strong, nonatomic) UIPickerView *lengthPickerView;
@@ -23,6 +26,8 @@
 @property (strong, nonatomic) NSMutableArray *paceSecondPickerArray;
 @property (strong, nonatomic) NSArray *lengthPickerArray;
 @property (strong, nonatomic) NSArray *intensityPickerArray;
+
+@property (strong, nonatomic) JBLineChartView *chartView;
 
 @end
 
@@ -41,6 +46,60 @@
     self.navigationController.navigationBar.tintColor = [UIColor redColor];
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gotham-Book" size:20.0], NSFontAttributeName, nil];
     
+    [self setupAveragePacePickerView];
+    [self setupWorkoutLengthPickerView];
+    [self setupWorkoutIntensityPickerView];
+    [self setupChart];
+    
+    [self.averagePaceField becomeFirstResponder];
+}
+
+- (void)setupChart
+{
+    self.chartView = [JBLineChartView new];
+    self.chartView.delegate = self;
+    self.chartView.dataSource = self;
+    self.chartView.frame = CGRectMake(0, 324, 320, 155);
+    self.chartView.backgroundColor = [UIColor whiteColor];
+    
+    UIView *hView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+    hView.backgroundColor = [UIColor whiteColor];
+    UILabel *headerLabel = [UILabel new];
+    self.chartView.headerPadding = 5.f;
+    headerLabel.text = @"Your Run";
+    [headerLabel sizeToFit];
+    [headerLabel setFrame:CGRectMake(320.0/2.0 - headerLabel.frame.size.width/2.0, 0, headerLabel.frame.size.width, headerLabel.frame.size.height)];
+    [hView addSubview:headerLabel];
+    self.chartView.headerView = hView;
+    
+    UIView *fView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+    UILabel *leftLegendLabel = [UILabel new];
+    UILabel *rightLegendLabel = [UILabel new];
+    leftLegendLabel.text = @"0 mi";
+    rightLegendLabel.text = @"100 mi";
+    leftLegendLabel.font = [UIFont systemFontOfSize:12.f];
+    rightLegendLabel.font = [UIFont systemFontOfSize:12.f];
+    [leftLegendLabel sizeToFit];
+    [rightLegendLabel sizeToFit];
+    [leftLegendLabel setFrame:CGRectMake(5, 0, leftLegendLabel.frame.size.width, leftLegendLabel.frame.size.height)];
+    [rightLegendLabel setFrame:CGRectMake(320 - rightLegendLabel.frame.size.width, 0, rightLegendLabel.frame.size.width, rightLegendLabel.frame.size.height)];
+    [fView addSubview:leftLegendLabel];
+    [fView addSubview:rightLegendLabel];
+    fView.backgroundColor = [UIColor lightGrayColor];
+    
+    self.chartView.footerView = fView;
+    
+    [self.chartView reloadData];
+    [self.view addSubview:self.chartView];
+    
+//    [self.pacePickerView selectRow:0 inComponent:0 animated:NO];
+//    [self.pacePickerView selectRow:0 inComponent:1 animated:NO];
+//    [self.lengthPickerView selectRow:0 inComponent:0 animated:NO];
+//    [self.intensityPickerView selectRow:0 inComponent:0 animated:NO];
+}
+
+- (void)setupAveragePacePickerView
+{
     self.paceMinutePickerArray = [NSMutableArray array];
     for (int i=1; i<16; i++) {
         [self.paceMinutePickerArray addObject:@(i)];
@@ -49,17 +108,7 @@
     for (int i=1; i<61; i++) {
         [self.paceSecondPickerArray addObject:@(i)];
     }
-    [self setupAveragePacePickerView];
     
-    self.lengthPickerArray = @[@30, @40, @50, @60, @75];
-    [self setupWorkoutLengthPickerView];
-    
-    self.intensityPickerArray = @[@"Low", @"Medium", @"High"];
-    [self setupWorkoutIntensityPickerView];
-}
-
-- (void)setupAveragePacePickerView
-{
     self.pacePickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 100, 150)];
     [self.pacePickerView setDataSource: self];
     [self.pacePickerView setDelegate: self];
@@ -77,6 +126,7 @@
 
 - (void)setupWorkoutLengthPickerView
 {
+    self.lengthPickerArray = @[@30, @40, @50, @60, @75];
     self.lengthPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 100, 150)];
     [self.lengthPickerView setDataSource: self];
     [self.lengthPickerView setDelegate: self];
@@ -94,6 +144,7 @@
 
 - (void)setupWorkoutIntensityPickerView
 {
+    self.intensityPickerArray = @[@"Low", @"Medium", @"High"];
     self.intensityPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 100, 150)];
     [self.intensityPickerView setDataSource: self];
     [self.intensityPickerView setDelegate: self];
@@ -116,6 +167,7 @@
 
 - (IBAction)startAction:(id)sender
 {
+    [Bestly trackEvent:@"START ACTION" withProperties:@{ @"foo" : @"bar" }];
     [self performSegueWithIdentifier:@"workoutSegue" sender:nil];
 }
 
@@ -162,13 +214,13 @@
 {
     if ([pickerView isEqual:self.pacePickerView]) {
         if (component == 0) {
-            return [NSString stringWithFormat:@"%@", self.paceMinutePickerArray[row]];
+            return [NSString stringWithFormat:@"%@ min", self.paceMinutePickerArray[row]];
         } else {
-            return [NSString stringWithFormat:@"%@", self.paceSecondPickerArray[row]];
+            return [NSString stringWithFormat:@"%@ sec", self.paceSecondPickerArray[row]];
         }
-        return [NSString stringWithFormat:@"%@", self.paceMinutePickerArray[row]];
+        return [NSString stringWithFormat:@"%@ min", self.paceMinutePickerArray[row]];
     } else if ([pickerView isEqual:self.lengthPickerView]) {
-        return [NSString stringWithFormat:@"%@", self.lengthPickerArray[row]];
+        return [NSString stringWithFormat:@"%@ min", self.lengthPickerArray[row]];
     } else if ([pickerView isEqual:self.intensityPickerView]) {
         return [NSString stringWithFormat:@"%@", self.intensityPickerArray[row]];
     } else {
@@ -183,13 +235,130 @@
     if ([pickerView isEqual:self.pacePickerView]) {
         NSInteger minuteRow = [self.pacePickerView selectedRowInComponent:0];
         NSInteger secondRow = [self.pacePickerView selectedRowInComponent:1];
-        self.averagePaceField.text = [NSString stringWithFormat:@"%@m %@s", self.paceMinutePickerArray[minuteRow], self.paceSecondPickerArray[secondRow]];
+        NSString *timeString = [NSString stringWithFormat:@"%@m %@s", self.paceMinutePickerArray[minuteRow], self.paceSecondPickerArray[secondRow]];
+        self.averagePaceField.text = timeString;
     } else if ([pickerView isEqual:self.lengthPickerView]) {
         self.workoutLengthField.text = [NSString stringWithFormat:@"%@", self.lengthPickerArray[row]];
     } else if ([pickerView isEqual:self.intensityPickerView]) {
         self.workoutIntensityField.text = [NSString stringWithFormat:@"%@", self.intensityPickerArray[row]];
     }
+    [self setupSummaryText];
 }
+
+- (void)setupSummaryText
+{
+    NSInteger minuteRow = [self.pacePickerView selectedRowInComponent:0];
+    NSInteger secondRow = [self.pacePickerView selectedRowInComponent:1];
+    NSInteger lengthRow = [self.lengthPickerView selectedRowInComponent:0];
+    NSInteger intensityRow = [self.intensityPickerView selectedRowInComponent:0];
+    
+    NSNumber *paceMinuteNumber = self.paceMinutePickerArray[minuteRow];
+    NSNumber *paceSecondNumber = self.paceSecondPickerArray[secondRow];
+    float paceTotalInSeconds = [paceMinuteNumber intValue]*60.0 + [paceSecondNumber intValue];
+    float workoutLengthInSeconds = [self.lengthPickerArray[lengthRow] floatValue]*60.0;
+    float runDistance = workoutLengthInSeconds / paceTotalInSeconds;
+    NSString *runDistanceString = [NSString stringWithFormat:@"%.2f", runDistance];
+    NSString *runtimeString = self.lengthPickerArray[lengthRow];
+    NSString *intensityString = self.intensityPickerArray[intensityRow];
+    
+    NSString *summaryString = [NSString stringWithFormat:@"Your workout should last %@ minutes and cover about %@ miles at %@ intensity", runtimeString, runDistanceString, [intensityString lowercaseString]];
+    self.workoutSummaryLabel.text = summaryString;
+}
+
+#pragma mark - JBChart delegate stuff
+
+- (NSUInteger)numberOfLinesInLineChartView:(JBLineChartView *)lineChartView
+{
+    // number of lines in chart
+    return 1;
+}
+
+- (NSUInteger)lineChartView:(JBLineChartView *)lineChartView numberOfVerticalValuesAtLineIndex:(NSUInteger)lineIndex
+{
+    // number of values for a line
+    NSLog(@"lineIndex:%d", lineIndex);
+    return 100;
+}
+
+- (CGFloat)lineChartView:(JBLineChartView *)lineChartView
+verticalValueForHorizontalIndex:(NSUInteger)x
+             atLineIndex:(NSUInteger)lineIndex
+{
+    // y-position (y-axis) of point at horizontalIndex (x-axis)
+//    return x*(lineIndex+1);
+    if (x < 10) {
+        return 5;
+    } else if (x < 20) {
+        return 10;
+    } else if (x < 30) {
+        return 20;
+    } else if (x < 40) {
+        return 25;
+    } else if (x < 50) {
+        return 15;
+    } else if (x < 60) {
+        return 20;
+    } else if (x < 70) {
+        return 25;
+    } else if (x < 80) {
+        return 10;
+    } else if (x < 90) {
+        return 5;
+    } else {
+        return 0;
+    }
+}
+
+- (UIColor *)lineChartView:(JBLineChartView *)lineChartView
+   colorForLineAtLineIndex:(NSUInteger)lineIndex
+{
+    // color of line in chart
+    return [UIColor redColor];
+
+}
+
+- (CGFloat)lineChartView:(JBLineChartView *)lineChartView
+ widthForLineAtLineIndex:(NSUInteger)lineIndex
+{
+    // width of line in chart
+    return 2;
+}
+
+- (JBLineChartViewLineStyle)lineChartView:(JBLineChartView *)lineChartView
+              lineStyleForLineAtLineIndex:(NSUInteger)lineIndex
+{
+    // style of line in chart
+    return JBLineChartViewLineStyleSolid;
+}
+
+- (UIColor *)verticalSelectionColorForLineChartView:(JBLineChartView *)lineChartView
+{
+    // color of selection view
+    return [UIColor redColor];
+}
+
+- (UIColor *)lineChartView:(JBLineChartView *)lineChartView selectionColorForLineAtLineIndex:(NSUInteger)lineIndex
+{
+    // color of selected line
+    return [UIColor blueColor];
+}
+
+- (void)lineChartView:(JBLineChartView *)lineChartView
+ didSelectLineAtIndex:(NSUInteger)lineIndex
+      horizontalIndex:(NSUInteger)horizontalIndex
+           touchPoint:(CGPoint)touchPoint
+{
+    NSLog(@"didSelectLineAtIndex:%d, touchPoint:%@", lineIndex, NSStringFromCGPoint(touchPoint));
+}
+
+- (void)didUnselectLineInLineChartView:(JBLineChartView *)lineChartView
+{
+    NSLog(@"didUnselectLineInLineChartView");
+}
+
+#pragma mark - END chart view stuff
+
+
 
 
 - (void)didReceiveMemoryWarning
