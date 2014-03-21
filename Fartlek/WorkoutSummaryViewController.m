@@ -10,9 +10,9 @@
 #import "HistoryViewController.h"
 
 @interface WorkoutSummaryViewController ()
-@property (weak, nonatomic) IBOutlet UIButton *viewRouteButton;
+@property (strong, nonatomic) IBOutlet UIButton *viewRouteButton;
 
-@property (weak, nonatomic) IBOutlet UIButton *saveButton;
+@property (strong, nonatomic) IBOutlet UIButton *saveButton;
 @end
 
 @implementation WorkoutSummaryViewController
