@@ -9,6 +9,7 @@
 #import "WorkoutViewController.h"
 #import "WorkoutSummaryViewController.h"
 #import "CurrentRunCell.h"
+#import "FartlekDataImporter.h"
 
 @interface WorkoutViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *gearLabel;
@@ -32,6 +33,8 @@
     self.navigationController.navigationBar.barTintColor = FARTLEK_YELLOW;
     self.navigationController.navigationBar.tintColor = [UIColor redColor];
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gotham-Book" size:20.0], NSFontAttributeName, nil];
+    
+    FartlekDataImporter *importer = [[FartlekDataImporter alloc] init];
 }
 
 - (IBAction)pauseAction:(id)sender

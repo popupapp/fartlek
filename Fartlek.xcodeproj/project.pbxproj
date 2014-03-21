@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		8810719FC6CC4ADB9C607D95 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B0F5FC528C449B8826586F /* libPods.a */; };
 		968BBB3218DBE01700766D59 /* CurrentRunCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB3118DBE01700766D59 /* CurrentRunCell.m */; };
+		968BBB3818DCD9CB00766D59 /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB3718DCD9CB00766D59 /* CHCSVParser.m */; };
+		968BBB3B18DCD9EC00766D59 /* FartlekDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB3A18DCD9EC00766D59 /* FartlekDataImporter.m */; };
+		968BBB3E18DCDA3F00766D59 /* scripted.csv in Resources */ = {isa = PBXBuildFile; fileRef = 968BBB3D18DCDA3F00766D59 /* scripted.csv */; };
 		96A98EA818DA079700E55F1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA718DA079700E55F1D /* Foundation.framework */; };
 		96A98EAA18DA079700E55F1D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA918DA079700E55F1D /* CoreGraphics.framework */; };
 		96A98EAC18DA079700E55F1D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EAB18DA079700E55F1D /* UIKit.framework */; };
@@ -45,6 +48,11 @@
 		27B0F5FC528C449B8826586F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		968BBB3018DBE01700766D59 /* CurrentRunCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentRunCell.h; sourceTree = "<group>"; };
 		968BBB3118DBE01700766D59 /* CurrentRunCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentRunCell.m; sourceTree = "<group>"; };
+		968BBB3618DCD9CB00766D59 /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
+		968BBB3718DCD9CB00766D59 /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCSVParser.m; sourceTree = "<group>"; };
+		968BBB3918DCD9EC00766D59 /* FartlekDataImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FartlekDataImporter.h; sourceTree = "<group>"; };
+		968BBB3A18DCD9EC00766D59 /* FartlekDataImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FartlekDataImporter.m; sourceTree = "<group>"; };
+		968BBB3D18DCDA3F00766D59 /* scripted.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = scripted.csv; sourceTree = "<group>"; };
 		96A98EA418DA079700E55F1D /* Fartlek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fartlek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A98EA718DA079700E55F1D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		96A98EA918DA079700E55F1D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -101,6 +109,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		968BBB3418DCD9B600766D59 /* external */ = {
+			isa = PBXGroup;
+			children = (
+				968BBB3518DCD9CB00766D59 /* CHCSVParser */,
+			);
+			name = external;
+			sourceTree = "<group>";
+		};
+		968BBB3518DCD9CB00766D59 /* CHCSVParser */ = {
+			isa = PBXGroup;
+			children = (
+				968BBB3618DCD9CB00766D59 /* CHCSVParser.h */,
+				968BBB3718DCD9CB00766D59 /* CHCSVParser.m */,
+			);
+			path = CHCSVParser;
+			sourceTree = "<group>";
+		};
+		968BBB3C18DCDA1900766D59 /* fartlek_data_profiles */ = {
+			isa = PBXGroup;
+			children = (
+				968BBB3D18DCDA3F00766D59 /* scripted.csv */,
+			);
+			name = fartlek_data_profiles;
+			sourceTree = "<group>";
+		};
 		96A98E9B18DA079700E55F1D = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +171,7 @@
 		96A98EAD18DA079700E55F1D /* Fartlek */ = {
 			isa = PBXGroup;
 			children = (
+				968BBB3418DCD9B600766D59 /* external */,
 				96A98EE418DA08A600E55F1D /* helpers */,
 				96A98EE218DA080200E55F1D /* controllers */,
 				96A98EE118DA07C800E55F1D /* models */,
@@ -150,6 +184,7 @@
 		96A98EAE18DA079700E55F1D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				968BBB3C18DCDA1900766D59 /* fartlek_data_profiles */,
 				96A98EBF18DA079700E55F1D /* Images.xcassets */,
 				96A98EAF18DA079700E55F1D /* Fartlek-Info.plist */,
 				96A98EB018DA079700E55F1D /* InfoPlist.strings */,
@@ -212,6 +247,8 @@
 		96A98EE418DA08A600E55F1D /* helpers */ = {
 			isa = PBXGroup;
 			children = (
+				968BBB3918DCD9EC00766D59 /* FartlekDataImporter.h */,
+				968BBB3A18DCD9EC00766D59 /* FartlekDataImporter.m */,
 				96A98EB618DA079700E55F1D /* AppDelegate.h */,
 				96A98EB718DA079700E55F1D /* AppDelegate.m */,
 			);
@@ -299,6 +336,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				968BBB3E18DCDA3F00766D59 /* scripted.csv in Resources */,
 				96A98EC018DA079700E55F1D /* Images.xcassets in Resources */,
 				96A98EB218DA079700E55F1D /* InfoPlist.strings in Resources */,
 				96A98EBB18DA079700E55F1D /* Main.storyboard in Resources */,
@@ -353,10 +391,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				968BBB3B18DCD9EC00766D59 /* FartlekDataImporter.m in Sources */,
 				96A98EEF18DA17FF00E55F1D /* WorkoutViewController.m in Sources */,
 				96A98EF218DA1B5200E55F1D /* WorkoutSummaryViewController.m in Sources */,
 				96A98EBE18DA079700E55F1D /* SetupFartlekViewController.m in Sources */,
 				96A98EB818DA079700E55F1D /* AppDelegate.m in Sources */,
+				968BBB3818DCD9CB00766D59 /* CHCSVParser.m in Sources */,
 				968BBB3218DBE01700766D59 /* CurrentRunCell.m in Sources */,
 				96A98EB418DA079700E55F1D /* main.m in Sources */,
 				96A98EF518DA219100E55F1D /* HistoryViewController.m in Sources */,
