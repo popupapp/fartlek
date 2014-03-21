@@ -10,6 +10,12 @@
 #define FARTLEK_YELLOW [UIColor colorWithRed:237.0/255.0 green:246.0/255.0 blue:63.0/255.0 alpha:1.0]
 #define BESTLY_KEY @"2a0a390078d4020f5ccaa90cc49de3df"
 
+// DYNAMIC PROPERTY KEYS
+#define USER_KEY_USER_ID @"USER_KEY_USER_ID"
+#define USER_KEY_FIRST_NAME @"USER_KEY_FIRST_NAME"
+#define USER_KEY_LAST_NAME @"USER_KEY_LAST_NAME"
+#define USER_KEY_EMAIL @"USER_KEY_EMAIL"
+
 #ifndef __IPHONE_5_0
 #warning "This project uses features only available in iOS SDK 5.0 and later."
 #endif
