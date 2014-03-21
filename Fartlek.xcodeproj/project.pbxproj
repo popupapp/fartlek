@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		968BBB3218DBE01700766D59 /* CurrentRunCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB3118DBE01700766D59 /* CurrentRunCell.m */; };
 		96A98EA818DA079700E55F1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA718DA079700E55F1D /* Foundation.framework */; };
 		96A98EAA18DA079700E55F1D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA918DA079700E55F1D /* CoreGraphics.framework */; };
 		96A98EAC18DA079700E55F1D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EAB18DA079700E55F1D /* UIKit.framework */; };
@@ -40,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		968BBB3018DBE01700766D59 /* CurrentRunCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentRunCell.h; sourceTree = "<group>"; };
+		968BBB3118DBE01700766D59 /* CurrentRunCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentRunCell.m; sourceTree = "<group>"; };
 		96A98EA418DA079700E55F1D /* Fartlek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fartlek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A98EA718DA079700E55F1D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		96A98EA918DA079700E55F1D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -176,6 +179,8 @@
 		96A98EE018DA07C300E55F1D /* views */ = {
 			isa = PBXGroup;
 			children = (
+				968BBB3018DBE01700766D59 /* CurrentRunCell.h */,
+				968BBB3118DBE01700766D59 /* CurrentRunCell.m */,
 				96A98EB918DA079700E55F1D /* Main.storyboard */,
 			);
 			name = views;
@@ -333,6 +338,7 @@
 				96A98EF218DA1B5200E55F1D /* WorkoutSummaryViewController.m in Sources */,
 				96A98EBE18DA079700E55F1D /* SetupFartlekViewController.m in Sources */,
 				96A98EB818DA079700E55F1D /* AppDelegate.m in Sources */,
+				968BBB3218DBE01700766D59 /* CurrentRunCell.m in Sources */,
 				96A98EB418DA079700E55F1D /* main.m in Sources */,
 				96A98EF518DA219100E55F1D /* HistoryViewController.m in Sources */,
 			);

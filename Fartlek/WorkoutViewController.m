@@ -8,10 +8,13 @@
 
 #import "WorkoutViewController.h"
 #import "WorkoutSummaryViewController.h"
+#import "CurrentRunCell.h"
 
-@interface WorkoutViewController ()
+@interface WorkoutViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *gearLabel;
 @property (weak, nonatomic) IBOutlet UIButton *pauseButton;
+@property (weak, nonatomic) IBOutlet UITableView *currentLapTable;
+@property (weak, nonatomic) IBOutlet UITableView *totalTable;
 @end
 
 @implementation WorkoutViewController
@@ -45,6 +48,98 @@
         }
     }
 }
+
+#pragma mark <UITableViewDataSource>
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *) indexPath {
+    return 50.0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if ([tableView isEqual:self.currentLapTable]) return 5;
+    else return 3;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([tableView isEqual:self.currentLapTable]) {
+        // currentLap
+        CurrentRunCell *cell = [tableView dequeueReusableCellWithIdentifier:@"currentLapLabelCell"];
+        switch (indexPath.row) {
+            case 0: {
+                // avg pace
+                cell.leftLabel.text = @"Average Pace:";
+                cell.rightLabel.text = @"Value";
+            }
+                break;
+            case 1: {
+                // remaining time
+                cell.leftLabel.text = @"Remaining Time:";
+                cell.rightLabel.text = @"Value";
+            }
+                break;
+            case 2: {
+                // elapsed time
+                cell.leftLabel.text = @"Elapsed Time:";
+                cell.rightLabel.text = @"Value";
+            }
+                break;
+            case 3: {
+                // distance
+                cell.leftLabel.text = @"Distance:";
+                cell.rightLabel.text = @"Value";
+            }
+                break;
+            case 4: {
+                // next lap
+                cell.leftLabel.text = @"Next Lap:";
+                cell.rightLabel.text = @"Value";
+            }
+                break;
+            default:
+                break;
+        }
+        return cell;
+    } else {
+        // total
+        CurrentRunCell *cell = [tableView dequeueReusableCellWithIdentifier:@"lapTotalLabelCell"];
+        switch (indexPath.row) {
+            case 0: {
+                // elapsed time
+                cell.leftLabel.text = @"Elapsed Time:";
+                cell.rightLabel.text = @"Value";
+            }
+                break;
+            case 1: {
+                // remaining time
+                cell.leftLabel.text = @"Remaining Time:";
+                cell.rightLabel.text = @"Value";
+            }
+                break;
+            case 2: {
+                // total distance
+                cell.leftLabel.text = @"Total Distance:";
+                cell.rightLabel.text = @"Value";
+            }
+                break;
+            default:
+                break;
+        }
+        return cell;
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 
 
 - (void)didReceiveMemoryWarning

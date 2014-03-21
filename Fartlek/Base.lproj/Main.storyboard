@@ -128,7 +128,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="currentLapLabelCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="currentLapLabelCell" rowHeight="50" id="OGe-1S-8xR">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="currentLapLabelCell" rowHeight="50" id="OGe-1S-8xR" customClass="CurrentRunCell">
                                         <rect key="frame" x="0.0" y="22" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OGe-1S-8xR" id="wpF-5l-CPc">
@@ -149,8 +149,16 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="leftLabel" destination="wJu-Ao-NbJ" id="AHD-MZ-Wt7"/>
+                                            <outlet property="rightLabel" destination="X2Y-tJ-SKO" id="nGd-vR-Yc9"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="y6a-XF-Gq3" id="qjl-uW-Sy5"/>
+                                    <outlet property="delegate" destination="y6a-XF-Gq3" id="HXN-Uv-OJz"/>
+                                </connections>
                             </tableView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sns-1P-NbG">
                                 <rect key="frame" x="20" y="314" width="42" height="24"/>
@@ -163,7 +171,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="currentLapLabelCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="lapTotalLabelCell" rowHeight="50" id="zs4-97-Oiz">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="lapTotalLabelCell" rowHeight="50" id="zs4-97-Oiz" customClass="CurrentRunCell">
                                         <rect key="frame" x="0.0" y="22" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zs4-97-Oiz" id="ERW-kN-0Ys">
@@ -184,8 +192,16 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="leftLabel" destination="yWb-vt-ItB" id="I64-MD-fne"/>
+                                            <outlet property="rightLabel" destination="YFz-Ft-TJ2" id="SBZ-aL-W1m"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="y6a-XF-Gq3" id="xVf-Ih-M5C"/>
+                                    <outlet property="delegate" destination="y6a-XF-Gq3" id="vN1-OK-Teq"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oec-Ey-Zpb">
                                 <rect key="frame" x="90" y="518" width="141" height="30"/>
@@ -203,8 +219,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Workout" id="DQl-rP-drQ"/>
                     <connections>
+                        <outlet property="currentLapTable" destination="vGw-jP-5dp" id="nCw-Xy-q6D"/>
                         <outlet property="gearLabel" destination="lZZ-pQ-dGn" id="s0s-AS-2Gh"/>
                         <outlet property="pauseButton" destination="oec-Ey-Zpb" id="dak-0D-sxv"/>
+                        <outlet property="totalTable" destination="bFh-XK-PfX" id="5Fx-ky-Vrw"/>
                         <segue destination="Qp5-Ov-yNO" kind="push" identifier="workoutSummarySegue" id="CSj-QR-Uyo"/>
                     </connections>
                 </viewController>
@@ -235,7 +253,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="currentLapLabelCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="workoutSummaryLabelCell" rowHeight="50" id="TP7-AD-IKw">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="workoutSummaryLabelCell" rowHeight="50" id="TP7-AD-IKw" customClass="CurrentRunCell">
                                         <rect key="frame" x="0.0" y="22" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TP7-AD-IKw" id="qPd-X3-rzr">
@@ -256,8 +274,16 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="leftLabel" destination="B4t-Qi-P0q" id="Y8j-tg-ZxT"/>
+                                            <outlet property="rightLabel" destination="ORu-ds-hn3" id="PnM-6F-PnX"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Qp5-Ov-yNO" id="wJ1-ML-dlm"/>
+                                    <outlet property="delegate" destination="Qp5-Ov-yNO" id="gea-hc-Epj"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Pt-18-fIZ">
                                 <rect key="frame" x="93" y="518" width="134" height="30"/>
@@ -285,6 +311,7 @@
                     <navigationItem key="navigationItem" title="Workout Summary" id="kKo-qS-OCf"/>
                     <connections>
                         <outlet property="saveButton" destination="4Pt-18-fIZ" id="FVe-yp-j0p"/>
+                        <outlet property="summaryTable" destination="Hlm-cO-1zo" id="Ijb-hh-PPU"/>
                         <outlet property="viewRouteButton" destination="I2W-XL-WPl" id="fal-LE-f3B"/>
                         <segue destination="j4b-Cs-QdM" kind="push" identifier="historySegue" id="YX9-Qa-dvI"/>
                     </connections>
