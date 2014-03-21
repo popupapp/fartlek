@@ -8,13 +8,47 @@
 
 #import "AppDelegate.h"
 
+@interface AppDelegate ()
+@property (assign, nonatomic) BOOL deferringUpdates;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@end
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    self.deferringUpdates = NO;
+    self.locationManager = [CLLocationManager new];
+    self.locationManager.activityType = CLActivityTypeFitness;
+    [self.locationManager startUpdatingLocation];
     return YES;
 }
+
+// LOCATION
+
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations
+{
+    // Add the new locations to the hike
+//    [self.hike addLocations:locations];
+    
+    // Defer updates until the user hikes a certain distance
+    // or when a certain amount of time has passed.
+    if (!self.deferringUpdates) {
+        CLLocationDistance distance = 100.f; // self.hike.goal - self.hike.distance;
+        NSTimeInterval time = 60.f; // [self.nextAudible timeIntervalSinceNow];
+        [self.locationManager allowDeferredLocationUpdatesUntilTraveled:distance
+                                                           timeout:time];
+        self.deferringUpdates = YES;
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error
+{
+    self.deferringUpdates = NO;
+}
+
+//
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
