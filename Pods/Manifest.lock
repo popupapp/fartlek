@@ -1,0 +1,40 @@
+PODS:
+  - AFNetworking (2.2.1):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+    - AFNetworking/UIKit
+  - AFNetworking/NSURLConnection (2.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.2.1):
+    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (2.2.1)
+  - AFNetworking/Security (2.2.1)
+  - AFNetworking/Serialization (2.2.1)
+  - AFNetworking/UIKit (2.2.1):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - Bestly (1.1.1)
+  - JBChartView (2.0.1)
+  - Ono (0.0.3)
+  - TestFlightSDK (3.0.0)
+
+DEPENDENCIES:
+  - AFNetworking (~> 2.2)
+  - Bestly
+  - JBChartView (~> 2.0.1)
+  - Ono (~> 0.0)
+  - TestFlightSDK (~> 3.0)
+
+SPEC CHECKSUMS:
+  AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
+  Bestly: e0cc91e76e06114a653807389315bbe92c6c27b0
+  JBChartView: 45a942ed229a7fe03f7de204cb2e3573ed55f27f
+  Ono: 75de324589764356dac3b140c1b0d8f52c7cab64
+  TestFlightSDK: 71e3e78d3a46144dbad975a4bf80a14dae6a818a
+
+COCOAPODS: 0.29.0

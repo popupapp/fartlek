@@ -1,0 +1,1 @@
+../../Bestly/Bestly/BLPropertyCollectionManager.h

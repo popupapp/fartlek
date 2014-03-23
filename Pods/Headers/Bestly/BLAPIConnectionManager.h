@@ -1,0 +1,1 @@
+../../Bestly/Bestly/BLAPIConnectionManager.h
