@@ -76,6 +76,12 @@
     NSArray *profiles = [[DataManager sharedManager] findAllProfiles];
     NSArray *laps = [[DataManager sharedManager] findAllLaps];
     NSLog(@"\nprofiles:%d\nlaps:%d", profiles.count, laps.count);
+    for (Lap *l in laps) {
+        NSLog(@"-=lap speech text:%@", l.lapStartSpeechString);
+        if (l.profile) {
+            NSLog(@"-=lap profile:%@", l.profile);
+        }
+    }
     NSLog(@"boo");
 }
 // DOCUMENT
@@ -116,8 +122,10 @@
             // profile name line
             if (self.currentFieldIndex == 1) {
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    self.currentProfile = nil;
                     self.currentProfile = [[DataManager sharedManager] createProfile];
                     self.currentProfile.profileName = field;
+                    NSLog(@"--just created a Profile (%@)", field);
                 });
             }
         } else {
@@ -125,7 +133,9 @@
             if (self.currentFieldIndex == 1) {
                 // lapNumber
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    self.currentLap = nil;
                     self.currentLap = [[DataManager sharedManager] createLap];
+                    NSLog(@"--just created a Lap");
                 });
                 NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
                 [f setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -147,7 +157,8 @@
                 // speechLine
                 self.currentLap.lapStartSpeechString = field;
                 // add lap to profile
-                [self.currentProfile addLapsObject:self.currentLap];
+//                [self.currentProfile addLapsObject:self.currentLap];
+                self.currentLap.profile = self.currentProfile;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [[DataManager sharedManager] saveContextSuccess:^{
                         NSLog(@"SUCCESS saving MOC");

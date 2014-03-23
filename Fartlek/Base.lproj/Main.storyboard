@@ -60,7 +60,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0L8-gM-xMj">
-                                <rect key="frame" x="70" y="487" width="180" height="42"/>
+                                <rect key="frame" x="216" y="506" width="84" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Start!">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -69,11 +69,29 @@
                                     <action selector="startAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="0HM-Be-Uoo"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qBt-GN-pNs">
+                                <rect key="frame" x="22" y="506" width="84" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Fetch">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="fetchAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="pxo-aJ-XZI"/>
+                                    <action selector="startAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="kzx-DA-coD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.92941182851791382" green="0.9647059440612793" blue="0.24705883860588074" alpha="1" colorSpace="deviceRGB"/>
                         <color key="tintColor" red="0.98823535442352295" green="0.24705883860588074" blue="0.039215687662363052" alpha="1" colorSpace="deviceRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Setup" id="yPa-tm-n2J"/>
+                    <navigationItem key="navigationItem" title="Setup" id="yPa-tm-n2J">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="SHO-OQ-kSe">
+                            <color key="tintColor" red="0.98823535439999999" green="0.2470588386" blue="0.039215687659999998" alpha="1" colorSpace="deviceRGB"/>
+                            <connections>
+                                <action selector="deleteBBIAction:" destination="vXZ-lx-hvc" id="TT6-ys-Db1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="averagePaceField" destination="Br0-33-SQt" id="P9p-q1-zbh"/>
                         <outlet property="startButton" destination="0L8-gM-xMj" id="Isw-sT-v5s"/>

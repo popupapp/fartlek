@@ -9,7 +9,12 @@
 #import "SetupFartlekViewController.h"
 #import "WorkoutViewController.h"
 #import <Bestly/Bestly.h>
+#import <AFNetworking/AFNetworking.h>
 #import "JBLineChartView.h"
+#import "User+Database.h"
+#import "Lap+Database.h"
+#import "Run+Database.h"
+#import "Profile+Database.h"
 
 @interface SetupFartlekViewController () <UIPickerViewDataSource, UIPickerViewDelegate, JBLineChartViewDataSource, JBLineChartViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *averagePaceField;
@@ -167,8 +172,25 @@
 
 - (IBAction)startAction:(id)sender
 {
-    [Bestly trackEvent:@"START ACTION" withProperties:@{ @"foo" : @"bar" }];
-    [self performSegueWithIdentifier:@"workoutSegue" sender:nil];
+    NSDictionary *profileProperties = @{ @"duration" : self.workoutLengthField.text, @"intensity" : self.workoutIntensityField.text };
+    [Bestly trackEvent:@"START ACTION" withProperties:profileProperties];
+    [self performSegueWithIdentifier:@"workoutSegue" sender:profileProperties];
+}
+
+- (IBAction)fetchAction:(id)sender
+{
+    NSString *profileIntensity = self.workoutIntensityField.text;
+    int intensityIndex = [self.intensityPickerArray indexOfObject:profileIntensity];
+    NSString *profileDuration = self.workoutLengthField.text;
+    NSString *getURL = [NSString stringWithFormat:@"http://fartlek.herokuapp.com/profiles/%d/%@.json", intensityIndex, profileDuration];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:getURL
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"JSON: %@", responseObject);
+         }   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"Error: %@", error);
+         }];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -358,6 +380,13 @@ verticalValueForHorizontalIndex:(NSUInteger)x
 
 #pragma mark - END chart view stuff
 
+- (IBAction)deleteBBIAction:(id)sender
+{
+    [User deleteAll];
+    [Lap deleteAll];
+    [Profile deleteAll];
+    [Run deleteAll];
+}
 
 
 
