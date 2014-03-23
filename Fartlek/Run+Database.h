@@ -13,5 +13,6 @@
 
 + (id)findByRunID:(NSString *)runID;
 + (NSArray *)findAll;
++ (void)deleteAll;
 
 @end

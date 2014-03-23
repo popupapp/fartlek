@@ -13,5 +13,6 @@
 
 + (NSArray *)findAll;
 + (id)findByProfileID:(NSString *)profileID;
++ (void)deleteAll;
 
 @end

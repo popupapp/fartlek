@@ -20,5 +20,41 @@
     return [[DataManager sharedManager] findAllLaps];
 }
 
++ (void)deleteAll
+{
+    NSArray *laps = [self findAll];
+    for (Lap *lap in laps) {
+        [lap delete];
+    }
+}
+
+-(void)delete
+{
+    [self deleteSuccess:nil
+                failure:^(NSError *error)
+     {
+         NSLog(@"Failed to delete Lap:\n%@", error);
+     }];
+}
+
+- (void)deleteSuccess:(void (^)(void))success
+              failure:(void (^)(NSError *error))failure
+{
+    [[[DataManager sharedManager] managedObjectContext] deleteObject:self];
+    [self saveSuccess:success failure:failure];
+}
+
+- (void)saveSuccess:(void (^)(void))success
+            failure:(void (^)(NSError *error))failure
+{
+    NSError *error;
+    [[[DataManager sharedManager] managedObjectContext] save:&error];
+    if (error) {
+        if (failure) failure(error);
+    } else {
+        if (success) success();
+    }
+}
+
 
 @end

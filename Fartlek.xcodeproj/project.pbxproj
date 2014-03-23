@@ -25,6 +25,8 @@
 		968BBB6218DCF0A200766D59 /* Profile+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB6118DCF0A200766D59 /* Profile+Database.m */; };
 		968BBB6518DCF0B100766D59 /* Run+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB6418DCF0B100766D59 /* Run+Database.m */; };
 		968BBB6818DCF0BE00766D59 /* Lap+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB6718DCF0BE00766D59 /* Lap+Database.m */; };
+		968BBB6A18DD54B700766D59 /* scripted2.csv in Resources */ = {isa = PBXBuildFile; fileRef = 968BBB6918DD54B700766D59 /* scripted2.csv */; };
+		968BBB6C18DD555F00766D59 /* scripted3.csv in Resources */ = {isa = PBXBuildFile; fileRef = 968BBB6B18DD555F00766D59 /* scripted3.csv */; };
 		96A98EA818DA079700E55F1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA718DA079700E55F1D /* Foundation.framework */; };
 		96A98EAA18DA079700E55F1D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA918DA079700E55F1D /* CoreGraphics.framework */; };
 		96A98EAC18DA079700E55F1D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EAB18DA079700E55F1D /* UIKit.framework */; };
@@ -91,6 +93,8 @@
 		968BBB6418DCF0B100766D59 /* Run+Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Run+Database.m"; sourceTree = "<group>"; };
 		968BBB6618DCF0BE00766D59 /* Lap+Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Lap+Database.h"; sourceTree = "<group>"; };
 		968BBB6718DCF0BE00766D59 /* Lap+Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Lap+Database.m"; sourceTree = "<group>"; };
+		968BBB6918DD54B700766D59 /* scripted2.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = scripted2.csv; sourceTree = "<group>"; };
+		968BBB6B18DD555F00766D59 /* scripted3.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = scripted3.csv; sourceTree = "<group>"; };
 		96A98EA418DA079700E55F1D /* Fartlek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fartlek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A98EA718DA079700E55F1D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		96A98EA918DA079700E55F1D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -167,6 +171,8 @@
 		968BBB3C18DCDA1900766D59 /* fartlek_data_profiles */ = {
 			isa = PBXGroup;
 			children = (
+				968BBB6B18DD555F00766D59 /* scripted3.csv */,
+				968BBB6918DD54B700766D59 /* scripted2.csv */,
 				968BBB3D18DCDA3F00766D59 /* scripted.csv */,
 			);
 			name = fartlek_data_profiles;
@@ -399,9 +405,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				968BBB6A18DD54B700766D59 /* scripted2.csv in Resources */,
 				968BBB3E18DCDA3F00766D59 /* scripted.csv in Resources */,
 				96A98EC018DA079700E55F1D /* Images.xcassets in Resources */,
 				96A98EB218DA079700E55F1D /* InfoPlist.strings in Resources */,
+				968BBB6C18DD555F00766D59 /* scripted3.csv in Resources */,
 				96A98EBB18DA079700E55F1D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

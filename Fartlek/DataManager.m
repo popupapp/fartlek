@@ -150,7 +150,7 @@ static DataManager *g_dataManager = nil;
 -(NSArray *)findAllProfiles
 {
     NSError *error = nil;
-    NSArray *allUsers = [self.managedObjectContext executeFetchRequest:[NSFetchRequest fetchRequestWithEntityName:@"Run"]
+    NSArray *allUsers = [self.managedObjectContext executeFetchRequest:[NSFetchRequest fetchRequestWithEntityName:@"Profile"]
                                                                  error:&error];
     if (error) {
         [self handleError:error];

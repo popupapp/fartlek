@@ -13,5 +13,6 @@
 
 + (NSArray *)findAll;
 + (id)findByLapID:(NSString *)lapID;
++ (void)deleteAll;
 
 @end

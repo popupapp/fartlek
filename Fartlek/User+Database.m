@@ -20,4 +20,41 @@
     return [[DataManager sharedManager] findAllUsers];
 }
 
++ (void)deleteAll
+{
+    NSArray *users = [self findAll];
+    for (User *user in users) {
+        [user delete];
+    }
+}
+
+-(void)delete
+{
+    [self deleteSuccess:nil
+                failure:^(NSError *error)
+     {
+         NSLog(@"Failed to delete User:\n%@", error);
+     }];
+}
+
+- (void)deleteSuccess:(void (^)(void))success
+              failure:(void (^)(NSError *error))failure
+{
+    [[[DataManager sharedManager] managedObjectContext] deleteObject:self];
+    [self saveSuccess:success failure:failure];
+}
+
+- (void)saveSuccess:(void (^)(void))success
+            failure:(void (^)(NSError *error))failure
+{
+    NSError *error;
+    [[[DataManager sharedManager] managedObjectContext] save:&error];
+    if (error) {
+        if (failure) failure(error);
+    } else {
+        if (success) success();
+    }
+}
+
+
 @end
