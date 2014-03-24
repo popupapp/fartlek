@@ -11,6 +11,15 @@
 
 @interface Profile (Database)
 
++ (void)findCreateOrUpdateProfileWithJSON:(NSDictionary *)profileJSON
+                                  success:(void (^)(Profile *profile))success
+                                  failure:(void (^)(NSError *error))failure;
+
++ (void)createProfileWithJSONFromServer:(NSArray *)jsonArray
+                             appendedTo:(NSMutableArray *)profileLaps
+                                success:(void (^)(void))success
+                                failure:(void (^)(NSError *error))failure;
+
 + (NSArray *)findAll;
 + (id)findByProfileID:(NSString *)profileID;
 + (void)deleteAll;

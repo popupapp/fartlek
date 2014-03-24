@@ -11,6 +11,12 @@
 
 @interface Lap (Database)
 
++ (void)createLapsWithGetProfileJSONFromServer:(NSArray *)jsonArray
+                               withProfileJSON:(NSDictionary*)profileJSON
+                                    appendedTo:(NSMutableArray *)profileLaps
+                                       success:(void (^)(void))success
+                                       failure:(void (^)(NSError *error))failure;
+
 + (NSArray *)findAll;
 + (id)findByLapID:(NSString *)lapID;
 + (void)deleteAll;

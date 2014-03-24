@@ -15,6 +15,7 @@
 #import "Lap+Database.h"
 #import "Run+Database.h"
 #import "Profile+Database.h"
+#import "NSObject+Conversions.h"
 
 @interface SetupFartlekViewController () <UIPickerViewDataSource, UIPickerViewDelegate, JBLineChartViewDataSource, JBLineChartViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *averagePaceField;
@@ -55,6 +56,7 @@
     [self setupWorkoutLengthPickerView];
     [self setupWorkoutIntensityPickerView];
     [self setupChart];
+    [self setupSummaryText];
     
     [self.averagePaceField becomeFirstResponder];
 }
@@ -118,6 +120,13 @@
     [self.pacePickerView setDataSource: self];
     [self.pacePickerView setDelegate: self];
     self.pacePickerView.showsSelectionIndicator = YES;
+    [self.pacePickerView selectRow:6 inComponent:0 animated:NO];
+    [self.pacePickerView selectRow:14 inComponent:1 animated:NO];
+    NSInteger minuteRow = [self.pacePickerView selectedRowInComponent:0];
+    NSInteger secondRow = [self.pacePickerView selectedRowInComponent:1];
+    NSString *timeString = [NSString stringWithFormat:@"%@m %@s", self.paceMinutePickerArray[minuteRow], self.paceSecondPickerArray[secondRow]];
+    self.averagePaceField.text = timeString;
+
     self.averagePaceField.inputView = self.pacePickerView;
     
     UIToolbar *myToolbar = [[UIToolbar alloc] initWithFrame:
@@ -136,6 +145,9 @@
     [self.lengthPickerView setDataSource: self];
     [self.lengthPickerView setDelegate: self];
     self.lengthPickerView.showsSelectionIndicator = YES;
+    [self.lengthPickerView selectRow:2 inComponent:0 animated:NO];
+    NSInteger selectedRowIndex = [self.lengthPickerView selectedRowInComponent:0];
+    self.workoutLengthField.text = [[self.lengthPickerArray objectAtIndex:selectedRowIndex] toString];
     self.workoutLengthField.inputView = self.lengthPickerView;
     
     UIToolbar *myToolbar = [[UIToolbar alloc] initWithFrame:
@@ -151,13 +163,15 @@
 {
     self.intensityPickerArray = @[@"Low", @"Medium", @"High"];
     self.intensityPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 50, 100, 150)];
-    [self.intensityPickerView setDataSource: self];
-    [self.intensityPickerView setDelegate: self];
+    [self.intensityPickerView setDataSource:self];
+    [self.intensityPickerView setDelegate:self];
     self.intensityPickerView.showsSelectionIndicator = YES;
+    [self.intensityPickerView selectRow:1 inComponent:0 animated:NO];
+    NSInteger selectedRowIndex = [self.intensityPickerView selectedRowInComponent:0];
+    self.workoutIntensityField.text = [[self.intensityPickerArray objectAtIndex:selectedRowIndex] toString];
     self.workoutIntensityField.inputView = self.intensityPickerView;
     
-    UIToolbar *myToolbar = [[UIToolbar alloc] initWithFrame:
-                            CGRectMake(0, 0, 320, 44)];
+    UIToolbar *myToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     UIBarButtonItem *doneButton =
     [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(resignFR)];
     doneButton.tintColor = [UIColor redColor];
@@ -187,7 +201,26 @@
     [manager GET:getURL
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             NSLog(@"JSON: %@", responseObject);
+             NSLog(@"JSON: %@", responseObject[@"laps"]);
+             NSArray *lapsArr = (NSArray*)responseObject[@"laps"];
+             NSDictionary *profileDict = (NSDictionary*)responseObject[@"profile"];
+             if ([lapsArr count] > 0) {
+                 NSMutableArray *addedLaps = [NSMutableArray array];
+                 [Lap createLapsWithGetProfileJSONFromServer:lapsArr
+                                             withProfileJSON:profileDict
+                                                  appendedTo:addedLaps
+                                                     success:
+                  ^{
+                      BOOL didAddLaps = NO;
+                      if ([addedLaps count] > 0) {
+                          didAddLaps = YES;
+                      }
+                      NSLog(@"PROFILE LAPS BUILD SUCCESS");
+//                      if (success) success();
+                  } failure:^(NSError *error) {
+                      NSLog(@"PROFILE LAPS FAIL: %@", error.localizedDescription);
+                  }];
+             }
          }   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"Error: %@", error);
          }];

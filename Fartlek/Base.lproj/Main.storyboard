@@ -77,7 +77,6 @@
                                 </state>
                                 <connections>
                                     <action selector="fetchAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="pxo-aJ-XZI"/>
-                                    <action selector="startAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="kzx-DA-coD"/>
                                 </connections>
                             </button>
                         </subviews>
