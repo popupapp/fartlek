@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Profile+Database.h"
+#import "Lap+Database.h"
 
 @interface FartlekUser : NSObject
 

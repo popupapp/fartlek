@@ -34,7 +34,9 @@
 @property (strong, nonatomic) NSArray *intensityPickerArray;
 
 @property (strong, nonatomic) JBLineChartView *chartView;
+@property (strong, nonatomic) UIView *bareChartView;
 
+@property (strong, nonatomic) NSArray *orderedLapsForProfile;
 @end
 
 @implementation SetupFartlekViewController
@@ -55,7 +57,7 @@
     [self setupAveragePacePickerView];
     [self setupWorkoutLengthPickerView];
     [self setupWorkoutIntensityPickerView];
-    [self setupChart];
+//    [self setupChart];
     [self setupSummaryText];
     
     [self.averagePaceField becomeFirstResponder];
@@ -63,27 +65,36 @@
 
 - (void)setupChart
 {
-    self.chartView = [JBLineChartView new];
-    self.chartView.delegate = self;
-    self.chartView.dataSource = self;
-    self.chartView.frame = CGRectMake(0, 324, 320, 155);
-    self.chartView.backgroundColor = [UIColor whiteColor];
+    if (!self.currentProfile) {
+        NSLog(@"!!!!!!!BAD - !self.currentProfile");
+    }
+    
+//    self.chartView = [JBLineChartView new];
+//    self.chartView.delegate = self;
+//    self.chartView.dataSource = self;
+//    self.chartView.frame = CGRectMake(0, 324, 320, 155);
+//    self.chartView.backgroundColor = [UIColor whiteColor];
+    if (!self.bareChartView) {
+        self.bareChartView = [[UIView alloc] initWithFrame:CGRectMake(0, 324, 320, 155)];
+    }
+    self.bareChartView.backgroundColor = [UIColor whiteColor];
     
     UIView *hView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
     hView.backgroundColor = [UIColor whiteColor];
     UILabel *headerLabel = [UILabel new];
-    self.chartView.headerPadding = 5.f;
+//    self.chartView.headerPadding = 5.f;
     headerLabel.text = @"Your Run";
     [headerLabel sizeToFit];
     [headerLabel setFrame:CGRectMake(320.0/2.0 - headerLabel.frame.size.width/2.0, 0, headerLabel.frame.size.width, headerLabel.frame.size.height)];
     [hView addSubview:headerLabel];
-    self.chartView.headerView = hView;
+    [self.bareChartView addSubview:hView];
+//    self.chartView.headerView = hView;
     
     UIView *fView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
     UILabel *leftLegendLabel = [UILabel new];
     UILabel *rightLegendLabel = [UILabel new];
-    leftLegendLabel.text = @"0 mi";
-    rightLegendLabel.text = @"100 mi";
+    leftLegendLabel.text = @"start";
+    rightLegendLabel.text = @"end";
     leftLegendLabel.font = [UIFont systemFontOfSize:12.f];
     rightLegendLabel.font = [UIFont systemFontOfSize:12.f];
     [leftLegendLabel sizeToFit];
@@ -93,17 +104,38 @@
     [fView addSubview:leftLegendLabel];
     [fView addSubview:rightLegendLabel];
     fView.backgroundColor = [UIColor lightGrayColor];
+    [self.bareChartView addSubview:fView];
+//    self.chartView.footerView = fView;
     
-    self.chartView.footerView = fView;
+    CGFloat totalDurationInMinutes = [self.currentProfile.duration floatValue] + 10; // 30
+    CGFloat pointsPerMinute = self.bareChartView.frame.size.width / totalDurationInMinutes; // 10.6667
+    CGFloat xPos = 0.f;
+    NSArray *lapsForProfile = [self.currentProfile.laps allObjects];
+    self.orderedLapsForProfile = [[DataManager sharedManager] orderedLapsByLapNumber:lapsForProfile];
+    for (int i=0; i<self.currentProfile.laps.count; i++) {
+        Lap *thisLap = (Lap*)self.orderedLapsForProfile[i];
+        NSLog(@"-thisLap lapStartSpeechString:%@", thisLap.lapStartSpeechString);
+        CGFloat barWidth = [thisLap.lapTime floatValue] * pointsPerMinute;
+        CGFloat barHeight = [thisLap.lapIntensity floatValue] * 8.f;
+        UIView *lapBarView = [[UIView alloc] initWithFrame:CGRectMake(xPos,
+                                                                      self.bareChartView.frame.size.height - barHeight,
+                                                                      barWidth,
+                                                                      barHeight + 10.f)];
+        xPos += barWidth;
+        
+        NSLog(@"->lap %d: dur=%d, ", i, [thisLap.lapTime intValue]);
+        
+        
+        NSLog(@"xPos:%f, barWidth:%f", xPos, barWidth);
+        lapBarView.backgroundColor = [UIColor blueColor];
+        [self.bareChartView addSubview:lapBarView];
+    }
     
-    [self.chartView reloadData];
-    [self.view addSubview:self.chartView];
-    
-//    [self.pacePickerView selectRow:0 inComponent:0 animated:NO];
-//    [self.pacePickerView selectRow:0 inComponent:1 animated:NO];
-//    [self.lengthPickerView selectRow:0 inComponent:0 animated:NO];
-//    [self.intensityPickerView selectRow:0 inComponent:0 animated:NO];
+//    [self.chartView reloadData];
+//    [self.view addSubview:self.chartView];
+    [self.view addSubview:self.bareChartView];
 }
+
 
 - (void)setupAveragePacePickerView
 {
@@ -145,7 +177,7 @@
     [self.lengthPickerView setDataSource: self];
     [self.lengthPickerView setDelegate: self];
     self.lengthPickerView.showsSelectionIndicator = YES;
-    [self.lengthPickerView selectRow:2 inComponent:0 animated:NO];
+    [self.lengthPickerView selectRow:0 inComponent:0 animated:NO];
     NSInteger selectedRowIndex = [self.lengthPickerView selectedRowInComponent:0];
     self.workoutLengthField.text = [[self.lengthPickerArray objectAtIndex:selectedRowIndex] toString];
     self.workoutLengthField.inputView = self.lengthPickerView;
@@ -166,7 +198,7 @@
     [self.intensityPickerView setDataSource:self];
     [self.intensityPickerView setDelegate:self];
     self.intensityPickerView.showsSelectionIndicator = YES;
-    [self.intensityPickerView selectRow:1 inComponent:0 animated:NO];
+    [self.intensityPickerView selectRow:0 inComponent:0 animated:NO];
     NSInteger selectedRowIndex = [self.intensityPickerView selectedRowInComponent:0];
     self.workoutIntensityField.text = [[self.intensityPickerArray objectAtIndex:selectedRowIndex] toString];
     self.workoutIntensityField.inputView = self.intensityPickerView;
@@ -193,8 +225,13 @@
 
 - (IBAction)fetchAction:(id)sender
 {
+    self.currentProfile = nil;
+    for (UIView *v in self.bareChartView.subviews) {
+        [v removeFromSuperview];
+    }
+    [[DataManager sharedManager] markAllProfilesAsNotCurrent];
     NSString *profileIntensity = self.workoutIntensityField.text;
-    int intensityIndex = [self.intensityPickerArray indexOfObject:profileIntensity];
+    int intensityIndex = [self.intensityPickerArray indexOfObject:profileIntensity]+1;
     NSString *profileDuration = self.workoutLengthField.text;
     NSString *getURL = [NSString stringWithFormat:@"http://fartlek.herokuapp.com/profiles/%d/%@.json", intensityIndex, profileDuration];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -216,7 +253,8 @@
                           didAddLaps = YES;
                       }
                       NSLog(@"PROFILE LAPS BUILD SUCCESS");
-//                      if (success) success();
+                      self.currentProfile = [[DataManager sharedManager] findCurrentProfile];
+                      [self setupChart];
                   } failure:^(NSError *error) {
                       NSLog(@"PROFILE LAPS FAIL: %@", error.localizedDescription);
                   }];
@@ -332,15 +370,22 @@
 {
     // number of values for a line
     NSLog(@"lineIndex:%d", lineIndex);
-    return 100;
+    NSLog(@"number of this profile's laps: %d", self.currentProfile.laps.count);
+//    return self.currentProfile.laps.count;
+    return [self.currentProfile.duration intValue]; // xx minutes
 }
 
 - (CGFloat)lineChartView:(JBLineChartView *)lineChartView
 verticalValueForHorizontalIndex:(NSUInteger)x
              atLineIndex:(NSUInteger)lineIndex
 {
-    // y-position (y-axis) of point at horizontalIndex (x-axis)
-//    return x*(lineIndex+1);
+    // x is the minute
+    
+    Lap *thisLap = self.orderedLapsForProfile[x];
+    
+    // current time + this lap's time
+    int nextStopInMinutes = x + [thisLap.lapTime intValue];
+    
     if (x < 10) {
         return 5;
     } else if (x < 20) {

@@ -7,6 +7,7 @@
 //
 
 #import "Profile+Database.h"
+#import "FartlekUser.h"
 #import "NSObject+Conversions.h"
 
 @implementation Profile (Database)

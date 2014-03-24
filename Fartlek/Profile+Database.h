@@ -20,6 +20,9 @@
                                 success:(void (^)(void))success
                                 failure:(void (^)(NSError *error))failure;
 
+- (void)saveSuccess:(void (^)(void))success
+            failure:(void (^)(NSError *error))failure;
+
 + (NSArray *)findAll;
 + (id)findByProfileID:(NSString *)profileID;
 + (void)deleteAll;

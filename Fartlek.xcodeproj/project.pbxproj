@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		8810719FC6CC4ADB9C607D95 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B0F5FC528C449B8826586F /* libPods.a */; };
+		963E438418E0BDB40073EFB8 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 963E438318E0BDB40073EFB8 /* Profile.m */; };
 		968BBB3218DBE01700766D59 /* CurrentRunCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB3118DBE01700766D59 /* CurrentRunCell.m */; };
 		968BBB3818DCD9CB00766D59 /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB3718DCD9CB00766D59 /* CHCSVParser.m */; };
 		968BBB3B18DCD9EC00766D59 /* FartlekDataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB3A18DCD9EC00766D59 /* FartlekDataImporter.m */; };
 		968BBB3E18DCDA3F00766D59 /* scripted.csv in Resources */ = {isa = PBXBuildFile; fileRef = 968BBB3D18DCDA3F00766D59 /* scripted.csv */; };
 		968BBB4118DCE5C300766D59 /* FartlekModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB3F18DCE5C300766D59 /* FartlekModel.xcdatamodeld */; };
-		968BBB4418DCE8B400766D59 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB4318DCE8B400766D59 /* Profile.m */; };
 		968BBB4718DCE8B400766D59 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB4618DCE8B400766D59 /* User.m */; };
 		968BBB4A18DCE8B400766D59 /* Lap.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB4918DCE8B400766D59 /* Lap.m */; };
 		968BBB4D18DCE8B400766D59 /* Run.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB4C18DCE8B400766D59 /* Run.m */; };
@@ -61,6 +61,8 @@
 /* Begin PBXFileReference section */
 		12542F4918664AC5B3573EB0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		27B0F5FC528C449B8826586F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		963E438218E0BDB40073EFB8 /* Profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Profile.h; sourceTree = "<group>"; };
+		963E438318E0BDB40073EFB8 /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
 		968BBB3018DBE01700766D59 /* CurrentRunCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentRunCell.h; sourceTree = "<group>"; };
 		968BBB3118DBE01700766D59 /* CurrentRunCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentRunCell.m; sourceTree = "<group>"; };
 		968BBB3618DCD9CB00766D59 /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
@@ -69,8 +71,6 @@
 		968BBB3A18DCD9EC00766D59 /* FartlekDataImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FartlekDataImporter.m; sourceTree = "<group>"; };
 		968BBB3D18DCDA3F00766D59 /* scripted.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = scripted.csv; sourceTree = "<group>"; };
 		968BBB4018DCE5C300766D59 /* FartlekModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FartlekModel.xcdatamodel; sourceTree = "<group>"; };
-		968BBB4218DCE8B400766D59 /* Profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Profile.h; sourceTree = "<group>"; };
-		968BBB4318DCE8B400766D59 /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
 		968BBB4518DCE8B400766D59 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		968BBB4618DCE8B400766D59 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		968BBB4818DCE8B400766D59 /* Lap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lap.h; sourceTree = "<group>"; };
@@ -269,6 +269,8 @@
 		96A98EE118DA07C800E55F1D /* models */ = {
 			isa = PBXGroup;
 			children = (
+				963E438218E0BDB40073EFB8 /* Profile.h */,
+				963E438318E0BDB40073EFB8 /* Profile.m */,
 				968BBB5D18DCF08B00766D59 /* User+Database.h */,
 				968BBB5E18DCF08B00766D59 /* User+Database.m */,
 				968BBB6018DCF0A200766D59 /* Profile+Database.h */,
@@ -286,8 +288,6 @@
 				968BBB4918DCE8B400766D59 /* Lap.m */,
 				968BBB4518DCE8B400766D59 /* User.h */,
 				968BBB4618DCE8B400766D59 /* User.m */,
-				968BBB4218DCE8B400766D59 /* Profile.h */,
-				968BBB4318DCE8B400766D59 /* Profile.m */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -463,7 +463,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				968BBB5318DCEAA600766D59 /* FartlekUser.m in Sources */,
-				968BBB4418DCE8B400766D59 /* Profile.m in Sources */,
 				968BBB5018DCE9E000766D59 /* DataManager.m in Sources */,
 				968BBB3B18DCD9EC00766D59 /* FartlekDataImporter.m in Sources */,
 				968BBB4A18DCE8B400766D59 /* Lap.m in Sources */,
@@ -474,6 +473,7 @@
 				968BBB5F18DCF08B00766D59 /* User+Database.m in Sources */,
 				968BBB6218DCF0A200766D59 /* Profile+Database.m in Sources */,
 				968BBB5918DCEBFF00766D59 /* NSDate+Formatting.m in Sources */,
+				963E438418E0BDB40073EFB8 /* Profile.m in Sources */,
 				96A98EB818DA079700E55F1D /* AppDelegate.m in Sources */,
 				968BBB3818DCD9CB00766D59 /* CHCSVParser.m in Sources */,
 				968BBB4D18DCE8B400766D59 /* Run.m in Sources */,

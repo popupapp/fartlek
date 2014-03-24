@@ -7,6 +7,7 @@
 //
 
 #import "DataManager.h"
+#import "Profile+Database.h"
 
 static DataManager *g_dataManager = nil;
 
@@ -53,7 +54,34 @@ static DataManager *g_dataManager = nil;
     NSLog(@"\nError during core data query:\n%@", error);
 }
 
+- (void)markAllProfilesAsNotCurrent
+{
+    NSArray *allProfiles = [self findAllProfiles];
+    for (Profile *p in allProfiles) {
+        p.isCurrentProfile = @0;
+        [p saveSuccess:nil failure:nil];
+    }
+}
+
 // FETCHES
+
+- (Profile *)findCurrentProfile
+{
+    NSError *error = nil;
+    NSArray *senders = [self.managedObjectContext executeFetchRequest:[self requestForCurrentProfile]
+                                                                error:&error];
+    if (error) {
+        [self handleError:error];
+        return nil;
+    }
+    else {
+        if ([senders count] > 0) {
+            return [senders objectAtIndex:0];
+        } else {
+            return nil;
+        }
+    }
+}
 
 -(NSArray *)findAllUsers
 {
@@ -95,6 +123,22 @@ static DataManager *g_dataManager = nil;
         return nil;
     } else {
         return allUsers;
+    }
+}
+
+- (NSArray *)orderedLapsByLapNumber:(NSArray *)lapArray
+{
+    // sort the laps in lapArray by lap.lapNumber
+    NSError *error = nil;
+    NSFetchRequest *fetchPred = [NSFetchRequest fetchRequestWithEntityName:@"Lap"];
+    NSSortDescriptor *sortByLapNumber = [[NSSortDescriptor alloc] initWithKey:@"lapNumber" ascending:YES];
+    fetchPred.sortDescriptors = @[sortByLapNumber];
+    NSArray *orderedLaps = [self.managedObjectContext executeFetchRequest:fetchPred error:&error];
+    if (error) {
+        [self handleError:error];
+        return nil;
+    } else {
+        return orderedLaps;
     }
 }
 
@@ -242,6 +286,12 @@ static DataManager *g_dataManager = nil;
 {
     return [self requestForEntityName:@"Profile"
                         withPredicate:[NSPredicate predicateWithFormat:@"profileID == %@", profileID]];
+}
+
+- (NSFetchRequest *)requestForCurrentProfile
+{
+    return [self requestForEntityName:@"Profile"
+                        withPredicate:[NSPredicate predicateWithFormat:@"isCurrentProfile == 1"]];
 }
 
 

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 PopUp Inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 @import CoreData;
 #import "Run.h"
 #import "Lap.h"
@@ -18,11 +18,14 @@
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, strong) Profile *currentProfile;
 
 + (id)sharedManager;
 
 - (void)saveContextSuccess:(void (^)(void))success
                    failure:(void (^)(NSError *error))failure;
+
+- (void)markAllProfilesAsNotCurrent;
 
 - (User*)findUserByID:(NSString *)userID;
 - (User*)createUser;
@@ -30,6 +33,7 @@
 
 - (Lap*)findLapByID:(NSString *)lapID;
 - (Lap*)createLap;
+- (NSArray*)orderedLapsByLapNumber:(NSArray*)lapArray;
 - (NSArray*)findAllLaps;
 
 - (Run*)findRunByID:(NSString *)runID;
@@ -37,6 +41,7 @@
 - (NSArray*)findAllRuns;
 
 - (Profile*)findProfileByID:(NSString *)profileID;
+- (Profile*)findCurrentProfile;
 - (Profile*)createProfile;
 - (NSArray*)findAllProfiles;
 

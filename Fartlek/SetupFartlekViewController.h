@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class Profile;
+
 @interface SetupFartlekViewController : UIViewController
+
+@property (strong, nonatomic) Profile *currentProfile;
 
 @end

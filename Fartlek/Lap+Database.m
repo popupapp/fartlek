@@ -52,7 +52,12 @@
                                  success:
      ^(Profile *profile) {
          if (profile) {
+             // mark as current profile
+             profile.isCurrentProfile = @1;
+             
              Lap *newLap = [self findOrCreateByID:[json[@"id"] toString]];
+             // add relationship to the profile
+             newLap.profile = profile;
              
              if (json[@"lap_intensity"] && ![json[@"lap_intensity"] isKindOfClass:[NSNull class]]) {
                  newLap.lapIntensity = json[@"lap_intensity"];
