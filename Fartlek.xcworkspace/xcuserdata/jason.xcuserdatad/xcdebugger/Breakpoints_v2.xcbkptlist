@@ -72,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fartlek/SetupFartlekViewController.m"
-            timestampString = "417390236.064407"
+            timestampString = "417470741.091508"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "307"
+            endingLineNumber = "307"
             landmarkName = "-fetchAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fartlek/SetupFartlekViewController.m"
-            timestampString = "417390236.064407"
+            timestampString = "417470741.091508"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "263"
-            endingLineNumber = "263"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
             landmarkName = "-fetchAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -152,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fartlek/SetupFartlekViewController.m"
-            timestampString = "417390236.064407"
+            timestampString = "417470741.091508"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
             landmarkName = "-setupChart"
             landmarkType = "5">
          </BreakpointContent>
@@ -168,11 +168,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fartlek/SetupFartlekViewController.m"
-            timestampString = "417390236.064407"
+            timestampString = "417470741.091508"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "-setupChart"
             landmarkType = "5">
          </BreakpointContent>
@@ -184,11 +184,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fartlek/SetupFartlekViewController.m"
-            timestampString = "417388068.097455"
+            timestampString = "417470741.091508"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "-setupChart"
             landmarkType = "5">
          </BreakpointContent>
@@ -200,11 +200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fartlek/SetupFartlekViewController.m"
-            timestampString = "417390590.179925"
+            timestampString = "417470741.091508"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "-setupChart"
             landmarkType = "5">
          </BreakpointContent>

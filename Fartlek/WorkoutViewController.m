@@ -9,6 +9,7 @@
 #import "WorkoutViewController.h"
 #import "WorkoutSummaryViewController.h"
 #import "CurrentRunCell.h"
+#import "RunManager.h"
 
 @interface WorkoutViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *gearLabel;
@@ -19,6 +20,11 @@
 
 @implementation WorkoutViewController
 
+- (void)awakeFromNib
+{
+    NSLog(@"checking RunManager");
+    NSLog(@"runManager:%@", [[RunManager sharedManager] currentProfile]);
+}
 
 - (void)viewDidLoad
 {

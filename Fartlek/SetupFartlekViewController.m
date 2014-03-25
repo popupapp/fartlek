@@ -7,7 +7,8 @@
 //
 
 #import "SetupFartlekViewController.h"
-#import "WorkoutViewController.h"
+//#import "WorkoutViewController.h"
+#import "CurrentWorkoutViewController.h"
 #import <Bestly/Bestly.h>
 #import <AFNetworking/AFNetworking.h>
 #import "JBLineChartView.h"
@@ -16,6 +17,8 @@
 #import "Run+Database.h"
 #import "Profile+Database.h"
 #import "NSObject+Conversions.h"
+@import QuartzCore;
+#import "RunManager.h"
 
 @interface SetupFartlekViewController () <UIPickerViewDataSource, UIPickerViewDelegate, JBLineChartViewDataSource, JBLineChartViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *averagePaceField;
@@ -37,6 +40,7 @@
 @property (strong, nonatomic) UIView *bareChartView;
 
 @property (strong, nonatomic) NSArray *orderedLapsForProfile;
+@property (strong, nonatomic) UIPinchGestureRecognizer *twoFingerPinch;
 @end
 
 @implementation SetupFartlekViewController
@@ -54,10 +58,12 @@
     self.navigationController.navigationBar.tintColor = [UIColor redColor];
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gotham-Book" size:20.0], NSFontAttributeName, nil];
     
+    self.twoFingerPinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(twoFingerPinch:)];
+    
     [self setupAveragePacePickerView];
     [self setupWorkoutLengthPickerView];
     [self setupWorkoutIntensityPickerView];
-//    [self setupChart];
+    [self setupChart];
     [self setupSummaryText];
     
     [self.averagePaceField becomeFirstResponder];
@@ -68,7 +74,6 @@
     if (!self.currentProfile) {
         NSLog(@"!!!!!!!BAD - !self.currentProfile");
     }
-    
 //    self.chartView = [JBLineChartView new];
 //    self.chartView.delegate = self;
 //    self.chartView.dataSource = self;
@@ -82,15 +87,13 @@
     UIView *hView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
     hView.backgroundColor = [UIColor whiteColor];
     UILabel *headerLabel = [UILabel new];
-//    self.chartView.headerPadding = 5.f;
     headerLabel.text = @"Your Run";
     [headerLabel sizeToFit];
     [headerLabel setFrame:CGRectMake(320.0/2.0 - headerLabel.frame.size.width/2.0, 0, headerLabel.frame.size.width, headerLabel.frame.size.height)];
     [hView addSubview:headerLabel];
     [self.bareChartView addSubview:hView];
-//    self.chartView.headerView = hView;
     
-    UIView *fView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+    UIView *fView = [[UIView alloc] initWithFrame:CGRectMake(0, 155+10, 320, 20)];
     UILabel *leftLegendLabel = [UILabel new];
     UILabel *rightLegendLabel = [UILabel new];
     leftLegendLabel.text = @"start";
@@ -99,41 +102,80 @@
     rightLegendLabel.font = [UIFont systemFontOfSize:12.f];
     [leftLegendLabel sizeToFit];
     [rightLegendLabel sizeToFit];
-    [leftLegendLabel setFrame:CGRectMake(5, 0, leftLegendLabel.frame.size.width, leftLegendLabel.frame.size.height)];
-    [rightLegendLabel setFrame:CGRectMake(320 - rightLegendLabel.frame.size.width, 0, rightLegendLabel.frame.size.width, rightLegendLabel.frame.size.height)];
+    [leftLegendLabel setFrame:CGRectMake(5, 0,
+                                         leftLegendLabel.frame.size.width, leftLegendLabel.frame.size.height)];
+    [rightLegendLabel setFrame:CGRectMake(self.bareChartView.frame.size.width - rightLegendLabel.frame.size.width, 0,
+                                          rightLegendLabel.frame.size.width, rightLegendLabel.frame.size.height)];
     [fView addSubview:leftLegendLabel];
     [fView addSubview:rightLegendLabel];
     fView.backgroundColor = [UIColor lightGrayColor];
     [self.bareChartView addSubview:fView];
-//    self.chartView.footerView = fView;
     
-    CGFloat totalDurationInMinutes = [self.currentProfile.duration floatValue] + 10; // 30
-    CGFloat pointsPerMinute = self.bareChartView.frame.size.width / totalDurationInMinutes; // 10.6667
+    CGFloat totalDurationInMinutes = [self.currentProfile.duration floatValue] + 10; // subtract 10 for the 5 min warm up and 5 min cool down
+    CGFloat pointsPerMinute = self.bareChartView.frame.size.width / totalDurationInMinutes;
     CGFloat xPos = 0.f;
     NSArray *lapsForProfile = [self.currentProfile.laps allObjects];
     self.orderedLapsForProfile = [[DataManager sharedManager] orderedLapsByLapNumber:lapsForProfile];
-    for (int i=0; i<self.currentProfile.laps.count; i++) {
+    CGFloat oldIntensity = 0.f;
+    CGFloat previousIntensity = 0.f;
+    CGFloat previousDuration = 0.f;
+    for (int i=0; i < self.currentProfile.laps.count; i++) {
         Lap *thisLap = (Lap*)self.orderedLapsForProfile[i];
+        BOOL intensityDidIncrease = NO;
+        BOOL durationDidIncrease = NO;
+        CGFloat currentIntensity = [thisLap.lapIntensity floatValue];
+        CGFloat currentDuration = [thisLap.lapTime floatValue];
+        if (i == 0) {
+            // first lap
+            intensityDidIncrease = NO;
+            durationDidIncrease = NO;
+        } else {
+            if (currentIntensity > previousIntensity) {
+                intensityDidIncrease = YES;
+            }
+            if (currentDuration > previousDuration) {
+                durationDidIncrease = YES;
+            }
+        }
+        oldIntensity = previousIntensity;
+        previousIntensity = currentIntensity;
+        
         NSLog(@"-thisLap lapStartSpeechString:%@", thisLap.lapStartSpeechString);
         CGFloat barWidth = [thisLap.lapTime floatValue] * pointsPerMinute;
-        CGFloat barHeight = [thisLap.lapIntensity floatValue] * 8.f;
+        CGFloat barHeight = [thisLap.lapIntensity floatValue] * 30.f;
         UIView *lapBarView = [[UIView alloc] initWithFrame:CGRectMake(xPos,
                                                                       self.bareChartView.frame.size.height - barHeight,
                                                                       barWidth,
                                                                       barHeight + 10.f)];
         xPos += barWidth;
-        
-        NSLog(@"->lap %d: dur=%d, ", i, [thisLap.lapTime intValue]);
-        
-        
-        NSLog(@"xPos:%f, barWidth:%f", xPos, barWidth);
         lapBarView.backgroundColor = [UIColor blueColor];
         [self.bareChartView addSubview:lapBarView];
+        
+        if (intensityDidIncrease) {
+            UILabel *newIntensityLabel = [[UILabel alloc] initWithFrame:CGRectMake(xPos - (previousDuration*2), self.bareChartView.frame.size.height - (currentIntensity*30) - 29, 48, 24)];
+            [newIntensityLabel setFont:[UIFont systemFontOfSize:12.f]];
+            [newIntensityLabel setTextColor:[UIColor whiteColor]];
+            [newIntensityLabel setBackgroundColor:[UIColor darkGrayColor]];
+            newIntensityLabel.layer.cornerRadius = 3;
+            newIntensityLabel.layer.masksToBounds = YES;
+            newIntensityLabel.text = [NSString stringWithFormat:@"%d", (int)currentIntensity];
+            [newIntensityLabel sizeToFit];
+//            NSLog(@"%@",[NSString stringWithFormat:@"%d", (int)currentIntensity]);
+            [self.bareChartView addSubview:newIntensityLabel];
+        }
+        previousDuration = currentDuration;
     }
     
-//    [self.chartView reloadData];
-//    [self.view addSubview:self.chartView];
+    [self.bareChartView addGestureRecognizer:self.twoFingerPinch];
     [self.view addSubview:self.bareChartView];
+}
+
+- (void)twoFingerPinch:(UIPinchGestureRecognizer *)recognizer
+{
+    NSLog(@"Pinch scale: %f", recognizer.scale);
+    CGAffineTransform transform = CGAffineTransformMakeScale(recognizer.scale, recognizer.scale);
+    // you can implement any int/float value in context of what scale you want to zoom in or out
+    self.bareChartView.transform = transform;
 }
 
 
@@ -220,12 +262,20 @@
 {
     NSDictionary *profileProperties = @{ @"duration" : self.workoutLengthField.text, @"intensity" : self.workoutIntensityField.text };
     [Bestly trackEvent:@"START ACTION" withProperties:profileProperties];
-    [self performSegueWithIdentifier:@"workoutSegue" sender:profileProperties];
+    if (self.currentProfile) {
+        NSLog(@"setting currentProfile to %@", self.currentProfile);
+        [[RunManager sharedManager] setCurrentProfile:self.currentProfile];
+        [self performSegueWithIdentifier:@"workoutSegue" sender:profileProperties];
+    }
 }
 
 - (IBAction)fetchAction:(id)sender
 {
     self.currentProfile = nil;
+//    [User deleteAll];
+    [Lap deleteAll];
+    [Profile deleteAll];
+//    [Run deleteAll];
     for (UIView *v in self.bareChartView.subviews) {
         [v removeFromSuperview];
     }
@@ -267,8 +317,8 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"workoutSegue"]) {
-        if ([segue.destinationViewController isKindOfClass:[WorkoutViewController class]]) {
-            // WorkoutViewController
+        if ([segue.destinationViewController isKindOfClass:[CurrentWorkoutViewController class]]) {
+            // CurrentWorkoutViewController
         }
     }
 }
