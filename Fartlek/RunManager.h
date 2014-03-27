@@ -19,12 +19,13 @@
 
 @interface RunManager : NSObject
 
+@property (nonatomic, strong) id <RunManagerDelegate> delegate;
 + (RunManager*)sharedManager;
 - (void)resetManager;
 - (void)startRun;
 - (float)progressOfRun;
+- (UIView*)chartViewForProfile;
 
-@property (nonatomic, strong) id <RunManagerDelegate> delegate;
 @property (assign, nonatomic) int currentLapSecondsTotal;
 @property (assign, nonatomic) int currentProfileSecondsElapsed;
 @property (strong, nonatomic) Profile *currentProfile;

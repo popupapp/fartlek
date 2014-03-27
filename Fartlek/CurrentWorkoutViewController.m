@@ -63,6 +63,12 @@
                                                  name:@"AVAudioSessionInterruptionNotification" object:nil];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)audioSessionInterrupted:(NSNotification*)notif
 {
     NSLog(@"audioSessionInterrupted. notif userInfo: %@", notif.userInfo);
@@ -90,7 +96,7 @@
 {
     NSLog(@"lapDidBegin:%d",lapNumber);
     Lap *lap = [[RunManager sharedManager] currentLap];
-    self.currentLapLabel.text = [NSString stringWithFormat:@"%d/%d", lapNumber, [[[[RunManager sharedManager] currentProfile] laps] count]];
+    self.currentLapLabel.text = [NSString stringWithFormat:@"%d/%lu", lapNumber, (unsigned long)[[[[RunManager sharedManager] currentProfile] laps] count]];
     self.currentIntensityLabel.text = [NSString stringWithFormat:@"%d", [lap.lapIntensity intValue]];
 }
 
@@ -115,101 +121,8 @@
 
 - (void)setupChart
 {
-    Profile *profile = [[RunManager sharedManager] currentProfile];
-    if (!profile) {
-        NSLog(@"![[RunManager sharedManager] currentProfile]");
-    }
-    if (!self.bareChartView) {
-        self.bareChartView = [[UIView alloc] initWithFrame:CGRectMake(0, 270, 320, 155)];
-    }
-    self.bareChartView.backgroundColor = [UIColor whiteColor];
-    
-    UIView *hView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
-    hView.backgroundColor = [UIColor whiteColor];
-    UILabel *headerLabel = [UILabel new];
-    headerLabel.text = @"Your Run";
-    [headerLabel sizeToFit];
-    [headerLabel setFrame:CGRectMake(320.0/2.0 - headerLabel.frame.size.width/2.0, 0, headerLabel.frame.size.width, headerLabel.frame.size.height)];
-    [hView addSubview:headerLabel];
-    [self.bareChartView addSubview:hView];
-    
-    UIView *fView = [[UIView alloc] initWithFrame:CGRectMake(0, 155+10, 320, 20)];
-    self.progressView = nil;
-    self.progressView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 20)];
-    self.progressView.backgroundColor = [UIColor greenColor];
-    UILabel *leftLegendLabel = [UILabel new];
-    UILabel *rightLegendLabel = [UILabel new];
-    leftLegendLabel.text = @"start";
-    rightLegendLabel.text = @"end";
-    leftLegendLabel.font = [UIFont systemFontOfSize:12.f];
-    rightLegendLabel.font = [UIFont systemFontOfSize:12.f];
-    [leftLegendLabel sizeToFit];
-    [rightLegendLabel sizeToFit];
-    [leftLegendLabel setFrame:CGRectMake(5, 0,
-                                         leftLegendLabel.frame.size.width, leftLegendLabel.frame.size.height)];
-    [rightLegendLabel setFrame:CGRectMake(self.bareChartView.frame.size.width - rightLegendLabel.frame.size.width, 0,
-                                          rightLegendLabel.frame.size.width, rightLegendLabel.frame.size.height)];
-    [fView addSubview:leftLegendLabel];
-    [fView addSubview:rightLegendLabel];
-    [fView addSubview:self.progressView];
-    fView.backgroundColor = [UIColor lightGrayColor];
-    [self.bareChartView addSubview:fView];
-    
-    CGFloat totalDurationInMinutes = [profile.duration floatValue];
-    CGFloat pointsPerMinute = self.bareChartView.frame.size.width / totalDurationInMinutes;
-    CGFloat xPos = 0.f;
-    NSArray *lapsForProfile = [profile.laps allObjects];
-    NSArray *orderedLapsForProfile = [[DataManager sharedManager] orderedLapsByLapNumber:lapsForProfile];
-    CGFloat oldIntensity = 0.f;
-    CGFloat previousIntensity = 0.f;
-    CGFloat previousDuration = 0.f;
-    for (int i=0; i < profile.laps.count; i++) {
-        Lap *thisLap = (Lap*)orderedLapsForProfile[i];
-        BOOL intensityDidIncrease = NO;
-        BOOL durationDidIncrease = NO;
-        CGFloat currentIntensity = [thisLap.lapIntensity floatValue];
-        CGFloat currentDuration = [thisLap.lapTime floatValue];
-        if (i == 0) {
-            // first lap
-            intensityDidIncrease = NO;
-            durationDidIncrease = NO;
-        } else {
-            if (currentIntensity > previousIntensity) {
-                intensityDidIncrease = YES;
-            }
-            if (currentDuration > previousDuration) {
-                durationDidIncrease = YES;
-            }
-        }
-        oldIntensity = previousIntensity;
-        previousIntensity = currentIntensity;
-        
-        NSLog(@"-thisLap lapStartSpeechString:%@", thisLap.lapStartSpeechString);
-        CGFloat barWidth = ([thisLap.lapTime floatValue] / 60.0) * pointsPerMinute;
-        CGFloat barHeight = [thisLap.lapIntensity floatValue] * 30.f;
-        UIView *lapBarView = [[UIView alloc] initWithFrame:CGRectMake(xPos,
-                                                                      self.bareChartView.frame.size.height - barHeight,
-                                                                      barWidth,
-                                                                      barHeight + 10.f)];
-        xPos += barWidth;
-        lapBarView.backgroundColor = [UIColor blueColor];
-        [self.bareChartView addSubview:lapBarView];
-        
-        if (intensityDidIncrease) {
-            UILabel *newIntensityLabel = [[UILabel alloc] initWithFrame:CGRectMake(xPos - (previousDuration*2), self.bareChartView.frame.size.height - (currentIntensity*30) - 29, 48, 24)];
-            [newIntensityLabel setFont:[UIFont systemFontOfSize:12.f]];
-            [newIntensityLabel setTextColor:[UIColor whiteColor]];
-            [newIntensityLabel setBackgroundColor:[UIColor darkGrayColor]];
-            newIntensityLabel.layer.cornerRadius = 3;
-            newIntensityLabel.layer.masksToBounds = YES;
-            newIntensityLabel.text = [NSString stringWithFormat:@"%d", (int)currentIntensity];
-            [newIntensityLabel sizeToFit];
-//            [self.bareChartView addSubview:newIntensityLabel];
-        }
-        previousDuration = currentDuration;
-    }
-    
-    [self.view addSubview:self.bareChartView];
+    UIView *chartView = [[RunManager sharedManager] chartViewForProfile];
+    [self.view addSubview:chartView];
 }
 
 

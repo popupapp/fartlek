@@ -50,6 +50,11 @@ static RunManager *g_runManager = nil;
     self.currentLapNumber = 0;
     if (self.currentLapsTotal == self.currentLapNumber) {
         [[[UIAlertView alloc] initWithTitle:@"Good Job!" message:@"Workout Finished!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+        AVSpeechSynthesizer *av = [AVSpeechSynthesizer new];
+        AVSpeechUtterance *synUtt = [[AVSpeechUtterance alloc] initWithString:@"Nice Job. Workout finished."];
+        synUtt.rate = 0.4;
+        [synUtt setVoice:[AVSpeechSynthesisVoice voiceWithLanguage:[AVSpeechSynthesisVoice currentLanguageCode]]];
+        [av speakUtterance:synUtt];
     } else {
         [self startLapNumber:self.currentLapNumber];
     }
@@ -111,6 +116,96 @@ static RunManager *g_runManager = nil;
         [self.currentTimer invalidate];
         [self startLapNumber:self.currentLapNumber];
     }
+}
+
+- (UIView*)chartViewForProfile
+{
+    if (!self.currentProfile) {
+        NSLog(@"!self.currentProfile");
+    }
+    UIView *bareChartView = [[UIView alloc] initWithFrame:CGRectMake(0, 324, 320, 155)];
+    bareChartView.backgroundColor = [UIColor whiteColor];
+    
+    UIView *hView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+    hView.backgroundColor = [UIColor whiteColor];
+    UILabel *headerLabel = [UILabel new];
+    headerLabel.text = @"Your Run";
+    [headerLabel sizeToFit];
+    [headerLabel setFrame:CGRectMake(320.0/2.0 - headerLabel.frame.size.width/2.0, 0, headerLabel.frame.size.width, headerLabel.frame.size.height)];
+    [hView addSubview:headerLabel];
+    [bareChartView addSubview:hView];
+    
+    UIView *fView = [[UIView alloc] initWithFrame:CGRectMake(0, 155+10, 320, 20)];
+    UILabel *leftLegendLabel = [UILabel new];
+    UILabel *rightLegendLabel = [UILabel new];
+    leftLegendLabel.text = @"start";
+    rightLegendLabel.text = @"end";
+    leftLegendLabel.font = [UIFont systemFontOfSize:12.f];
+    rightLegendLabel.font = [UIFont systemFontOfSize:12.f];
+    [leftLegendLabel sizeToFit];
+    [rightLegendLabel sizeToFit];
+    [leftLegendLabel setFrame:CGRectMake(5, 0,
+                                         leftLegendLabel.frame.size.width, leftLegendLabel.frame.size.height)];
+    [rightLegendLabel setFrame:CGRectMake(bareChartView.frame.size.width - rightLegendLabel.frame.size.width, 0,
+                                          rightLegendLabel.frame.size.width, rightLegendLabel.frame.size.height)];
+    [fView addSubview:leftLegendLabel];
+    [fView addSubview:rightLegendLabel];
+    fView.backgroundColor = [UIColor lightGrayColor];
+    [bareChartView addSubview:fView];
+    
+    CGFloat totalDurationInMinutes = [self.currentProfile.duration floatValue];
+    CGFloat pointsPerMinute = bareChartView.frame.size.width / totalDurationInMinutes;
+    CGFloat xPos = 0.f;
+    NSArray *lapsForProfile = [self.currentProfile.laps allObjects];
+    self.orderedLapsForProfile = [[DataManager sharedManager] orderedLapsByLapNumber:lapsForProfile];
+    CGFloat oldIntensity = 0.f;
+    CGFloat previousIntensity = 0.f;
+    CGFloat previousDuration = 0.f;
+    for (int i=0; i < self.currentProfile.laps.count; i++) {
+        Lap *thisLap = (Lap*)self.orderedLapsForProfile[i];
+        BOOL intensityDidIncrease = NO;
+        BOOL durationDidIncrease = NO;
+        CGFloat currentIntensity = [thisLap.lapIntensity floatValue];
+        CGFloat currentDuration = [thisLap.lapTime floatValue];
+        if (i == 0) {
+            // first lap
+            intensityDidIncrease = NO;
+            durationDidIncrease = NO;
+        } else {
+            if (currentIntensity > previousIntensity) {
+                intensityDidIncrease = YES;
+            }
+            if (currentDuration > previousDuration) {
+                durationDidIncrease = YES;
+            }
+        }
+        oldIntensity = previousIntensity;
+        previousIntensity = currentIntensity;
+        
+        CGFloat barWidth = ([thisLap.lapTime floatValue] / 60.0) * pointsPerMinute;
+        CGFloat barHeight = [thisLap.lapIntensity floatValue] * 30.f;
+        UIView *lapBarView = [[UIView alloc] initWithFrame:CGRectMake(xPos,
+                                                                      bareChartView.frame.size.height - barHeight,
+                                                                      barWidth,
+                                                                      barHeight + 10.f)];
+        xPos += barWidth;
+        lapBarView.backgroundColor = [UIColor blueColor];
+        [bareChartView addSubview:lapBarView];
+        
+        if (intensityDidIncrease) {
+            UILabel *newIntensityLabel = [[UILabel alloc] initWithFrame:CGRectMake(xPos - (previousDuration*2), bareChartView.frame.size.height - (currentIntensity*30) - 29, 48, 24)];
+            [newIntensityLabel setFont:[UIFont systemFontOfSize:12.f]];
+            [newIntensityLabel setTextColor:[UIColor whiteColor]];
+            [newIntensityLabel setBackgroundColor:[UIColor darkGrayColor]];
+            newIntensityLabel.layer.cornerRadius = 3;
+            newIntensityLabel.layer.masksToBounds = YES;
+            newIntensityLabel.text = [NSString stringWithFormat:@"%d", (int)currentIntensity];
+            [newIntensityLabel sizeToFit];
+        }
+        previousDuration = currentDuration;
+    }
+    
+    return bareChartView;
 }
 
 - (void)resetManager
