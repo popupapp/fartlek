@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 @import CoreLocation;
 
-@class Profile;
+@class Profile, Lap;
 
 @interface RunManager : NSObject
 
@@ -17,5 +17,6 @@
 - (void)resetManager;
 
 @property (strong, nonatomic) Profile *currentProfile;
+@property (strong, nonatomic) Lap *currentLap;
 
 @end

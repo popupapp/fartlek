@@ -8,6 +8,7 @@
 
 #import "RunManager.h"
 #import "Profile+Database.h"
+#import "Lap+Database.h"
 
 static RunManager *g_runManager = nil;
 
@@ -31,6 +32,7 @@ static RunManager *g_runManager = nil;
 - (void)resetManager
 {
     self.currentProfile = nil;
+    self.currentLap = nil;
 }
 
 @end

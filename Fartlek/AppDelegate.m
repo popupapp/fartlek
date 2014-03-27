@@ -9,30 +9,57 @@
 #import "AppDelegate.h"
 #import <TestFlightSDK/TestFlight.h>
 #import <Bestly/Bestly.h>
+#import "Profile+Database.h"
+#import "Lap+Database.h"
+#import "RunManager.h"
 
 @interface AppDelegate ()
 @property (assign, nonatomic) BOOL deferringUpdates;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) NSTimer *keepAliveTimer;
+@property (assign, nonatomic) BOOL isUpdatingLocation;
 @end
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.isUpdatingLocation = NO;
+    
     // FRAMEWORKS
     [Bestly setupWithKey:BESTLY_KEY];
     [TestFlight takeOff:TESTFLIGHT_TOKEN];
     
-    // LOCATION
-    self.deferringUpdates = NO;
-    self.locationManager = [CLLocationManager new];
-    self.locationManager.activityType = CLActivityTypeFitness;
-    [self.locationManager startUpdatingLocation];
+    [self continueOrStartLocationUpdating];
+//    if ([launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey]) {
+//        NSLog(@"local notif app did finish launching");
+//    }
     
     return YES;
 }
 
 // LOCATION
+
+- (void)continueOrStartLocationUpdating
+{
+    // LOCATION
+    if (!self.isUpdatingLocation) {
+        self.isUpdatingLocation = YES;
+        self.deferringUpdates = NO;
+        self.locationManager = [CLLocationManager new];
+        self.locationManager.delegate = self;
+        self.locationManager.activityType = CLActivityTypeFitness;
+        self.locationManager.pausesLocationUpdatesAutomatically = NO;
+    //    self.locationManager.activityType = CLActivityTypeOther;
+    //    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+#warning START LOCATION UPDATES HERE
+        [self.locationManager startUpdatingLocation];
+        NSLog(@"->start updating location");
+    } else {
+        NSLog(@"->is already updating location");
+    }
+
+}
 
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations
@@ -40,20 +67,57 @@
     // Add the new locations to the hike
 //    [self.hike addLocations:locations];
     
+    [self resetKeepAliveTimer];
+    
     // Defer updates until the user hikes a certain distance
     // or when a certain amount of time has passed.
-    if (!self.deferringUpdates) {
-        CLLocationDistance distance = 100.f; // self.hike.goal - self.hike.distance;
-        NSTimeInterval time = 60.f; // [self.nextAudible timeIntervalSinceNow];
-        [self.locationManager allowDeferredLocationUpdatesUntilTraveled:distance
-                                                           timeout:time];
-        self.deferringUpdates = YES;
+//    NSLog(@"got a location: %@", locations[0]);
+#warning CURRENTLY NOT USING DEFERRED UPDATES
+//    if (!self.deferringUpdates) {
+//        Lap *currentLap = [[RunManager sharedManager] currentLap];
+//        if (currentLap) {
+//            CLLocationDistance distance = 100.f; // self.hike.goal - self.hike.distance;
+//            NSTimeInterval time = [currentLap.lapTime intValue] * 60.0; // [self.nextAudible timeIntervalSinceNow];
+//            [self.locationManager allowDeferredLocationUpdatesUntilTraveled:distance
+//                                                                    timeout:time];
+//            self.deferringUpdates = YES;
+//        }
+//    }
+}
+
+- (void)resetKeepAliveTimer
+{
+    if (self.keepAliveTimer) {
+//        [self.keepAliveTimer invalidate];
+    } else {
+        NSLog(@"scheduled keepAliveTimerDidFire");
+        self.keepAliveTimer = [NSTimer scheduledTimerWithTimeInterval:599
+                                                               target:self
+                                                             selector:@selector(keepAliveTimerDidFire:)
+                                                             userInfo:nil
+                                                              repeats:NO];
+        NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
+        [runLoop addTimer:self.keepAliveTimer forMode:NSDefaultRunLoopMode];
     }
+}
+
+- (void)keepAliveTimerDidFire:(NSTimer*)timer
+{
+    NSLog(@"keepAliveTimerDidFire");
+    [self continueOrStartLocationUpdating];
+    self.keepAliveTimer = nil;
+    [self resetKeepAliveTimer];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error
 {
     self.deferringUpdates = NO;
+}
+
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    NSLog(@"didReceiveLocalNotification:%@", notification);
+    NSLog(@"didReceiveLocalNotification:%@", notification);
 }
 
 //
