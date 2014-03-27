@@ -59,9 +59,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0L8-gM-xMj">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0L8-gM-xMj">
                                 <rect key="frame" x="216" y="506" width="84" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="84" id="4UK-DT-Rov"/>
+                                    <constraint firstAttribute="height" constant="42" id="HJI-yi-s9I"/>
+                                </constraints>
                                 <state key="normal" title="Start!">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -69,9 +73,13 @@
                                     <action selector="startAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="0HM-Be-Uoo"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qBt-GN-pNs">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qBt-GN-pNs">
                                 <rect key="frame" x="22" y="506" width="84" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="J2d-W9-X8g"/>
+                                    <constraint firstAttribute="width" constant="84" id="Y78-Wa-cIg"/>
+                                </constraints>
                                 <state key="normal" title="Fetch">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -82,15 +90,14 @@
                         </subviews>
                         <color key="backgroundColor" red="0.92941182851791382" green="0.9647059440612793" blue="0.24705883860588074" alpha="1" colorSpace="deviceRGB"/>
                         <color key="tintColor" red="0.98823535442352295" green="0.24705883860588074" blue="0.039215687662363052" alpha="1" colorSpace="deviceRGB"/>
+                        <constraints>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="0L8-gM-xMj" secondAttribute="bottom" constant="20" id="5BQ-0c-LTY"/>
+                            <constraint firstItem="qBt-GN-pNs" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="22" id="RcA-NP-wVY"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="qBt-GN-pNs" secondAttribute="bottom" constant="20" id="Rma-CR-gBn"/>
+                            <constraint firstAttribute="trailing" secondItem="0L8-gM-xMj" secondAttribute="trailing" constant="20" id="kGm-Ag-RDW"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Setup" id="yPa-tm-n2J">
-                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="SHO-OQ-kSe">
-                            <color key="tintColor" red="0.98823535439999999" green="0.2470588386" blue="0.039215687659999998" alpha="1" colorSpace="deviceRGB"/>
-                            <connections>
-                                <action selector="deleteBBIAction:" destination="vXZ-lx-hvc" id="TT6-ys-Db1"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Setup" id="yPa-tm-n2J"/>
                     <connections>
                         <outlet property="averagePaceField" destination="Br0-33-SQt" id="P9p-q1-zbh"/>
                         <outlet property="startButton" destination="0L8-gM-xMj" id="Isw-sT-v5s"/>
@@ -123,7 +130,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time to next lap" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXf-7m-5u9">
-                                <rect key="frame" x="89" y="201" width="142" height="24"/>
+                                <rect key="frame" x="89" y="160" width="142" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="highlightedColor"/>
@@ -136,7 +143,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oiY-g7-Fe3">
-                                <rect key="frame" x="104" y="251" width="112" height="24"/>
+                                <rect key="frame" x="104" y="210" width="112" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.98823535439999999" green="0.2470588386" blue="0.039215687659999998" alpha="1" colorSpace="deviceRGB"/>
@@ -155,23 +162,6 @@
                                 <color key="textColor" red="0.98823535439999999" green="0.2470588386" blue="0.039215687659999998" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="[Some kind of real-time chart here]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gF4-Eq-euc">
-                                <rect key="frame" x="28" y="369" width="265" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="luw-Nh-8K5">
-                                <rect key="frame" x="90" y="501" width="141" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Pause">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pauseRunAction:" destination="3Kx-14-Ymz" eventType="touchUpInside" id="Lmg-f6-9gE"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.92941182850000004" green="0.96470594409999999" blue="0.2470588386" alpha="1" colorSpace="deviceRGB"/>
                         <color key="tintColor" red="0.98823535439999999" green="0.2470588386" blue="0.039215687659999998" alpha="1" colorSpace="deviceRGB"/>

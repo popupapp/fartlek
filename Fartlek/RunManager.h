@@ -22,9 +22,11 @@
 + (RunManager*)sharedManager;
 - (void)resetManager;
 - (void)startRun;
+- (float)progressOfRun;
 
 @property (nonatomic, strong) id <RunManagerDelegate> delegate;
 @property (assign, nonatomic) int currentLapSecondsTotal;
+@property (assign, nonatomic) int currentProfileSecondsElapsed;
 @property (strong, nonatomic) Profile *currentProfile;
 @property (strong, nonatomic) Lap *currentLap;
 @property (strong, nonatomic) NSTimer *currentTimer;

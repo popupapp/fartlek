@@ -119,7 +119,7 @@
     fView.backgroundColor = [UIColor lightGrayColor];
     [self.bareChartView addSubview:fView];
     
-    CGFloat totalDurationInMinutes = [self.currentProfile.duration floatValue] + 10; // subtract 10 for the 5 min warm up and 5 min cool down
+    CGFloat totalDurationInMinutes = [self.currentProfile.duration floatValue];
     CGFloat pointsPerMinute = self.bareChartView.frame.size.width / totalDurationInMinutes;
     CGFloat xPos = 0.f;
     NSArray *lapsForProfile = [self.currentProfile.laps allObjects];
@@ -149,7 +149,7 @@
         previousIntensity = currentIntensity;
         
         NSLog(@"-thisLap lapStartSpeechString:%@", thisLap.lapStartSpeechString);
-        CGFloat barWidth = [thisLap.lapTime floatValue] * pointsPerMinute;
+        CGFloat barWidth = ([thisLap.lapTime floatValue] / 60.0) * pointsPerMinute;
         CGFloat barHeight = [thisLap.lapIntensity floatValue] * 30.f;
         UIView *lapBarView = [[UIView alloc] initWithFrame:CGRectMake(xPos,
                                                                       self.bareChartView.frame.size.height - barHeight,
@@ -169,7 +169,7 @@
             newIntensityLabel.text = [NSString stringWithFormat:@"%d", (int)currentIntensity];
             [newIntensityLabel sizeToFit];
 //            NSLog(@"%@",[NSString stringWithFormat:@"%d", (int)currentIntensity]);
-            [self.bareChartView addSubview:newIntensityLabel];
+//            [self.bareChartView addSubview:newIntensityLabel];
         }
         previousDuration = currentDuration;
     }
@@ -274,6 +274,8 @@
         NSLog(@"setting currentProfile to %@", self.currentProfile);
         [[RunManager sharedManager] setCurrentProfile:self.currentProfile];
         [self performSegueWithIdentifier:@"workoutSegue" sender:profileProperties];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"Please Select a Profile" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
     }
 }
 

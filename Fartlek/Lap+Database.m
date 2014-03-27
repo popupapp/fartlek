@@ -69,7 +69,8 @@
                  newLap.lapStartSpeechString = json[@"lap_speech_string"];
              }
              if (json[@"lap_time"] && ![json[@"lap_time"] isKindOfClass:[NSNull class]]) {
-                 newLap.lapTime = json[@"lap_time"];
+                 NSNumber *lapTimeInSeconds = [json[@"lap_time"] toNumber];
+                 newLap.lapTime = lapTimeInSeconds;
              }
              
              [newLap saveSuccess:
@@ -89,7 +90,7 @@
 //        "lap_intensity" = 0;
 //        "lap_number" = 1;
 //        "lap_speech_string" = "Warm up slowly for five minutes. Nice and easy. Not even your Easy Run pace.\n";
-//        "lap_time" = 5;
+//        "lap_time" = 300;
 //        "profile_id" = 4;
 //        "updated_at" = "2014-03-23T22:55:11.932Z";
 //    }

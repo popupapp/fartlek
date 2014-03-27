@@ -55,12 +55,18 @@ static RunManager *g_runManager = nil;
     }
 }
 
+- (float)progressOfRun
+{
+    float secondsInProfile = [self.currentProfile.duration floatValue] * 60.f;
+    return self.currentProfileSecondsElapsed/secondsInProfile;
+}
+
 - (void)startLapNumber:(int)lapNumber
 {
-    [self.delegate lapDidBegin:lapNumber+1];
     self.currentLap = (Lap*)self.orderedLapsForProfile[lapNumber];
+    [self.delegate lapDidBegin:lapNumber+1];
     
-    self.currentLapSecondsTotal = [self.currentLap.lapTime intValue] * 60;
+    self.currentLapSecondsTotal = [self.currentLap.lapTime intValue];
     self.currentLapSecond = 0;
     
     self.currentTimer = [NSTimer timerWithTimeInterval:1.0f
@@ -75,6 +81,7 @@ static RunManager *g_runManager = nil;
 - (void)updateTimer
 {
     [self.delegate timerDidFire];
+    self.currentProfileSecondsElapsed += 1;
     // runs every second
     if (self.currentLapSecond == 0) {
         
@@ -112,6 +119,8 @@ static RunManager *g_runManager = nil;
     self.currentLap = nil;
     [self.currentTimer invalidate];
     self.currentTimer = nil;
+    self.currentLapSecondsTotal = 0;
+    self.currentProfileSecondsElapsed = 0;
 }
 
 @end
