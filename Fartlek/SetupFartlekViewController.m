@@ -69,10 +69,18 @@
     [self.averagePaceField becomeFirstResponder];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+//    if ([[RunManager sharedManager] currentProfile]) {
+        [[RunManager sharedManager] resetManager];
+//    }
+}
+
 - (void)setupChart
 {
     if (!self.currentProfile) {
-        NSLog(@"!!!!!!!BAD - !self.currentProfile");
+        NSLog(@"!self.currentProfile");
     }
 //    self.chartView = [JBLineChartView new];
 //    self.chartView.delegate = self;

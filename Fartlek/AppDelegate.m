@@ -49,14 +49,12 @@
         self.locationManager = [CLLocationManager new];
         self.locationManager.delegate = self;
         self.locationManager.activityType = CLActivityTypeFitness;
+        // setting this to NO is super important to have the lap exist longer in the background
         self.locationManager.pausesLocationUpdatesAutomatically = NO;
-    //    self.locationManager.activityType = CLActivityTypeOther;
-    //    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-#warning START LOCATION UPDATES HERE
         [self.locationManager startUpdatingLocation];
-        NSLog(@"->start updating location");
+        NSLog(@"-> start updating location");
     } else {
-        NSLog(@"->is already updating location");
+        NSLog(@"-> is already updating location");
     }
 
 }
@@ -87,11 +85,9 @@
 
 - (void)resetKeepAliveTimer
 {
-    if (self.keepAliveTimer) {
-//        [self.keepAliveTimer invalidate];
-    } else {
+    if (!self.keepAliveTimer) {
         NSLog(@"scheduled keepAliveTimerDidFire");
-        self.keepAliveTimer = [NSTimer scheduledTimerWithTimeInterval:599
+        self.keepAliveTimer = [NSTimer scheduledTimerWithTimeInterval:590
                                                                target:self
                                                              selector:@selector(keepAliveTimerDidFire:)
                                                              userInfo:nil
@@ -117,11 +113,8 @@
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
     NSLog(@"didReceiveLocalNotification:%@", notification);
-    NSLog(@"didReceiveLocalNotification:%@", notification);
 }
 
-//
-							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
