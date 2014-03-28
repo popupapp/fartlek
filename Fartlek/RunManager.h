@@ -11,6 +11,8 @@
 
 @protocol RunManagerDelegate <NSObject>
 - (void)runDidBegin;
+- (void)runDidPause;
+- (void)runDidResume;
 - (void)lapDidBegin:(int)lapNumber;
 - (void)timerDidFire;
 @end
@@ -23,9 +25,11 @@
 + (RunManager*)sharedManager;
 - (void)resetManager;
 - (void)startRun;
+- (void)pauseRun;
 - (float)progressOfRun;
 - (UIView*)chartViewForProfile;
 
+@property (assign, nonatomic) BOOL isPaused;
 @property (assign, nonatomic) int currentLapSecondsTotal;
 @property (assign, nonatomic) int currentProfileSecondsElapsed;
 @property (strong, nonatomic) Profile *currentProfile;

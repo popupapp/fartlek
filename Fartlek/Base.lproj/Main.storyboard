@@ -162,6 +162,16 @@
                                 <color key="textColor" red="0.98823535439999999" green="0.2470588386" blue="0.039215687659999998" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lPh-9W-C80">
+                                <rect key="frame" x="118" y="506" width="84" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Pause">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pauseRunAction:" destination="3Kx-14-Ymz" eventType="touchUpInside" id="Caj-ma-rkY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.92941182850000004" green="0.96470594409999999" blue="0.2470588386" alpha="1" colorSpace="deviceRGB"/>
                         <color key="tintColor" red="0.98823535439999999" green="0.2470588386" blue="0.039215687659999998" alpha="1" colorSpace="deviceRGB"/>
@@ -170,6 +180,7 @@
                     <connections>
                         <outlet property="currentIntensityLabel" destination="mDH-kl-RG2" id="AeW-Lo-p3e"/>
                         <outlet property="currentLapLabel" destination="yIb-sJ-zIL" id="ugM-0J-mp2"/>
+                        <outlet property="pauseButton" destination="lPh-9W-C80" id="Rp8-6v-r1B"/>
                         <outlet property="timetoNextLapLabel" destination="oiY-g7-Fe3" id="YXR-9w-Rdc"/>
                     </connections>
                 </viewController>

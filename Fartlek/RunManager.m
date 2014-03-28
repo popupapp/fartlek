@@ -28,6 +28,7 @@ static RunManager *g_runManager = nil;
 - (id)init
 {
     if ((self = [super init])) {
+        self.isPaused = NO;
     }
     return self;
 }
@@ -68,19 +69,30 @@ static RunManager *g_runManager = nil;
 
 - (void)startLapNumber:(int)lapNumber
 {
-    self.currentLap = (Lap*)self.orderedLapsForProfile[lapNumber];
-    [self.delegate lapDidBegin:lapNumber+1];
-    
-    self.currentLapSecondsTotal = [self.currentLap.lapTime intValue];
-    self.currentLapSecond = 0;
-    
-    self.currentTimer = [NSTimer timerWithTimeInterval:1.0f
-                                                target:self
-                                              selector:@selector(updateTimer)
-                                              userInfo:nil
-                                               repeats:YES];
-    NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-    [runLoop addTimer:self.currentTimer forMode:NSDefaultRunLoopMode];
+    if (self.isPaused) {
+        // run is resuming from a paused state
+        int secondsPassedBeforePausing = self.currentProfileSecondsElapsed;
+        self.currentTimer = [NSTimer timerWithTimeInterval:1.0f
+                                                    target:self
+                                                  selector:@selector(updateTimer)
+                                                  userInfo:nil
+                                                   repeats:YES];
+        NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
+        [runLoop addTimer:self.currentTimer forMode:NSDefaultRunLoopMode];
+    } else {
+        // normal start lap route
+        self.currentLap = (Lap*)self.orderedLapsForProfile[lapNumber];
+        [self.delegate lapDidBegin:lapNumber+1];
+        self.currentLapSecondsTotal = [self.currentLap.lapTime intValue];
+        self.currentLapSecond = 0;
+        self.currentTimer = [NSTimer timerWithTimeInterval:1.0f
+                                                    target:self
+                                                  selector:@selector(updateTimer)
+                                                  userInfo:nil
+                                                   repeats:YES];
+        NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
+        [runLoop addTimer:self.currentTimer forMode:NSDefaultRunLoopMode];
+    }
 }
 
 - (void)updateTimer
@@ -115,6 +127,19 @@ static RunManager *g_runManager = nil;
         self.currentLapNumber += 1;
         [self.currentTimer invalidate];
         [self startLapNumber:self.currentLapNumber];
+    }
+}
+
+- (void)pauseRun
+{
+    if ([self.currentTimer isValid]) {
+        self.isPaused = YES;
+        [self.currentTimer invalidate];
+        [self.delegate runDidPause];
+    } else {
+        [self startLapNumber:self.currentLapNumber];
+        self.isPaused = NO;
+        [self.delegate runDidResume];
     }
 }
 

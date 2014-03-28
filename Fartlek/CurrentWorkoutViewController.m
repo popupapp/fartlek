@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *currentIntensityLabel;
 @property (strong, nonatomic) UIView *bareChartView;
 @property (strong, nonatomic) UIView *progressView;
+@property (weak, nonatomic) IBOutlet UIButton *pauseButton;
 @end
 
 @implementation CurrentWorkoutViewController
@@ -113,9 +114,21 @@
 //    NSLog(@"progressOfRun:%f", [[RunManager sharedManager] progressOfRun]);
 }
 
+- (void)runDidResume
+{
+    NSLog(@"runDidResume");
+    [self.pauseButton setTitle:@"Pause" forState:UIControlStateNormal];
+}
+
+- (void)runDidPause
+{
+    NSLog(@"runDidPause");
+    [self.pauseButton setTitle:@"Resume" forState:UIControlStateNormal];
+}
+
 - (IBAction)pauseRunAction:(id)sender
 {
-    //
+    [[RunManager sharedManager] pauseRun];
 }
 
 
