@@ -12,6 +12,7 @@
 #import "Profile+Database.h"
 #import "Lap+Database.h"
 #import "RunManager.h"
+#import <FlurrySDK/Flurry.h>
 
 @interface AppDelegate ()
 @property (assign, nonatomic) BOOL deferringUpdates;
@@ -29,6 +30,7 @@
     // FRAMEWORKS
     [Bestly setupWithKey:BESTLY_KEY];
     [TestFlight takeOff:TESTFLIGHT_TOKEN];
+    [Flurry startSession:FLURRY_KEY];
     
     [self continueOrStartLocationUpdating];
 //    if ([launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey]) {
@@ -70,17 +72,19 @@
     // Defer updates until the user hikes a certain distance
     // or when a certain amount of time has passed.
 //    NSLog(@"got a location: %@", locations[0]);
-#warning CURRENTLY NOT USING DEFERRED UPDATES
-//    if (!self.deferringUpdates) {
-//        Lap *currentLap = [[RunManager sharedManager] currentLap];
-//        if (currentLap) {
-//            CLLocationDistance distance = 100.f; // self.hike.goal - self.hike.distance;
-//            NSTimeInterval time = [currentLap.lapTime intValue] * 60.0; // [self.nextAudible timeIntervalSinceNow];
-//            [self.locationManager allowDeferredLocationUpdatesUntilTraveled:distance
-//                                                                    timeout:time];
-//            self.deferringUpdates = YES;
-//        }
-//    }
+    NSLog(@"got a location");
+#warning CURRENTLY USING DEFERRED UPDATES
+    if (!self.deferringUpdates) {
+        Lap *currentLap = [[RunManager sharedManager] currentLap];
+        if (currentLap) {
+//            CLLocationDistance distance = 100.f;
+            NSTimeInterval time = [[RunManager sharedManager] secondsLeftInRun];
+            NSLog(@"setting allowDeferredLocationUpdates (time:%d)", (int)time);
+            [self.locationManager allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax
+                                                                    timeout:time];
+            self.deferringUpdates = YES;
+        }
+    }
 }
 
 - (void)resetKeepAliveTimer

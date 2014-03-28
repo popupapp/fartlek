@@ -43,11 +43,12 @@ static RunManager *g_runManager = nil;
 
 - (void)startRun
 {
+    [Flurry logEvent:@"START_RUN"];
     [self.delegate runDidBegin];
     NSArray *lapsForProfile = [self.currentProfile.laps allObjects];
     self.orderedLapsForProfile = [[DataManager sharedManager] orderedLapsByLapNumber:lapsForProfile];
     
-    self.currentLapsTotal = [[self.currentProfile.laps allObjects] count];
+    self.currentLapsTotal = (int)[[self.currentProfile.laps allObjects] count];
     self.currentLapNumber = 0;
     if (self.currentLapsTotal == self.currentLapNumber) {
         [[[UIAlertView alloc] initWithTitle:@"Good Job!" message:@"Workout Finished!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
@@ -67,11 +68,18 @@ static RunManager *g_runManager = nil;
     return self.currentProfileSecondsElapsed/secondsInProfile;
 }
 
+- (int)secondsLeftInRun
+{
+    int secondsInProfile = [self.currentProfile.duration intValue] * 60;
+    return secondsInProfile - self.currentProfileSecondsElapsed;
+}
+
 - (void)startLapNumber:(int)lapNumber
 {
     if (self.isPaused) {
+        [Flurry logEvent:@"START_LAP_RESUME"];
         // run is resuming from a paused state
-        int secondsPassedBeforePausing = self.currentProfileSecondsElapsed;
+//        int secondsPassedBeforePausing = self.currentProfileSecondsElapsed;
         self.currentTimer = [NSTimer timerWithTimeInterval:1.0f
                                                     target:self
                                                   selector:@selector(updateTimer)
@@ -80,6 +88,7 @@ static RunManager *g_runManager = nil;
         NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
         [runLoop addTimer:self.currentTimer forMode:NSDefaultRunLoopMode];
     } else {
+        [Flurry logEvent:@"START_LAP_NEW"];
         // normal start lap route
         self.currentLap = (Lap*)self.orderedLapsForProfile[lapNumber];
         [self.delegate lapDidBegin:lapNumber+1];
@@ -132,6 +141,7 @@ static RunManager *g_runManager = nil;
 
 - (void)pauseRun
 {
+    [Flurry logEvent:@"PAUSE_RUN"];
     if ([self.currentTimer isValid]) {
         self.isPaused = YES;
         [self.currentTimer invalidate];

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @import CoreLocation;
+#import <FlurrySDK/Flurry.h>
 
 @protocol RunManagerDelegate <NSObject>
 - (void)runDidBegin;
@@ -27,6 +28,7 @@
 - (void)startRun;
 - (void)pauseRun;
 - (float)progressOfRun;
+- (int)secondsLeftInRun;
 - (UIView*)chartViewForProfile;
 
 @property (assign, nonatomic) BOOL isPaused;

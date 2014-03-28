@@ -19,6 +19,9 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Bestly (1.1.1)
+  - FlurrySDK (4.3.2):
+    - FlurrySDK/FlurrySDK
+  - FlurrySDK/FlurrySDK (4.3.2)
   - JBChartView (2.0.1)
   - Ono (0.0.3)
   - TestFlightSDK (3.0.0)
@@ -26,6 +29,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.2)
   - Bestly
+  - FlurrySDK (~> 4.3)
   - JBChartView (~> 2.0.1)
   - Ono (~> 0.0)
   - TestFlightSDK (~> 3.0)
@@ -33,6 +37,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
   Bestly: e0cc91e76e06114a653807389315bbe92c6c27b0
+  FlurrySDK: 0ba42379fd272d69246ae06386a2c5688516ffd8
   JBChartView: 45a942ed229a7fe03f7de204cb2e3573ed55f27f
   Ono: 75de324589764356dac3b140c1b0d8f52c7cab64
   TestFlightSDK: 71e3e78d3a46144dbad975a4bf80a14dae6a818a

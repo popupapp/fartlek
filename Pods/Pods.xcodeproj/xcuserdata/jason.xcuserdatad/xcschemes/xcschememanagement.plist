@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-FlurrySDK.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-JBChartView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,32 +42,37 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>32A905AFB7C9432A8CF2BCA5</key>
+		<key>03FD7E8DA9B548409807197F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4893ABED19BD455E974B50DA</key>
+		<key>0FB99270BB1D4565AAD13073</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6A0E3536D2294CBEB3ED0419</key>
+		<key>3098385FED0F4EF6B8D1681A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7FC529CE01494308B3F89AA4</key>
+		<key>7C9C56C42C4540EEA9EF2DC2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7FE6F1F6A5234F75B0E0382F</key>
+		<key>BB8FCB886B9748E597B016C0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C89D3B4A14634A0FBA9CF112</key>
+		<key>F3BB2356DA9141F2B4D4CB0E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FBCD80203E6448CC87933819</key>
 		<dict>
 			<key>primary</key>
 			<true/>
