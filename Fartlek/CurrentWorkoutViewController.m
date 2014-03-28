@@ -15,13 +15,14 @@
 @import AVFoundation;
 @import AudioToolbox;
 @import MediaPlayer;
+#import "FartlekChartView.h"
 
 @interface CurrentWorkoutViewController () <RunManagerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *currentLapLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timetoNextLapLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentIntensityLabel;
-@property (strong, nonatomic) UIView *bareChartView;
-@property (strong, nonatomic) UIView *progressView;
+@property (strong, nonatomic) FartlekChartView *bareChartView;
+//@property (strong, nonatomic) UIView *progressView;
 @property (weak, nonatomic) IBOutlet UIButton *pauseButton;
 @end
 
@@ -45,6 +46,7 @@
     self.navigationController.navigationBar.barTintColor = FARTLEK_YELLOW;
     self.navigationController.navigationBar.tintColor = [UIColor redColor];
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gotham-Book" size:20.0], NSFontAttributeName, nil];
+    self.view.backgroundColor = FARTLEK_YELLOW;
     
     [self registerForAudioNotifications];
     [self setupAudioSession];
@@ -108,8 +110,8 @@
     int minutesLeftInLap = timeLeftInLap / 60;
     int secondsLeftInLap = timeLeftInLap % 60;
     self.timetoNextLapLabel.text = [NSString stringWithFormat:@"%d:%.2d", minutesLeftInLap, secondsLeftInLap];
-    CGRect pFrame = self.progressView.frame;
-    self.progressView.frame = CGRectMake(pFrame.origin.x, pFrame.origin.y,
+    CGRect pFrame = self.bareChartView.progressView.frame;
+    self.bareChartView.progressView.frame = CGRectMake(pFrame.origin.x, pFrame.origin.y,
                                          320.0 * [[RunManager sharedManager] progressOfRun], pFrame.size.height);
 //    NSLog(@"progressOfRun:%f", [[RunManager sharedManager] progressOfRun]);
 }
@@ -134,8 +136,8 @@
 
 - (void)setupChart
 {
-    UIView *chartView = [[RunManager sharedManager] chartViewForProfile];
-    [self.view addSubview:chartView];
+    self.bareChartView = [[RunManager sharedManager] chartViewForProfile];
+    [self.view addSubview:self.bareChartView];
 }
 
 

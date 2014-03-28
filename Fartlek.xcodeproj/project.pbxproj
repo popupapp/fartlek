@@ -43,6 +43,7 @@
 		96A98EEF18DA17FF00E55F1D /* WorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98EEE18DA17FF00E55F1D /* WorkoutViewController.m */; };
 		96A98EF218DA1B5200E55F1D /* WorkoutSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98EF118DA1B5200E55F1D /* WorkoutSummaryViewController.m */; };
 		96A98EF518DA219100E55F1D /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98EF418DA219100E55F1D /* HistoryViewController.m */; };
+		96CEE41A18E5EB5000562FEE /* FartlekChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CEE41918E5EB5000562FEE /* FartlekChartView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +117,8 @@
 		96A98EF118DA1B5200E55F1D /* WorkoutSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutSummaryViewController.m; sourceTree = "<group>"; };
 		96A98EF318DA219100E55F1D /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		96A98EF418DA219100E55F1D /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		96CEE41818E5EB5000562FEE /* FartlekChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FartlekChartView.h; sourceTree = "<group>"; };
+		96CEE41918E5EB5000562FEE /* FartlekChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FartlekChartView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +235,8 @@
 		96A98EE018DA07C300E55F1D /* views */ = {
 			isa = PBXGroup;
 			children = (
+				96CEE41818E5EB5000562FEE /* FartlekChartView.h */,
+				96CEE41918E5EB5000562FEE /* FartlekChartView.m */,
 				968BBB3018DBE01700766D59 /* CurrentRunCell.h */,
 				968BBB3118DBE01700766D59 /* CurrentRunCell.m */,
 				96A98EB918DA079700E55F1D /* Main.storyboard */,
@@ -457,6 +462,7 @@
 				968BBB6518DCF0B100766D59 /* Run+Database.m in Sources */,
 				968BBB4718DCE8B400766D59 /* User.m in Sources */,
 				968BBB5618DCEBEB00766D59 /* NSObject+Conversions.m in Sources */,
+				96CEE41A18E5EB5000562FEE /* FartlekChartView.m in Sources */,
 				968BBB3218DBE01700766D59 /* CurrentRunCell.m in Sources */,
 				96A98EB418DA079700E55F1D /* main.m in Sources */,
 				968BBB6818DCF0BE00766D59 /* Lap+Database.m in Sources */,

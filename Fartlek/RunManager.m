@@ -13,10 +13,11 @@
 @import AVFoundation;
 @import AudioToolbox;
 @import MediaPlayer;
+#import "FartlekChartView.h"
 
 static RunManager *g_runManager = nil;
 
-@interface RunManager ()
+@interface RunManager () <AVSpeechSynthesizerDelegate>
 @property (strong, nonatomic) NSArray *orderedLapsForProfile;
 @property (assign, nonatomic) int currentLapNumber;
 @property (assign, nonatomic) int currentLapSecond;
@@ -112,22 +113,25 @@ static RunManager *g_runManager = nil;
     if (self.currentLapSecond == 0) {
         
         NSError *activationError = nil;
-        BOOL success = [[AVAudioSession sharedInstance] setActive:YES withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:&activationError];
+        BOOL success = [[AVAudioSession sharedInstance] setActive:YES
+                                                      withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
+                                                            error:&activationError];
         if (!success) {
             NSLog(@"AUDIO ACTIVATION ERROR:%@", activationError.localizedDescription);
         }
         
         AVSpeechSynthesizer *av = [AVSpeechSynthesizer new];
-        AVSpeechUtterance *synUtt = [[AVSpeechUtterance alloc] initWithString:self.currentLap.lapStartSpeechString];
-//        synUtt.pitchMultiplier = 0.75;
-        synUtt.rate = 0.4;
-//        synUtt.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-GB"];
-        [synUtt setVoice:[AVSpeechSynthesisVoice voiceWithLanguage:[AVSpeechSynthesisVoice currentLanguageCode]]];
+        AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:self.currentLap.lapStartSpeechString];
+//        utterance.pitchMultiplier = 0.75;
+        utterance.rate = 0.3;
+        av.delegate = self;
+//        utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-IE"]; // en-AU
+        [utterance setVoice:[AVSpeechSynthesisVoice voiceWithLanguage:[AVSpeechSynthesisVoice currentLanguageCode]]];
         NSLog(@"speak: %@", self.currentLap.lapStartSpeechString);
         if (![UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
             NSLog(@"in the background");
         }
-        [av speakUtterance:synUtt];
+        [av speakUtterance:utterance];
     }
     self.currentLapSecond += 1;
     self.currentLapSecondsTotal -= 1;
@@ -137,6 +141,17 @@ static RunManager *g_runManager = nil;
         [self.currentTimer invalidate];
         [self startLapNumber:self.currentLapNumber];
     }
+}
+
+-(void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer
+didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
+{
+    [[AVAudioSession sharedInstance] setActive:NO withOptions:0 error:nil];
+//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
+//                                     withOptions:AVAudioSessionCategoryOptionDuckOthers
+//                                           error:nil];
+//    [[AVAudioSession sharedInstance] setActive:YES withOptions: 0 error:nil];
+
 }
 
 - (void)pauseRun
@@ -153,12 +168,12 @@ static RunManager *g_runManager = nil;
     }
 }
 
-- (UIView*)chartViewForProfile
+- (FartlekChartView*)chartViewForProfile
 {
     if (!self.currentProfile) {
         NSLog(@"!self.currentProfile");
     }
-    UIView *bareChartView = [[UIView alloc] initWithFrame:CGRectMake(0, 324, 320, 155)];
+    FartlekChartView *bareChartView = [[FartlekChartView alloc] initWithFrame:CGRectMake(0, 324, 320, 155)];
     bareChartView.backgroundColor = [UIColor whiteColor];
     
     UIView *hView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
@@ -171,6 +186,9 @@ static RunManager *g_runManager = nil;
     [bareChartView addSubview:hView];
     
     UIView *fView = [[UIView alloc] initWithFrame:CGRectMake(0, 155+10, 320, 20)];
+    bareChartView.progressView = nil;
+    bareChartView.progressView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 20)];
+    bareChartView.progressView.backgroundColor = [UIColor greenColor];
     UILabel *leftLegendLabel = [UILabel new];
     UILabel *rightLegendLabel = [UILabel new];
     leftLegendLabel.text = @"start";
@@ -185,6 +203,7 @@ static RunManager *g_runManager = nil;
                                           rightLegendLabel.frame.size.width, rightLegendLabel.frame.size.height)];
     [fView addSubview:leftLegendLabel];
     [fView addSubview:rightLegendLabel];
+    [fView addSubview:bareChartView.progressView];
     fView.backgroundColor = [UIColor lightGrayColor];
     [bareChartView addSubview:fView];
     

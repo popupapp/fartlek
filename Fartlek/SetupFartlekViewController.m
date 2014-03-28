@@ -55,6 +55,7 @@
     self.navigationController.navigationBar.barTintColor = FARTLEK_YELLOW;
     self.navigationController.navigationBar.tintColor = [UIColor redColor];
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gotham-Book" size:20.0], NSFontAttributeName, nil];
+    self.view.backgroundColor = FARTLEK_YELLOW;
     
     [self setupAveragePacePickerView];
     [self setupWorkoutLengthPickerView];

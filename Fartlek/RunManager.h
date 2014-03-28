@@ -18,7 +18,7 @@
 - (void)timerDidFire;
 @end
 
-@class Profile, Lap;
+@class Profile, Lap, FartlekChartView;
 
 @interface RunManager : NSObject
 
@@ -29,7 +29,7 @@
 - (void)pauseRun;
 - (float)progressOfRun;
 - (int)secondsLeftInRun;
-- (UIView*)chartViewForProfile;
+- (FartlekChartView*)chartViewForProfile;
 
 @property (assign, nonatomic) BOOL isPaused;
 @property (assign, nonatomic) int currentLapSecondsTotal;

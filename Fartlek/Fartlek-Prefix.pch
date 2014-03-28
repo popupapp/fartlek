@@ -7,7 +7,7 @@
 #import <Availability.h>
 
 #define TESTFLIGHT_TOKEN @"33cfd47f-b3b9-400f-b5fa-28bebdede50d"
-#define FARTLEK_YELLOW [UIColor colorWithRed:237.0/255.0 green:246.0/255.0 blue:63.0/255.0 alpha:1.0]
+#define FARTLEK_YELLOW [UIColor colorWithRed:250.0/255.0 green:222.0/255.0 blue:55.0/255.0 alpha:1.0]
 #define BESTLY_KEY @"2a0a390078d4020f5ccaa90cc49de3df"
 #define FLURRY_KEY @"6G95BRMZ3K5C2GBPVFD3"
 
