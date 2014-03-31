@@ -279,6 +279,14 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
         [rightButton addTarget:bareChartView action:@selector(userChangedProfileRight) forControlEvents:UIControlEventTouchUpInside];
         [rightButton sizeToFit];
         [rightButton setFrame:CGRectMake(320-rightButton.frame.size.width, bareChartView.frame.size.height/2.0, 20, 20)];
+        
+        UISwipeGestureRecognizer *leftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:bareChartView action:@selector(userChangedProfileRight)];
+        [leftGestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
+        UISwipeGestureRecognizer *rightGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:bareChartView action:@selector(userChangedProfileLeft)];
+        [rightGestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+        [bareChartView addGestureRecognizer:rightGestureRecognizer];
+        [bareChartView addGestureRecognizer:leftGestureRecognizer];
+
         [bareChartView addSubview:leftButton];
         [bareChartView addSubview:rightButton];
     }
