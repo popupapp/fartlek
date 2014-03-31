@@ -17,7 +17,7 @@
 
 static RunManager *g_runManager = nil;
 
-@interface RunManager () <AVSpeechSynthesizerDelegate>
+@interface RunManager () <AVSpeechSynthesizerDelegate, FartlekChartDelegate>
 @property (strong, nonatomic) NSArray *orderedLapsForProfile;
 @property (assign, nonatomic) int currentLapNumber;
 @property (assign, nonatomic) int currentLapSecond;
@@ -168,18 +168,23 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
     }
 }
 
-- (FartlekChartView*)chartViewForProfile
+- (FartlekChartView*)chartViewForProfileCanEdit:(BOOL)canEdit
 {
     if (!self.currentProfile) {
         NSLog(@"!self.currentProfile");
     }
     FartlekChartView *bareChartView = [[FartlekChartView alloc] initWithFrame:CGRectMake(0, 324, 320, 155)];
+    bareChartView.delegate = self;
     bareChartView.backgroundColor = [UIColor whiteColor];
     
     UIView *hView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
     hView.backgroundColor = [UIColor whiteColor];
     UILabel *headerLabel = [UILabel new];
-    headerLabel.text = @"Your Run";
+    NSString *runTitle = @"Your Run";
+    if ([self.currentProfile.profileName length] > 0) {
+        runTitle= [NSString stringWithFormat:@"%@", self.currentProfile.profileName];
+    }
+    headerLabel.text = runTitle;
     [headerLabel sizeToFit];
     [headerLabel setFrame:CGRectMake(320.0/2.0 - headerLabel.frame.size.width/2.0, 0, headerLabel.frame.size.width, headerLabel.frame.size.height)];
     [hView addSubview:headerLabel];
@@ -208,10 +213,13 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
     [bareChartView addSubview:fView];
     
     CGFloat totalDurationInMinutes = [self.currentProfile.duration floatValue];
+    NSLog(@"totalDurationInMinutes:%f", totalDurationInMinutes);
     CGFloat pointsPerMinute = bareChartView.frame.size.width / totalDurationInMinutes;
+    NSLog(@"pointsPerMinute:%f", pointsPerMinute);
     CGFloat xPos = 0.f;
     NSArray *lapsForProfile = [self.currentProfile.laps allObjects];
     self.orderedLapsForProfile = [[DataManager sharedManager] orderedLapsByLapNumber:lapsForProfile];
+    NSLog(@"number of laps: %d", [lapsForProfile count]);
     CGFloat oldIntensity = 0.f;
     CGFloat previousIntensity = 0.f;
     CGFloat previousDuration = 0.f;
@@ -237,6 +245,7 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
         previousIntensity = currentIntensity;
         
         CGFloat barWidth = ([thisLap.lapTime floatValue] / 60.0) * pointsPerMinute;
+        NSLog(@"%d->lapNumber:%d, barWidth:%f, intensity:%d, duration:%d", i, [thisLap.lapNumber intValue], barWidth, [thisLap.lapIntensity intValue], [thisLap.lapTime intValue]);
         CGFloat barHeight = [thisLap.lapIntensity floatValue] * 30.f;
         UIView *lapBarView = [[UIView alloc] initWithFrame:CGRectMake(xPos,
                                                                       bareChartView.frame.size.height - barHeight,
@@ -257,6 +266,21 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
             [newIntensityLabel sizeToFit];
         }
         previousDuration = currentDuration;
+    }
+    
+    if (canEdit) {
+        UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [leftButton setTitle:@"<" forState:UIControlStateNormal];
+        [leftButton addTarget:bareChartView action:@selector(userChangedProfileLeft) forControlEvents:UIControlEventTouchUpInside];
+        [leftButton sizeToFit];
+        [leftButton setFrame:CGRectMake(5, bareChartView.frame.size.height/2.0, 20, 20)];
+        UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [rightButton setTitle:@">" forState:UIControlStateNormal];
+        [rightButton addTarget:bareChartView action:@selector(userChangedProfileRight) forControlEvents:UIControlEventTouchUpInside];
+        [rightButton sizeToFit];
+        [rightButton setFrame:CGRectMake(320-rightButton.frame.size.width, bareChartView.frame.size.height/2.0, 20, 20)];
+        [bareChartView addSubview:leftButton];
+        [bareChartView addSubview:rightButton];
     }
     
     return bareChartView;

@@ -18,8 +18,9 @@
 #import "NSObject+Conversions.h"
 @import QuartzCore;
 #import "RunManager.h"
+#import "FartlekChartView.h"
 
-@interface SetupFartlekViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface SetupFartlekViewController () <UIPickerViewDataSource, UIPickerViewDelegate, FartlekChartDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *averagePaceField;
 @property (weak, nonatomic) IBOutlet UITextField *workoutLengthField;
 @property (weak, nonatomic) IBOutlet UITextField *workoutIntensityField;
@@ -39,6 +40,8 @@
 
 @property (strong, nonatomic) NSArray *orderedLapsForProfile;
 @property (strong, nonatomic) UIPinchGestureRecognizer *twoFingerPinch;
+
+@property (strong, nonatomic) FartlekChartView *chartView;
 @end
 
 @implementation SetupFartlekViewController
@@ -60,7 +63,6 @@
     [self setupAveragePacePickerView];
     [self setupWorkoutLengthPickerView];
     [self setupWorkoutIntensityPickerView];
-    [self setupChart];
     [self setupSummaryText];
     
     [self.averagePaceField becomeFirstResponder];
@@ -70,13 +72,58 @@
 {
     [super viewWillAppear:animated];
     [[RunManager sharedManager] resetManager];
+    [self setupChart];
 }
 
 - (void)setupChart
 {
-    UIView *chartView = [[RunManager sharedManager] chartViewForProfile];
-    [self.view addSubview:chartView];
+    self.chartView = [[RunManager sharedManager] chartViewForProfileCanEdit:YES];
+    self.chartView.delegate = self;
+    [self.view addSubview:self.chartView];
 }
+
+#pragma mark - FartlekChartDelegate
+
+- (void)didChangeProfileLeft
+{
+    int currentInt = [[[[RunManager sharedManager] currentProfile] versionNumber] intValue];
+    int nextInt = currentInt - 1;
+    [self changeProfile:nextInt];
+}
+
+- (void)didChangeProfileRight
+{
+    int currentInt = [[[[RunManager sharedManager] currentProfile] versionNumber] intValue];
+    int nextInt = currentInt + 1;
+    [self changeProfile:nextInt];
+}
+
+- (void)changeProfile:(int)nextProfileVersionNumber
+{
+    int profsCount = [[DataManager sharedManager] countOfProfilesWithDuration:self.currentProfile.duration
+                                                                 andIntensity:self.currentProfile.intensity];
+    Profile *prof = [[DataManager sharedManager] findProfileWithDuration:self.currentProfile.duration
+                                                            andIntensity:self.currentProfile.intensity
+                                                        andVersionNumber:@(nextProfileVersionNumber)];
+    if (prof) {
+        [[RunManager sharedManager] resetManager];
+        [[RunManager sharedManager] setCurrentProfile:prof];
+        NSLog(@"NEW PROFILE:(%@) %@", prof.profileName, prof);
+        for (Lap *lap in prof.laps) {
+            NSLog(@"lap:%@", lap);
+        }
+    } else {
+        NSLog(@"NO NEW PROFILE");
+    }
+
+    [self.chartView removeFromSuperview];
+    self.chartView = nil;
+    self.chartView = [[RunManager sharedManager] chartViewForProfileCanEdit:YES];
+    self.chartView.delegate = self;
+    [self.view addSubview:self.chartView];
+}
+
+#pragma mark - Setup Picker Views
 
 - (void)setupAveragePacePickerView
 {
@@ -161,12 +208,14 @@
 {
     NSDictionary *profileProperties = @{ @"duration" : self.workoutLengthField.text, @"intensity" : self.workoutIntensityField.text };
     [Bestly trackEvent:@"START ACTION" withProperties:profileProperties];
-    if (self.currentProfile) {
+    if ([[RunManager sharedManager] currentProfile]) {
         [self performSegueWithIdentifier:@"workoutSegue" sender:profileProperties];
     } else {
         [[[UIAlertView alloc] initWithTitle:@"Please Select a Profile" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
     }
 }
+
+#pragma NETWORK ACTIVITY
 
 - (IBAction)fetchAction:(id)sender
 {
@@ -182,33 +231,38 @@
     NSString *profileIntensity = self.workoutIntensityField.text;
     int intensityIndex = [self.intensityPickerArray indexOfObject:profileIntensity]+1;
     NSString *profileDuration = self.workoutLengthField.text;
-    NSString *getURL = [NSString stringWithFormat:@"http://fartlek.herokuapp.com/profiles/%d/%@.json", intensityIndex, profileDuration];
+    NSString *getURL = [NSString stringWithFormat:@"http://fartlek.herokuapp.com/profiles/all/%d/%@.json", intensityIndex, profileDuration];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:getURL
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             NSLog(@"JSON: %@", responseObject[@"laps"]);
-             NSArray *lapsArr = (NSArray*)responseObject[@"laps"];
-             NSDictionary *profileDict = (NSDictionary*)responseObject[@"profile"];
-             if ([lapsArr count] > 0) {
-                 NSMutableArray *addedLaps = [NSMutableArray array];
-                 [Lap createLapsWithGetProfileJSONFromServer:lapsArr
-                                             withProfileJSON:profileDict
-                                                  appendedTo:addedLaps
-                                                     success:
-                  ^{
-                      BOOL didAddLaps = NO;
-                      if ([addedLaps count] > 0) {
-                          didAddLaps = YES;
-                      }
-                      NSLog(@"PROFILE LAPS BUILD SUCCESS");
-                      self.currentProfile = [[DataManager sharedManager] findCurrentProfile];
-                      NSLog(@"setting currentProfile to %@", self.currentProfile);
-                      [[RunManager sharedManager] setCurrentProfile:self.currentProfile];
-                      [self setupChart];
-                  } failure:^(NSError *error) {
-                      NSLog(@"PROFILE LAPS FAIL: %@", error.localizedDescription);
-                  }];
+//             NSLog(@"JSON: %@", responseObject[@"profiles"]);
+             NSArray *profilesArray = (NSArray*)responseObject[@"profiles"];
+             if ([profilesArray count] > 0) {
+                 for (NSDictionary *profileAndLapsDict in profilesArray) {
+                     NSArray *lapsArr = (NSArray*)profileAndLapsDict[@"laps"];
+                     NSDictionary *profileDict = (NSDictionary*)profileAndLapsDict[@"profile"];
+                     NSMutableArray *addedLaps = [NSMutableArray array];
+                     [Lap createLapsWithGetProfileJSONFromServer:lapsArr
+                                                 withProfileJSON:profileDict
+                                                      appendedTo:addedLaps
+                                                         success:
+                      ^{
+                          BOOL didAddLaps = NO;
+                          if ([addedLaps count] > 0) {
+                              didAddLaps = YES;
+                          }
+                          NSLog(@"PROFILE LAPS BUILD SUCCESS");
+                          if (!self.currentProfile) {
+                              self.currentProfile = [[DataManager sharedManager] findCurrentProfile];
+                              NSLog(@"setting currentProfile to %@", self.currentProfile);
+                              [[RunManager sharedManager] setCurrentProfile:self.currentProfile];
+                              [self setupChart];
+                          }
+                      } failure:^(NSError *error) {
+                          NSLog(@"PROFILE LAPS FAIL: %@", error.localizedDescription);
+                      }];
+                 }
              }
          }   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"Error: %@", error);

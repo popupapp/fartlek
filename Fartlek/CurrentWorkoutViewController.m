@@ -136,7 +136,7 @@
 
 - (void)setupChart
 {
-    self.bareChartView = [[RunManager sharedManager] chartViewForProfile];
+    self.bareChartView = [[RunManager sharedManager] chartViewForProfileCanEdit:NO];
     [self.view addSubview:self.bareChartView];
 }
 

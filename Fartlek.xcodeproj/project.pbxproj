@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8810719FC6CC4ADB9C607D95 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B0F5FC528C449B8826586F /* libPods.a */; };
-		963E438418E0BDB40073EFB8 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 963E438318E0BDB40073EFB8 /* Profile.m */; };
 		963E438718E2121A0073EFB8 /* RunManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 963E438618E2121A0073EFB8 /* RunManager.m */; };
 		963E438A18E216D90073EFB8 /* CurrentWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963E438918E216D90073EFB8 /* CurrentWorkoutViewController.m */; };
 		968BBB3218DBE01700766D59 /* CurrentRunCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB3118DBE01700766D59 /* CurrentRunCell.m */; };
@@ -24,6 +23,7 @@
 		968BBB6218DCF0A200766D59 /* Profile+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB6118DCF0A200766D59 /* Profile+Database.m */; };
 		968BBB6518DCF0B100766D59 /* Run+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB6418DCF0B100766D59 /* Run+Database.m */; };
 		968BBB6818DCF0BE00766D59 /* Lap+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB6718DCF0BE00766D59 /* Lap+Database.m */; };
+		9693DA5A18E9F45E00174175 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9693DA5918E9F45E00174175 /* Profile.m */; };
 		96A98EA818DA079700E55F1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA718DA079700E55F1D /* Foundation.framework */; };
 		96A98EAA18DA079700E55F1D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA918DA079700E55F1D /* CoreGraphics.framework */; };
 		96A98EAC18DA079700E55F1D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EAB18DA079700E55F1D /* UIKit.framework */; };
@@ -59,8 +59,6 @@
 /* Begin PBXFileReference section */
 		12542F4918664AC5B3573EB0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		27B0F5FC528C449B8826586F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		963E438218E0BDB40073EFB8 /* Profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Profile.h; sourceTree = "<group>"; };
-		963E438318E0BDB40073EFB8 /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
 		963E438518E2121A0073EFB8 /* RunManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunManager.h; sourceTree = "<group>"; };
 		963E438618E2121A0073EFB8 /* RunManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunManager.m; sourceTree = "<group>"; };
 		963E438818E216D90073EFB8 /* CurrentWorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentWorkoutViewController.h; sourceTree = "<group>"; };
@@ -90,6 +88,8 @@
 		968BBB6418DCF0B100766D59 /* Run+Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Run+Database.m"; sourceTree = "<group>"; };
 		968BBB6618DCF0BE00766D59 /* Lap+Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Lap+Database.h"; sourceTree = "<group>"; };
 		968BBB6718DCF0BE00766D59 /* Lap+Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Lap+Database.m"; sourceTree = "<group>"; };
+		9693DA5818E9F45E00174175 /* Profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Profile.h; sourceTree = "<group>"; };
+		9693DA5918E9F45E00174175 /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
 		96A98EA418DA079700E55F1D /* Fartlek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fartlek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A98EA718DA079700E55F1D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		96A98EA918DA079700E55F1D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -247,8 +247,8 @@
 		96A98EE118DA07C800E55F1D /* models */ = {
 			isa = PBXGroup;
 			children = (
-				963E438218E0BDB40073EFB8 /* Profile.h */,
-				963E438318E0BDB40073EFB8 /* Profile.m */,
+				9693DA5818E9F45E00174175 /* Profile.h */,
+				9693DA5918E9F45E00174175 /* Profile.m */,
 				968BBB5D18DCF08B00766D59 /* User+Database.h */,
 				968BBB5E18DCF08B00766D59 /* User+Database.m */,
 				968BBB6018DCF0A200766D59 /* Profile+Database.h */,
@@ -454,10 +454,10 @@
 				968BBB5F18DCF08B00766D59 /* User+Database.m in Sources */,
 				968BBB6218DCF0A200766D59 /* Profile+Database.m in Sources */,
 				968BBB5918DCEBFF00766D59 /* NSDate+Formatting.m in Sources */,
-				963E438418E0BDB40073EFB8 /* Profile.m in Sources */,
 				96A98EB818DA079700E55F1D /* AppDelegate.m in Sources */,
 				963E438A18E216D90073EFB8 /* CurrentWorkoutViewController.m in Sources */,
 				963E438718E2121A0073EFB8 /* RunManager.m in Sources */,
+				9693DA5A18E9F45E00174175 /* Profile.m in Sources */,
 				968BBB4D18DCE8B400766D59 /* Run.m in Sources */,
 				968BBB6518DCF0B100766D59 /* Run+Database.m in Sources */,
 				968BBB4718DCE8B400766D59 /* User.m in Sources */,

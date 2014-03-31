@@ -40,6 +40,13 @@
 - (Run*)createRun;
 - (NSArray*)findAllRuns;
 
+- (Profile *)findProfileWithDuration:(NSNumber*)profileDuration
+                        andIntensity:(NSNumber*)profileIntensity
+                    andVersionNumber:(NSNumber*)profileVersionNumber;
+- (Profile *)findProfileWithDuration:(NSNumber*)profileDuration
+                        andIntensity:(NSNumber*)profileIntensity;
+- (int)countOfProfilesWithDuration:(NSNumber*)duration
+                      andIntensity:(NSNumber*)profileIntensity;
 - (Profile*)findProfileByID:(NSString *)profileID;
 - (Profile*)findCurrentProfile;
 - (Profile*)createProfile;

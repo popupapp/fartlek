@@ -29,7 +29,7 @@
 - (void)pauseRun;
 - (float)progressOfRun;
 - (int)secondsLeftInRun;
-- (FartlekChartView*)chartViewForProfile;
+- (FartlekChartView*)chartViewForProfileCanEdit:(BOOL)canEdit;
 
 @property (assign, nonatomic) BOOL isPaused;
 @property (assign, nonatomic) int currentLapSecondsTotal;

@@ -83,6 +83,63 @@ static DataManager *g_dataManager = nil;
     }
 }
 
+- (Profile *)findProfileWithDuration:(NSNumber*)profileDuration
+                        andIntensity:(NSNumber*)profileIntensity
+{
+    NSError *error = nil;
+    NSArray *senders = [self.managedObjectContext executeFetchRequest:[self requestForProfileWithDuration:profileDuration
+                                                                                             andIntensity:profileIntensity]
+                                                                error:&error];
+    if (error) {
+        [self handleError:error];
+        return nil;
+    }
+    else {
+        if ([senders count] > 0) {
+            return [senders objectAtIndex:0];
+        } else {
+            return nil;
+        }
+    }
+}
+
+- (Profile *)findProfileWithDuration:(NSNumber*)profileDuration
+                        andIntensity:(NSNumber*)profileIntensity
+                    andVersionNumber:(NSNumber*)profileVersionNumber
+{
+    NSError *error = nil;
+    NSArray *senders = [self.managedObjectContext executeFetchRequest:[self requestForProfileWithDuration:profileDuration
+                                                                                             andIntensity:profileIntensity
+                                                                                         andVersionNumber:profileVersionNumber]
+                                                                error:&error];
+    if (error) {
+        [self handleError:error];
+        return nil;
+    }
+    else {
+        if ([senders count] > 0) {
+            return [senders objectAtIndex:0];
+        } else {
+            return nil;
+        }
+    }
+}
+
+- (int)countOfProfilesWithDuration:(NSNumber*)duration
+                      andIntensity:(NSNumber*)intensity;
+{
+    NSError *error = nil;
+    int profilesCount = [self.managedObjectContext countForFetchRequest:[self requestForProfileWithDuration:duration
+                                                                                               andIntensity:intensity]
+                                                                     error:&error];
+    if (error) {
+        [self handleError:error];
+        return 0;
+    } else {
+        return profilesCount;
+    }
+}
+
 -(NSArray *)findAllUsers
 {
     NSError *error = nil;
@@ -130,10 +187,10 @@ static DataManager *g_dataManager = nil;
 {
     // sort the laps in lapArray by lap.lapNumber
     NSError *error = nil;
-    NSFetchRequest *fetchPred = [NSFetchRequest fetchRequestWithEntityName:@"Lap"];
+//    NSFetchRequest *fetchPred = [NSFetchRequest fetchRequestWithEntityName:@"Lap"];
     NSSortDescriptor *sortByLapNumber = [[NSSortDescriptor alloc] initWithKey:@"lapNumber" ascending:YES];
-    fetchPred.sortDescriptors = @[sortByLapNumber];
-    NSArray *orderedLaps = [self.managedObjectContext executeFetchRequest:fetchPred error:&error];
+//    fetchPred.sortDescriptors = @[sortByLapNumber];
+    NSArray *orderedLaps = [lapArray sortedArrayUsingDescriptors:@[sortByLapNumber]];
     if (error) {
         [self handleError:error];
         return nil;
@@ -294,6 +351,30 @@ static DataManager *g_dataManager = nil;
                         withPredicate:[NSPredicate predicateWithFormat:@"isCurrentProfile == 1"]];
 }
 
+- (NSFetchRequest *)requestForProfileWithDuration:(NSNumber*)profileDuration
+                                     andIntensity:(NSNumber*)profileIntensity
+{
+    NSFetchRequest *fr = [NSFetchRequest fetchRequestWithEntityName:@"Profile"];
+    NSPredicate *p1 = [NSPredicate predicateWithFormat:@"duration == %@", profileDuration];
+    NSPredicate *p2 = [NSPredicate predicateWithFormat:@"intensity == %@", profileIntensity];
+    NSPredicate *cPred = [NSCompoundPredicate andPredicateWithSubpredicates:@[p1, p2]];
+    fr.predicate = cPred;
+    return fr;
+}
+
+- (NSFetchRequest *)requestForProfileWithDuration:(NSNumber*)profileDuration
+                                     andIntensity:(NSNumber*)profileIntensity
+                                 andVersionNumber:(NSNumber*)profileVersionNumber
+{
+    NSFetchRequest *fr = [NSFetchRequest fetchRequestWithEntityName:@"Profile"];
+    NSPredicate *p1 = [NSPredicate predicateWithFormat:@"duration == %@", profileDuration];
+    NSPredicate *p2 = [NSPredicate predicateWithFormat:@"intensity == %@", profileIntensity];
+    NSPredicate *p3 = [NSPredicate predicateWithFormat:@"versionNumber == %@", profileVersionNumber];
+    NSPredicate *cPred = [NSCompoundPredicate andPredicateWithSubpredicates:@[p1, p2, p3]];
+    fr.predicate = cPred;
+    return fr;
+}
+
 
 #pragma mark - CoreData Stack Dynamic Properties
 
@@ -330,9 +411,19 @@ static DataManager *g_dataManager = nil;
 	
 	NSError *error;
     
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:[self persistentStoreOptions] error:&error]) {
-        NSLog(@"PERSISTENT STORE COORDINATOR ERROR:%@", error);
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                   configuration:nil
+                                                             URL:storeUrl
+                                                         options:[self persistentStoreOptions]
+                                                           error:&error]) {
+        // better error handling
+        if ([error code] == NSMigrationMissingSourceModelError) {
+            NSLog(@"Migration failed. Try deleting %@", storeUrl);
+        } else {
+            NSLog(@"Unknown persistent store coordinator error:%@", error);
+        }
+//        abort();
     }
 	
     return _persistentStoreCoordinator;

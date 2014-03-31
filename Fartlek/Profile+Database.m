@@ -85,16 +85,20 @@
 //        intensity = 1;
 //        name = "Low 40 A";
 //        "updated_at" = "2014-03-23T22:55:11.926Z";
+//        version_number = 1;
 //    }
     self.profileID = [json[@"id"] toString];
     if (json[@"duration"] && ![json[@"duration"] isKindOfClass:[NSNull class]]) {
         self.duration = json[@"duration"];
     }
     if (json[@"intensity"] && ![json[@"intensity"] isKindOfClass:[NSNull class]]) {
-        self.intensity = [json[@"intensity"] toString];
+        self.intensity = json[@"intensity"];
     }
     if (json[@"name"] && ![json[@"name"] isKindOfClass:[NSNull class]]) {
         self.profileName = json[@"name"];
+    }
+    if (json[@"version_number"] && ![json[@"version_number"] isKindOfClass:[NSNull class]]) {
+        self.versionNumber = json[@"version_number"];
     }
     
     [self saveSuccess: ^{

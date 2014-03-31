@@ -2,7 +2,7 @@
 //  Profile.h
 //  Fartlek
 //
-//  Created by Jason Humphries on 3/24/14.
+//  Created by Jason Humphries on 3/31/14.
 //  Copyright (c) 2014 PopUp Inc. All rights reserved.
 //
 
@@ -14,10 +14,11 @@
 @interface Profile : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * duration;
-@property (nonatomic, retain) NSString * intensity;
+@property (nonatomic, retain) NSNumber * intensity;
+@property (nonatomic, retain) NSNumber * isCurrentProfile;
 @property (nonatomic, retain) NSString * profileID;
 @property (nonatomic, retain) NSString * profileName;
-@property (nonatomic, retain) NSNumber * isCurrentProfile;
+@property (nonatomic, retain) NSNumber * versionNumber;
 @property (nonatomic, retain) NSSet *laps;
 @property (nonatomic, retain) NSSet *runs;
 @end

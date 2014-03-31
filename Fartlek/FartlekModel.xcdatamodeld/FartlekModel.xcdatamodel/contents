@@ -10,10 +10,11 @@
     </entity>
     <entity name="Profile" representedClassName="Profile" syncable="YES">
         <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="intensity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="intensity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="isCurrentProfile" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="profileID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="versionNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="laps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Lap" inverseName="profile" inverseEntity="Lap" syncable="YES"/>
         <relationship name="runs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Run" inverseName="profile" inverseEntity="Run" syncable="YES"/>
     </entity>
@@ -31,7 +32,7 @@
     </entity>
     <elements>
         <element name="Lap" positionX="-198" positionY="72" width="128" height="133"/>
-        <element name="Profile" positionX="-2" positionY="62" width="128" height="148"/>
+        <element name="Profile" positionX="-2" positionY="62" width="128" height="163"/>
         <element name="Run" positionX="198" positionY="80" width="128" height="88"/>
         <element name="User" positionX="396" positionY="27" width="128" height="118"/>
     </elements>
