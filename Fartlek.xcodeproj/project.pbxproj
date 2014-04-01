@@ -25,6 +25,13 @@
 		968BBB6818DCF0BE00766D59 /* Lap+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB6718DCF0BE00766D59 /* Lap+Database.m */; };
 		9693DA5A18E9F45E00174175 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9693DA5918E9F45E00174175 /* Profile.m */; };
 		9693DA5D18EA457300174175 /* SetPaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9693DA5C18EA457300174175 /* SetPaceViewController.m */; };
+		9693DA6518EB40CC00174175 /* JosefinSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9693DA5F18EB40CC00174175 /* JosefinSans-Bold.ttf */; };
+		9693DA6618EB40CC00174175 /* JosefinSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9693DA6018EB40CC00174175 /* JosefinSans-BoldItalic.ttf */; };
+		9693DA6718EB40CC00174175 /* JosefinSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9693DA6118EB40CC00174175 /* JosefinSans-Italic.ttf */; };
+		9693DA6818EB40CC00174175 /* JosefinSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9693DA6218EB40CC00174175 /* JosefinSans-Light.ttf */; };
+		9693DA6918EB40CC00174175 /* JosefinSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9693DA6318EB40CC00174175 /* JosefinSans-LightItalic.ttf */; };
+		9693DA6A18EB40CC00174175 /* JosefinSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9693DA6418EB40CC00174175 /* JosefinSans-Regular.ttf */; };
+		9693DA6D18EB4DF200174175 /* ChooseRunViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9693DA6C18EB4DF200174175 /* ChooseRunViewController.m */; };
 		96A98EA818DA079700E55F1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA718DA079700E55F1D /* Foundation.framework */; };
 		96A98EAA18DA079700E55F1D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA918DA079700E55F1D /* CoreGraphics.framework */; };
 		96A98EAC18DA079700E55F1D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EAB18DA079700E55F1D /* UIKit.framework */; };
@@ -93,6 +100,14 @@
 		9693DA5918E9F45E00174175 /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
 		9693DA5B18EA457300174175 /* SetPaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPaceViewController.h; sourceTree = "<group>"; };
 		9693DA5C18EA457300174175 /* SetPaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPaceViewController.m; sourceTree = "<group>"; };
+		9693DA5F18EB40CC00174175 /* JosefinSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JosefinSans-Bold.ttf"; sourceTree = "<group>"; };
+		9693DA6018EB40CC00174175 /* JosefinSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JosefinSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		9693DA6118EB40CC00174175 /* JosefinSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JosefinSans-Italic.ttf"; sourceTree = "<group>"; };
+		9693DA6218EB40CC00174175 /* JosefinSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JosefinSans-Light.ttf"; sourceTree = "<group>"; };
+		9693DA6318EB40CC00174175 /* JosefinSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JosefinSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		9693DA6418EB40CC00174175 /* JosefinSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JosefinSans-Regular.ttf"; sourceTree = "<group>"; };
+		9693DA6B18EB4DF200174175 /* ChooseRunViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseRunViewController.h; sourceTree = "<group>"; };
+		9693DA6C18EB4DF200174175 /* ChooseRunViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseRunViewController.m; sourceTree = "<group>"; };
 		96A98EA418DA079700E55F1D /* Fartlek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fartlek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A98EA718DA079700E55F1D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		96A98EA918DA079700E55F1D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -158,6 +173,19 @@
 			name = external;
 			sourceTree = "<group>";
 		};
+		9693DA5E18EB40A800174175 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9693DA5F18EB40CC00174175 /* JosefinSans-Bold.ttf */,
+				9693DA6018EB40CC00174175 /* JosefinSans-BoldItalic.ttf */,
+				9693DA6118EB40CC00174175 /* JosefinSans-Italic.ttf */,
+				9693DA6218EB40CC00174175 /* JosefinSans-Light.ttf */,
+				9693DA6318EB40CC00174175 /* JosefinSans-LightItalic.ttf */,
+				9693DA6418EB40CC00174175 /* JosefinSans-Regular.ttf */,
+			);
+			name = fonts;
+			sourceTree = "<group>";
+		};
 		96A98E9B18DA079700E55F1D = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +236,7 @@
 		96A98EAE18DA079700E55F1D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9693DA5E18EB40A800174175 /* fonts */,
 				96A98EBF18DA079700E55F1D /* Images.xcassets */,
 				96A98EAF18DA079700E55F1D /* Fartlek-Info.plist */,
 				96A98EB018DA079700E55F1D /* InfoPlist.strings */,
@@ -250,6 +279,8 @@
 		96A98EE118DA07C800E55F1D /* models */ = {
 			isa = PBXGroup;
 			children = (
+				9693DA6B18EB4DF200174175 /* ChooseRunViewController.h */,
+				9693DA6C18EB4DF200174175 /* ChooseRunViewController.m */,
 				9693DA5818E9F45E00174175 /* Profile.h */,
 				9693DA5918E9F45E00174175 /* Profile.m */,
 				968BBB5D18DCF08B00766D59 /* User+Database.h */,
@@ -396,8 +427,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				96A98EC018DA079700E55F1D /* Images.xcassets in Resources */,
+				9693DA6518EB40CC00174175 /* JosefinSans-Bold.ttf in Resources */,
+				9693DA6718EB40CC00174175 /* JosefinSans-Italic.ttf in Resources */,
+				9693DA6618EB40CC00174175 /* JosefinSans-BoldItalic.ttf in Resources */,
 				96A98EB218DA079700E55F1D /* InfoPlist.strings in Resources */,
+				9693DA6918EB40CC00174175 /* JosefinSans-LightItalic.ttf in Resources */,
 				96A98EBB18DA079700E55F1D /* Main.storyboard in Resources */,
+				9693DA6A18EB40CC00174175 /* JosefinSans-Regular.ttf in Resources */,
+				9693DA6818EB40CC00174175 /* JosefinSans-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,6 +510,7 @@
 				968BBB6818DCF0BE00766D59 /* Lap+Database.m in Sources */,
 				9693DA5D18EA457300174175 /* SetPaceViewController.m in Sources */,
 				96A98EF518DA219100E55F1D /* HistoryViewController.m in Sources */,
+				9693DA6D18EB4DF200174175 /* ChooseRunViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

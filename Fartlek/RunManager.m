@@ -179,12 +179,12 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
     if (!self.currentProfile) {
         NSLog(@"!self.currentProfile");
     }
-    FartlekChartView *bareChartView = [[FartlekChartView alloc] initWithFrame:CGRectMake(0, 324, 320, 155)];
+    FartlekChartView *bareChartView = [[FartlekChartView alloc] initWithFrame:CGRectMake(56, 150, 210, 284)]; //56, 150, 210, 284 //0, 324, 320, 155
     bareChartView.delegate = self;
-    bareChartView.backgroundColor = [UIColor whiteColor];
+    bareChartView.backgroundColor = [UIColor clearColor];
     
-    UIView *hView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
-    hView.backgroundColor = [UIColor whiteColor];
+    UIView *hView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, bareChartView.frame.size.width, 20)];
+    hView.backgroundColor = [UIColor clearColor];
     UILabel *headerLabel = [UILabel new];
     NSString *runTitle = @"Your Run";
     if ([self.currentProfile.profileName length] > 0) {
@@ -192,11 +192,11 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
     }
     headerLabel.text = runTitle;
     [headerLabel sizeToFit];
-    [headerLabel setFrame:CGRectMake(320.0/2.0 - headerLabel.frame.size.width/2.0, 0, headerLabel.frame.size.width, headerLabel.frame.size.height)];
+    [headerLabel setFrame:CGRectMake(bareChartView.frame.size.width/2.0 - headerLabel.frame.size.width/2.0, 0, headerLabel.frame.size.width, headerLabel.frame.size.height)];
     [hView addSubview:headerLabel];
     [bareChartView addSubview:hView];
     
-    UIView *fView = [[UIView alloc] initWithFrame:CGRectMake(0, 155+10, 320, 20)];
+    UIView *fView = [[UIView alloc] initWithFrame:CGRectMake(0, 155+10, bareChartView.frame.size.width, 20)];
     bareChartView.progressView = nil;
     bareChartView.progressView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 20)];
     bareChartView.progressView.backgroundColor = [UIColor greenColor];
@@ -252,13 +252,13 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
         
         CGFloat barWidth = ([thisLap.lapTime floatValue] / 60.0) * pointsPerMinute;
         NSLog(@"%d->lapNumber:%d, barWidth:%f, intensity:%d, duration:%d", i, [thisLap.lapNumber intValue], barWidth, [thisLap.lapIntensity intValue], [thisLap.lapTime intValue]);
-        CGFloat barHeight = [thisLap.lapIntensity floatValue] * 30.f;
+        CGFloat barHeight = [thisLap.lapIntensity floatValue] * 20.f;
         UIView *lapBarView = [[UIView alloc] initWithFrame:CGRectMake(xPos,
-                                                                      bareChartView.frame.size.height - barHeight,
+                                                                      bareChartView.frame.size.height - barHeight - 50.0,
                                                                       barWidth,
-                                                                      barHeight + 10.f)];
+                                                                      barHeight + 20.f)];
         xPos += barWidth;
-        lapBarView.backgroundColor = [UIColor blueColor];
+        lapBarView.backgroundColor = [UIColor whiteColor];
         [bareChartView addSubview:lapBarView];
         
         if (intensityDidIncrease) {
@@ -284,7 +284,7 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
         [rightButton setTitle:@">" forState:UIControlStateNormal];
         [rightButton addTarget:bareChartView action:@selector(userChangedProfileRight) forControlEvents:UIControlEventTouchUpInside];
         [rightButton sizeToFit];
-        [rightButton setFrame:CGRectMake(320-rightButton.frame.size.width, bareChartView.frame.size.height/2.0, 20, 20)];
+        [rightButton setFrame:CGRectMake(bareChartView.frame.size.width-rightButton.frame.size.width, bareChartView.frame.size.height/2.0, 20, 20)];
         
         UISwipeGestureRecognizer *leftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:bareChartView action:@selector(userChangedProfileRight)];
         [leftGestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];

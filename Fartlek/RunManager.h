@@ -34,6 +34,8 @@
 
 @property (strong, nonatomic) NSNumber *userPaceMinutes;
 @property (strong, nonatomic) NSNumber *userPaceSeconds;
+@property (strong, nonatomic) NSNumber *userIntensity;
+@property (strong, nonatomic) NSNumber *userDuration;
 
 @property (assign, nonatomic) BOOL isPaused;
 @property (assign, nonatomic) int currentLapSecondsTotal;

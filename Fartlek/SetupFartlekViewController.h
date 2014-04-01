@@ -12,6 +12,4 @@
 
 @interface SetupFartlekViewController : UIViewController
 
-@property (strong, nonatomic) Profile *currentProfile;
-
 @end

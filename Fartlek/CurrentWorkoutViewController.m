@@ -37,16 +37,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.translucent = YES;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
                                                  forBarPosition:UIBarPositionAny
                                                      barMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.backgroundColor = FARTLEK_YELLOW;
+//    self.navigationController.navigationBar.backgroundColor = FARTLEK_YELLOW;
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    self.navigationController.navigationBar.barTintColor = FARTLEK_YELLOW;
-    self.navigationController.navigationBar.tintColor = [UIColor redColor];
-    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gotham-Book" size:20.0], NSFontAttributeName, nil];
-    self.view.backgroundColor = FARTLEK_YELLOW;
+//    self.navigationController.navigationBar.barTintColor = FARTLEK_YELLOW;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gotham-Book" size:20.0], NSFontAttributeName, nil];
+//    self.view.backgroundColor = FARTLEK_YELLOW;
     
     [self registerForAudioNotifications];
     [self setupAudioSession];

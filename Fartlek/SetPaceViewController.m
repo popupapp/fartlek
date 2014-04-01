@@ -10,7 +10,11 @@
 #import "RunManager.h"
 
 @interface SetPaceViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
-@property (weak, nonatomic) IBOutlet UILabel *helloLabel;
+@property (weak, nonatomic) IBOutlet UILabel *upAndRunningLabel;
+@property (weak, nonatomic) IBOutlet UILabel *comfortablePaceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *minPerMileLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tapToEditLabel;
+@property (weak, nonatomic) IBOutlet UIButton *startButton;
 @end
 
 @implementation SetPaceViewController
@@ -26,9 +30,21 @@
     self.navigationController.navigationBar.backgroundColor = FARTLEK_YELLOW;
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     self.navigationController.navigationBar.barTintColor = FARTLEK_YELLOW;
-    self.navigationController.navigationBar.tintColor = [UIColor redColor];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gotham-Book" size:20.0], NSFontAttributeName, nil];
     self.view.backgroundColor = FARTLEK_YELLOW;
+    
+    UIFont *joseFontBoldItalic18 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:18.f];
+    UIFont *joseFontBoldItalic22 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:22.f];
+    UIFont *joseFontBoldItalic24 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:24.f];
+    UIFont *joseFontBoldItalic20 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:20.f];
+    UIFont *joseFontBoldItalic14 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:14.f];
+    [self.upAndRunningLabel setFont:joseFontBoldItalic18];
+    [self.comfortablePaceLabel setFont:joseFontBoldItalic24];
+    [self.minPerMileLabel setFont:joseFontBoldItalic20];
+    [self.averagePaceField setFont:joseFontBoldItalic24];
+    [self.tapToEditLabel setFont:joseFontBoldItalic14];
+    [self.startButton.titleLabel setFont:joseFontBoldItalic22];
     
     [self setupAveragePacePickerView];
     
@@ -38,17 +54,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    NSString *deviceName = [[UIDevice currentDevice] name];
-    NSRange firstApostropheRange = [deviceName rangeOfString:@"'"];
-    if ([deviceName rangeOfString:@"'"].location != NSNotFound) {
-        NSInteger firstApostropheLocation = firstApostropheRange.location;
-        NSString *userName = [deviceName substringWithRange:NSMakeRange(0, firstApostropheLocation)];
-        NSLog(@"device name: %@", deviceName);
-        NSLog(@"user name: %@", userName);
-        self.helloLabel.text = [NSString stringWithFormat:@"Hello, %@", userName];
-    }
-
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

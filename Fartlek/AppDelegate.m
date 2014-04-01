@@ -32,6 +32,13 @@
     [TestFlight takeOff:TESTFLIGHT_TOKEN];
     [Flurry startSession:FLURRY_KEY];
     
+//    for (NSString *family in [UIFont familyNames]) {
+//        NSLog(@"Family: %@", family);
+//        for (NSString *font in [UIFont fontNamesForFamilyName:family]) {
+//            NSLog(@"  => Font: %@", font);
+//        }
+//    }
+    
     [self continueOrStartLocationUpdating];
 //    if ([launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey]) {
 //        NSLog(@"local notif app did finish launching");

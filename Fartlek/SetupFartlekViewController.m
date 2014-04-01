@@ -24,21 +24,18 @@
 @interface SetupFartlekViewController () <UIPickerViewDataSource, UIPickerViewDelegate, FartlekChartDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *workoutLengthField;
 @property (weak, nonatomic) IBOutlet UITextField *workoutIntensityField;
-@property (weak, nonatomic) IBOutlet UIButton *startButton;
-@property (weak, nonatomic) IBOutlet UILabel *workoutSummaryLabel;
-
 @property (strong, nonatomic) UIPickerView *lengthPickerView;
 @property (strong, nonatomic) UIPickerView *intensityPickerView;
-
 @property (strong, nonatomic) NSArray *lengthPickerArray;
 @property (strong, nonatomic) NSArray *intensityPickerArray;
-
 @property (strong, nonatomic) UIView *bareChartView;
-
-@property (strong, nonatomic) NSArray *orderedLapsForProfile;
 @property (strong, nonatomic) UIPinchGestureRecognizer *twoFingerPinch;
 
-@property (strong, nonatomic) FartlekChartView *chartView;
+@property (weak, nonatomic) IBOutlet UILabel *readyForRunLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pickIntensityLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pickDurationLabel;
+@property (weak, nonatomic) IBOutlet UIButton *startButton;
+
 @end
 
 @implementation SetupFartlekViewController
@@ -46,30 +43,35 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.translucent = YES;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
                                                  forBarPosition:UIBarPositionAny
                                                      barMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.backgroundColor = FARTLEK_YELLOW;
+//    self.navigationController.navigationBar.backgroundColor = FARTLEK_YELLOW;
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    self.navigationController.navigationBar.barTintColor = FARTLEK_YELLOW;
-    self.navigationController.navigationBar.tintColor = [UIColor redColor];
-    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gotham-Book" size:20.0], NSFontAttributeName, nil];
-    self.view.backgroundColor = FARTLEK_YELLOW;
+//    self.navigationController.navigationBar.barTintColor = FARTLEK_YELLOW;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gotham-Book" size:20.0], NSFontAttributeName, nil];
+//    self.view.backgroundColor = FARTLEK_YELLOW;
     
     [self setupWorkoutLengthPickerView];
     [self setupWorkoutIntensityPickerView];
 //    [self setupSummaryText];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:USER_SIGNED_IN_KEY]) {
-        self.workoutSummaryLabel.text = @"";
-    }
-    [[RunManager sharedManager] resetManager];
-    [self setupChart];
+    [[RunManager sharedManager] setUserIntensity:@(1)];
+    [[RunManager sharedManager] setUserDuration:@(30)];
+    
+    UIFont *joseFontBoldItalic18 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:18.f];
+    UIFont *joseFontBoldItalic22 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:22.f];
+    UIFont *joseFontBoldItalic24 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:24.f];
+    
+    [self.readyForRunLabel setFont:joseFontBoldItalic22];
+    [self.pickDurationLabel setFont:joseFontBoldItalic18];
+    [self.pickIntensityLabel setFont:joseFontBoldItalic18];
+    [self.startButton.titleLabel setFont:joseFontBoldItalic24];
+    [self.workoutLengthField setFont:joseFontBoldItalic22];
+    [self.workoutIntensityField setFont:joseFontBoldItalic22];
+    [self.workoutLengthField setTextColor:[UIColor whiteColor]];
+    [self.workoutIntensityField setTextColor:[UIColor whiteColor]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -79,7 +81,7 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:USER_SIGNED_IN_KEY]) {
         // user has "signed in" and entered their run pace
         NSLog(@"WELCOME!");
-        [self setupSummaryText];
+//        [self setupSummaryText];
     } else {
         // user hasn't yet "signed in" and entered their run pace
         [self performSegueWithIdentifier:@"setPaceSegue" sender:nil];
@@ -94,55 +96,6 @@
         SetPaceViewController *svc = (SetPaceViewController*)unwindSegue.sourceViewController;
         NSLog(@"(SetupFartlekVC - setPaceSegue) coming from SetPaceViewController with field text:%@", svc.averagePaceField.text);
     }
-}
-
-- (void)setupChart
-{
-    self.chartView = [[RunManager sharedManager] chartViewForProfileCanEdit:YES];
-    NSLog(@"chartView:%@", self.chartView);
-    self.chartView.delegate = self;
-    [self.view addSubview:self.chartView];
-}
-
-#pragma mark - FartlekChartDelegate
-
-- (void)didChangeProfileLeft
-{
-    int currentInt = [[[[RunManager sharedManager] currentProfile] versionNumber] intValue];
-    int nextInt = currentInt - 1;
-    [self changeProfile:nextInt];
-}
-
-- (void)didChangeProfileRight
-{
-    int currentInt = [[[[RunManager sharedManager] currentProfile] versionNumber] intValue];
-    int nextInt = currentInt + 1;
-    [self changeProfile:nextInt];
-}
-
-- (void)changeProfile:(int)nextProfileVersionNumber
-{
-//    int profsCount = [[DataManager sharedManager] countOfProfilesWithDuration:self.currentProfile.duration
-//                                                                 andIntensity:self.currentProfile.intensity];
-    Profile *prof = [[DataManager sharedManager] findProfileWithDuration:self.currentProfile.duration
-                                                            andIntensity:self.currentProfile.intensity
-                                                        andVersionNumber:@(nextProfileVersionNumber)];
-    if (prof) {
-        [[RunManager sharedManager] resetManager];
-        [[RunManager sharedManager] setCurrentProfile:prof];
-        NSLog(@"NEW PROFILE:(%@) %@", prof.profileName, prof);
-        for (Lap *lap in prof.laps) {
-            NSLog(@"lap:%@", lap);
-        }
-    } else {
-        NSLog(@"NO NEW PROFILE");
-    }
-
-    [self.chartView removeFromSuperview];
-    self.chartView = nil;
-    self.chartView = [[RunManager sharedManager] chartViewForProfileCanEdit:YES];
-    self.chartView.delegate = self;
-    [self.view addSubview:self.chartView];
 }
 
 #pragma mark - Setup Picker Views
@@ -195,83 +148,7 @@
 
 - (IBAction)startAction:(id)sender
 {
-    NSDictionary *profileProperties = @{ @"duration" : self.workoutLengthField.text, @"intensity" : self.workoutIntensityField.text };
-    [Bestly trackEvent:@"START ACTION" withProperties:profileProperties];
-    if ([[RunManager sharedManager] currentProfile]) {
-        [self performSegueWithIdentifier:@"workoutSegue" sender:profileProperties];
-    } else {
-        [[[UIAlertView alloc] initWithTitle:@"Please Select a Profile" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-    }
-}
-
-#pragma NETWORK ACTIVITY
-
-- (IBAction)fetchAction:(id)sender
-{
-    self.currentProfile = nil;
-//    [User deleteAll];
-    [Lap deleteAll];
-    [Profile deleteAll];
-//    [Run deleteAll];
-    for (UIView *v in self.bareChartView.subviews) {
-        [v removeFromSuperview];
-    }
-    [[DataManager sharedManager] markAllProfilesAsNotCurrent];
-    NSString *profileIntensity = self.workoutIntensityField.text;
-    int intensityIndex = [self.intensityPickerArray indexOfObject:profileIntensity]+1;
-    NSString *profileDuration = self.workoutLengthField.text;
-    NSString *getURL = [NSString stringWithFormat:@"http://fartlek.herokuapp.com/profiles/all/%d/%@.json", intensityIndex, profileDuration];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:getURL
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//             NSLog(@"JSON: %@", responseObject[@"profiles"]);
-             NSArray *profilesArray = (NSArray*)responseObject[@"profiles"];
-             if ([profilesArray count] > 0) {
-                 for (NSDictionary *profileAndLapsDict in profilesArray) {
-                     NSArray *lapsArr = (NSArray*)profileAndLapsDict[@"laps"];
-                     NSDictionary *profileDict = (NSDictionary*)profileAndLapsDict[@"profile"];
-                     NSMutableArray *addedLaps = [NSMutableArray array];
-                     [Lap createLapsWithGetProfileJSONFromServer:lapsArr
-                                                 withProfileJSON:profileDict
-                                                      appendedTo:addedLaps
-                                                         success:
-                      ^{
-                          BOOL didAddLaps = NO;
-                          if ([addedLaps count] > 0) {
-                              didAddLaps = YES;
-                          }
-                          NSLog(@"PROFILE LAPS BUILD SUCCESS");
-                          if (!self.currentProfile) {
-                              self.currentProfile = [[DataManager sharedManager] findCurrentProfile];
-                              NSLog(@"setting currentProfile to %@", self.currentProfile);
-                              [[RunManager sharedManager] setCurrentProfile:self.currentProfile];
-                              [self setupChart];
-                          }
-                      } failure:^(NSError *error) {
-                          NSLog(@"PROFILE LAPS FAIL: %@", error.localizedDescription);
-                      }];
-                 }
-             }
-         }   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"Error: %@", error);
-         }];
-}
-
-- (void)setupSummaryText
-{
-    NSInteger lengthRow = [self.lengthPickerView selectedRowInComponent:0];
-    NSInteger intensityRow = [self.intensityPickerView selectedRowInComponent:0];
-    int paceMinuteInt = [[[RunManager sharedManager] userPaceMinutes] intValue];
-    int paceSecondInt = [[[RunManager sharedManager] userPaceSeconds] intValue];
-    float paceTotalInSeconds = paceMinuteInt*60.0 + paceSecondInt;
-    float workoutLengthInSeconds = [self.lengthPickerArray[lengthRow] floatValue]*60.0;
-    float runDistance = workoutLengthInSeconds / paceTotalInSeconds;
-    NSString *runDistanceString = [NSString stringWithFormat:@"%.2f", runDistance];
-    NSString *runtimeString = self.lengthPickerArray[lengthRow];
-    NSString *intensityString = self.intensityPickerArray[intensityRow];
-    NSString *summaryString = [NSString stringWithFormat:@"Your workout should last %@ minutes and cover about %@ miles at %@ intensity", runtimeString, runDistanceString, [intensityString lowercaseString]];
-    self.workoutSummaryLabel.text = summaryString;
+    [self performSegueWithIdentifier:@"chooseRunSegue" sender:nil];
 }
 
 #pragma mark - picker view stuff
@@ -311,10 +188,12 @@
 {
     if ([pickerView isEqual:self.lengthPickerView]) {
         self.workoutLengthField.text = [NSString stringWithFormat:@"%@", self.lengthPickerArray[row]];
+        [[RunManager sharedManager] setUserDuration:self.lengthPickerArray[row]];
     } else if ([pickerView isEqual:self.intensityPickerView]) {
         self.workoutIntensityField.text = [NSString stringWithFormat:@"%@", self.intensityPickerArray[row]];
+        [[RunManager sharedManager] setUserIntensity:@(row+1)];
     }
-    [self setupSummaryText];
+//    [self setupSummaryText];
 }
 
 - (IBAction)deleteBBIAction:(id)sender
