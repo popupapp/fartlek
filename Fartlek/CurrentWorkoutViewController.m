@@ -24,6 +24,9 @@
 @property (strong, nonatomic) FartlekChartView *bareChartView;
 //@property (strong, nonatomic) UIView *progressView;
 @property (weak, nonatomic) IBOutlet UIButton *pauseButton;
+@property (weak, nonatomic) IBOutlet UILabel *lapHardLabel;
+@property (weak, nonatomic) IBOutlet UILabel *intensityHardLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeToNextLabel;
 @end
 
 @implementation CurrentWorkoutViewController
@@ -47,6 +50,14 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gotham-Book" size:20.0], NSFontAttributeName, nil];
 //    self.view.backgroundColor = FARTLEK_YELLOW;
+    
+    UIFont *joseFontBoldItalic22 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:22.f];
+    [self.lapHardLabel setFont:joseFontBoldItalic22];
+    [self.intensityHardLabel setFont:joseFontBoldItalic22];
+    [self.timeToNextLabel setFont:joseFontBoldItalic22];
+    [self.pauseButton.titleLabel setFont:joseFontBoldItalic22];
+    [self.currentLapLabel setFont:joseFontBoldItalic22];
+    [self.currentIntensityLabel setFont:joseFontBoldItalic22];
     
     [self registerForAudioNotifications];
     [self setupAudioSession];
