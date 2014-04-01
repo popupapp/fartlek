@@ -24,6 +24,7 @@
 		968BBB6518DCF0B100766D59 /* Run+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB6418DCF0B100766D59 /* Run+Database.m */; };
 		968BBB6818DCF0BE00766D59 /* Lap+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB6718DCF0BE00766D59 /* Lap+Database.m */; };
 		9693DA5A18E9F45E00174175 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9693DA5918E9F45E00174175 /* Profile.m */; };
+		9693DA5D18EA457300174175 /* SetPaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9693DA5C18EA457300174175 /* SetPaceViewController.m */; };
 		96A98EA818DA079700E55F1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA718DA079700E55F1D /* Foundation.framework */; };
 		96A98EAA18DA079700E55F1D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA918DA079700E55F1D /* CoreGraphics.framework */; };
 		96A98EAC18DA079700E55F1D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EAB18DA079700E55F1D /* UIKit.framework */; };
@@ -90,6 +91,8 @@
 		968BBB6718DCF0BE00766D59 /* Lap+Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Lap+Database.m"; sourceTree = "<group>"; };
 		9693DA5818E9F45E00174175 /* Profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Profile.h; sourceTree = "<group>"; };
 		9693DA5918E9F45E00174175 /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
+		9693DA5B18EA457300174175 /* SetPaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPaceViewController.h; sourceTree = "<group>"; };
+		9693DA5C18EA457300174175 /* SetPaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPaceViewController.m; sourceTree = "<group>"; };
 		96A98EA418DA079700E55F1D /* Fartlek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fartlek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A98EA718DA079700E55F1D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		96A98EA918DA079700E55F1D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -273,6 +276,8 @@
 		96A98EE218DA080200E55F1D /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9693DA5B18EA457300174175 /* SetPaceViewController.h */,
+				9693DA5C18EA457300174175 /* SetPaceViewController.m */,
 				963E438818E216D90073EFB8 /* CurrentWorkoutViewController.h */,
 				963E438918E216D90073EFB8 /* CurrentWorkoutViewController.m */,
 				96A98EBC18DA079700E55F1D /* SetupFartlekViewController.h */,
@@ -466,6 +471,7 @@
 				968BBB3218DBE01700766D59 /* CurrentRunCell.m in Sources */,
 				96A98EB418DA079700E55F1D /* main.m in Sources */,
 				968BBB6818DCF0BE00766D59 /* Lap+Database.m in Sources */,
+				9693DA5D18EA457300174175 /* SetPaceViewController.m in Sources */,
 				96A98EF518DA219100E55F1D /* HistoryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

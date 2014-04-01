@@ -75,6 +75,12 @@ static RunManager *g_runManager = nil;
     return secondsInProfile - self.currentProfileSecondsElapsed;
 }
 
+- (int)secondsLeftInLap
+{
+//    int secondsInLap = [self.currentLap.lapTime intValue] * 60;
+    return self.currentLapSecondsTotal - self.currentLapSecond;
+}
+
 - (void)startLapNumber:(int)lapNumber
 {
     if (self.isPaused) {
@@ -292,6 +298,58 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
     }
     
     return bareChartView;
+}
+
+#pragma mark - DYNAMIC PROPERTIES
+
+- (NSNumber *)userPaceMinutes
+{
+    if (![self persistedValueForKey:USER_PACE_MINUTES_KEY]) {
+        return @0;
+    } else {
+        return [self persistedValueForKey:USER_PACE_MINUTES_KEY];
+    }
+}
+
+- (void)setUserPaceMinutes:(NSNumber *)userPaceMinutes
+{
+    [self persistValue:userPaceMinutes forKey:USER_PACE_MINUTES_KEY];
+}
+
+- (NSNumber *)userPaceSeconds
+{
+    if (![self persistedValueForKey:USER_PACE_SECONDS_KEY]) {
+        return @0;
+    } else {
+        return [self persistedValueForKey:USER_PACE_SECONDS_KEY];
+    }
+}
+
+- (void)setUserPaceSeconds:(NSNumber *)userPaceSeconds
+{
+    [self persistValue:userPaceSeconds forKey:USER_PACE_SECONDS_KEY];
+}
+
+#pragma mark - CONVENIENCE METHODS FOR NSUSERDEFAULTS AND NSNOTIFICATIONCENTER
+
+- (id)persistedValueForKey:(NSString *)key
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:key];
+}
+
+- (void)persistValue:(id)value forKey:(NSString *)key
+{
+    if (value) {
+        [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
+    } else {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)notifyObservers:(NSString *)notificationName userInfo:(NSDictionary *)notificationUserInfo
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:self userInfo:notificationUserInfo];
 }
 
 - (void)resetManager

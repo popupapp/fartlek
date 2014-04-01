@@ -72,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fartlek/SetupFartlekViewController.m"
-            timestampString = "417991838.740016"
+            timestampString = "418065642.604181"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
             landmarkName = "-fetchAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -168,12 +168,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fartlek/RunManager.m"
-            timestampString = "417984284.255842"
+            timestampString = "418067666.711376"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
-            landmarkName = "-chartViewForProfile"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "-chartViewForProfileCanEdit:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -238,22 +238,6 @@
             startingLineNumber = "29"
             endingLineNumber = "29"
             landmarkName = "-userChangedProfileRight"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Fartlek/SetupFartlekViewController.m"
-            timestampString = "417991838.740016"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "-changeProfile:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -16,45 +16,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What's your average long run pace?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3M-e5-irG">
-                                <rect key="frame" x="22" y="84" width="277" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tap to set time" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Br0-33-SQt">
-                                <rect key="frame" x="22" y="119" width="277" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select workout length:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEG-7m-ShY">
-                                <rect key="frame" x="22" y="168" width="172" height="21"/>
+                                <rect key="frame" x="22" y="93" width="172" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tap to set" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wut-7j-3Hz">
-                                <rect key="frame" x="212" y="164" width="88" height="30"/>
+                                <rect key="frame" x="212" y="89" width="88" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select workout intensity:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhm-4D-Frd">
-                                <rect key="frame" x="20" y="206" width="189" height="21"/>
+                                <rect key="frame" x="20" y="131" width="189" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tap to set" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3yD-mm-aQt">
-                                <rect key="frame" x="212" y="202" width="86" height="30"/>
+                                <rect key="frame" x="212" y="127" width="86" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your workout should last 60 minutes and cover about 6.5 miles at medium intensity." lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="cSq-vK-nxy">
-                                <rect key="frame" x="20" y="252" width="280" height="64"/>
+                                <rect key="frame" x="20" y="177" width="280" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="highlightedColor"/>
@@ -99,17 +86,17 @@
                     </view>
                     <navigationItem key="navigationItem" title="Setup" id="yPa-tm-n2J"/>
                     <connections>
-                        <outlet property="averagePaceField" destination="Br0-33-SQt" id="P9p-q1-zbh"/>
                         <outlet property="startButton" destination="0L8-gM-xMj" id="Isw-sT-v5s"/>
                         <outlet property="workoutIntensityField" destination="3yD-mm-aQt" id="ELZ-bS-Dbh"/>
                         <outlet property="workoutLengthField" destination="Wut-7j-3Hz" id="xJX-M9-1B7"/>
                         <outlet property="workoutSummaryLabel" destination="cSq-vK-nxy" id="4NB-or-nFd"/>
                         <segue destination="3Kx-14-Ymz" kind="push" identifier="workoutSegue" id="yEi-fV-dcz"/>
+                        <segue destination="Mxk-R9-puB" kind="modal" identifier="setPaceSegue" modalTransitionStyle="crossDissolve" id="nl8-51-1ho"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="577" y="149"/>
+            <point key="canvasLocation" x="129" y="154"/>
         </scene>
         <!--Current Workout View Controller - Current Workout-->
         <scene sceneID="jB9-J2-zYK">
@@ -186,7 +173,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hVG-5I-mUW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="980" y="154"/>
+            <point key="canvasLocation" x="644" y="162"/>
         </scene>
         <!--Workout View Controller - Workout-->
         <scene sceneID="0TQ-kt-AXf">
@@ -323,7 +310,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mO-i1-CaY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="897" y="835"/>
+            <point key="canvasLocation" x="121" y="883"/>
         </scene>
         <!--Workout Summary View Controller - Workout Summary-->
         <scene sceneID="0i7-6b-40T">
@@ -407,7 +394,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GjG-lH-hq8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1376" y="149"/>
+            <point key="canvasLocation" x="1160" y="162"/>
         </scene>
         <!--History View Controller - History-->
         <scene sceneID="8Qr-A6-IIo">
@@ -447,7 +434,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oG6-Yv-Z9N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1780" y="149"/>
+            <point key="canvasLocation" x="1564" y="162"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Flx-h4-59n">
@@ -465,7 +452,67 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bid-Gd-XwM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="151" y="149"/>
+            <point key="canvasLocation" x="-353" y="154"/>
+        </scene>
+        <!--Set Pace View Controller-->
+        <scene sceneID="5yC-H4-e0B">
+            <objects>
+                <viewController storyboardIdentifier="setPaceVC" id="Mxk-R9-puB" customClass="SetPaceViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Nmx-1N-4eP"/>
+                        <viewControllerLayoutGuide type="bottom" id="pwH-m2-gw6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NcN-Uw-Rfx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What's a comfortable pace for you to run 3+ miles?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="9Xm-nR-gDP">
+                                <rect key="frame" x="20" y="117" width="280" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tap to set time" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="haF-KW-LlC">
+                                <rect key="frame" x="20" y="199" width="129" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Mxk-R9-puB" id="hww-KZ-6oy"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hnf-a7-s0h">
+                                <rect key="frame" x="138" y="253" width="44" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" red="0.98823535439999999" green="0.2470588386" blue="0.039215687659999998" alpha="1" colorSpace="deviceRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="mx8-g1-e8t" kind="unwind" identifier="setPaceUnwind" unwindAction="setPaceSegue:" id="Quv-FR-bwg"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hello, Ron" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b3v-MY-X90">
+                                <rect key="frame" x="20" y="60" width="280" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.92941182850000004" green="0.96470594409999999" blue="0.2470588386" alpha="1" colorSpace="deviceRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="averagePaceField" destination="haF-KW-LlC" id="bnt-mY-wXv"/>
+                        <outlet property="helloLabel" destination="b3v-MY-X90" id="VAi-KH-GjC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JZC-Qc-tyW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="mx8-g1-e8t" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="510" y="-757"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

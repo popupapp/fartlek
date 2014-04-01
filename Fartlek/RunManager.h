@@ -29,7 +29,11 @@
 - (void)pauseRun;
 - (float)progressOfRun;
 - (int)secondsLeftInRun;
+- (int)secondsLeftInLap;
 - (FartlekChartView*)chartViewForProfileCanEdit:(BOOL)canEdit;
+
+@property (strong, nonatomic) NSNumber *userPaceMinutes;
+@property (strong, nonatomic) NSNumber *userPaceSeconds;
 
 @property (assign, nonatomic) BOOL isPaused;
 @property (assign, nonatomic) int currentLapSecondsTotal;
