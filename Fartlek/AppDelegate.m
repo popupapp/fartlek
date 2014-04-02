@@ -39,6 +39,8 @@
 //        }
 //    }
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     [self continueOrStartLocationUpdating];
 //    if ([launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey]) {
 //        NSLog(@"local notif app did finish launching");

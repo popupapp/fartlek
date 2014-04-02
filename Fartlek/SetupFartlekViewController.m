@@ -64,6 +64,19 @@
     UIFont *joseFontBoldItalic22 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:22.f];
     UIFont *joseFontBoldItalic24 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:24.f];
     
+    NSString *deviceName = [[UIDevice currentDevice] name];
+//    NSLog(@"user name 1: %@", userName);
+    NSString *userName = @"user";
+    NSRange firstApostropheRange = [deviceName rangeOfString:@"'"];
+    if (firstApostropheRange.location == NSNotFound) {
+        // no apostrophe found in string
+    } else {
+        NSInteger firstApostropheLocation = firstApostropheRange.location;
+        userName = [deviceName substringWithRange:NSMakeRange(0, firstApostropheLocation)];
+    }
+//    NSLog(@"user name 2: %@", userName);
+    self.readyForRunLabel.text = [NSString stringWithFormat:@"%@, are you ready to go for a fun run?", userName];
+    
     [self.readyForRunLabel setFont:joseFontBoldItalic22];
     [self.pickDurationLabel setFont:joseFontBoldItalic18];
     [self.pickIntensityLabel setFont:joseFontBoldItalic18];
@@ -86,6 +99,11 @@
         // user hasn't yet "signed in" and entered their run pace
         [self performSegueWithIdentifier:@"setPaceSegue" sender:nil];
     }
+}
+
+- (IBAction)setMyPaceAction:(id)sender
+{
+    [self performSegueWithIdentifier:@"setPaceSegue" sender:nil];
 }
 
 #pragma mark - unwind segue

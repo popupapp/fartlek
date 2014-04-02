@@ -30,6 +30,8 @@
 - (float)progressOfRun;
 - (int)secondsLeftInRun;
 - (int)secondsLeftInLap;
+- (int)secondsElapsedInLap;
+- (int)secondsElapsedInRun;
 - (FartlekChartView*)chartViewForProfileCanEdit:(BOOL)canEdit;
 
 @property (strong, nonatomic) NSNumber *userPaceMinutes;

@@ -19,14 +19,4 @@
     return self;
 }
 
-- (void)userChangedProfileLeft
-{
-    [self.delegate didChangeProfileLeft];
-}
-
-- (void)userChangedProfileRight
-{
-    [self.delegate didChangeProfileRight];
-}
-
 @end

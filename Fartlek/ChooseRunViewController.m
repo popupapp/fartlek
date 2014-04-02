@@ -44,6 +44,18 @@
     
     UIFont *joseFontBoldItalic22 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:22.f];
     [self.beginRunButton.titleLabel setFont:joseFontBoldItalic22];
+    
+    UIButton *imgButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [imgButton setImage:[UIImage imageNamed:@"back_button"] forState:UIControlStateNormal];
+    imgButton.frame = CGRectMake(0.0, 0.0, 35.f, 31.f);
+    UIBarButtonItem *b = [[UIBarButtonItem alloc] initWithCustomView:imgButton];
+    [imgButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = b;
+}
+
+-(void)backAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -63,7 +75,8 @@
     self.chartView = [[RunManager sharedManager] chartViewForProfileCanEdit:YES];
     NSLog(@"chartView:%@", self.chartView);
     self.chartView.delegate = self;
-    [self.view addSubview:self.chartView];
+//    [self.view addSubview:self.chartView];
+    [self.view insertSubview:self.chartView belowSubview:self.workoutSummaryLabel];
 }
 
 #pragma NETWORK ACTIVITY
@@ -112,6 +125,7 @@
                               NSLog(@"setting currentProfile to %@", self.currentProfile);
                               [[RunManager sharedManager] setCurrentProfile:self.currentProfile];
                               [self setupChart];
+                              [self setupSummaryText];
                           }
                       } failure:^(NSError *error) {
                           NSLog(@"PROFILE LAPS FAIL: %@", error.localizedDescription);
@@ -121,6 +135,16 @@
          }   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"Error: %@", error);
          }];
+}
+
+- (IBAction)userChangedProfileLeft
+{
+    [self didChangeProfileLeft];
+}
+
+- (IBAction)userChangedProfileRight
+{
+    [self didChangeProfileRight];
 }
 
 #pragma mark - FartlekChartDelegate
@@ -161,23 +185,27 @@
     self.chartView = nil;
     self.chartView = [[RunManager sharedManager] chartViewForProfileCanEdit:YES];
     self.chartView.delegate = self;
-    [self.view addSubview:self.chartView];
+//    [self.view addSubview:self.chartView];
+    [self.view insertSubview:self.chartView belowSubview:self.workoutSummaryLabel];
+    
+//    [self setupSummaryText];
 }
 
 - (void)setupSummaryText
 {
 //    NSInteger lengthRow = [self.lengthPickerView selectedRowInComponent:0];
 //    NSInteger intensityRow = [self.intensityPickerView selectedRowInComponent:0];
-//    int paceMinuteInt = [[[RunManager sharedManager] userPaceMinutes] intValue];
-//    int paceSecondInt = [[[RunManager sharedManager] userPaceSeconds] intValue];
-//    float paceTotalInSeconds = paceMinuteInt*60.0 + paceSecondInt;
-//    float workoutLengthInSeconds = [self.lengthPickerArray[lengthRow] floatValue]*60.0;
-//    float runDistance = workoutLengthInSeconds / paceTotalInSeconds;
-//    NSString *runDistanceString = [NSString stringWithFormat:@"%.2f", runDistance];
+    int paceMinuteInt = [[[RunManager sharedManager] userPaceMinutes] intValue];
+    int paceSecondInt = [[[RunManager sharedManager] userPaceSeconds] intValue];
+    float paceTotalInSeconds = paceMinuteInt*60.0 + paceSecondInt;
+    float workoutLengthInSeconds = [[[[RunManager sharedManager] currentProfile] duration] floatValue]*60.0;
+    float runDistance = workoutLengthInSeconds / paceTotalInSeconds;
+    NSString *runDistanceString = [NSString stringWithFormat:@"%.2f", runDistance];
 //    NSString *runtimeString = self.lengthPickerArray[lengthRow];
 //    NSString *intensityString = self.intensityPickerArray[intensityRow];
 //    NSString *summaryString = [NSString stringWithFormat:@"Your workout should last %@ minutes and cover about %@ miles at %@ intensity", runtimeString, runDistanceString, [intensityString lowercaseString]];
-//    self.workoutSummaryLabel.text = summaryString;
+    NSString *paceString = [NSString stringWithFormat:@"If you stay on pace, you will run %@ miles", runDistanceString];
+    self.workoutSummaryLabel.text = paceString;
 }
 
 - (IBAction)beginRun:(id)sender

@@ -81,6 +81,16 @@ static RunManager *g_runManager = nil;
     return self.currentLapSecondsTotal - self.currentLapSecond;
 }
 
+- (int)secondsElapsedInLap
+{
+    return self.currentLapSecond;
+}
+
+- (int)secondsElapsedInRun
+{
+    return self.currentProfileSecondsElapsed;
+}
+
 - (void)startLapNumber:(int)lapNumber
 {
     if (self.isPaused) {
@@ -188,36 +198,15 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
     UILabel *headerLabel = [UILabel new];
     NSString *runTitle = @"Your Run";
     if ([self.currentProfile.profileName length] > 0) {
-        runTitle= [NSString stringWithFormat:@"%@", self.currentProfile.profileName];
+        runTitle = [NSString stringWithFormat:@"%@", self.currentProfile.profileName];
     }
     headerLabel.text = runTitle;
     [headerLabel sizeToFit];
+    [headerLabel setTextColor:[UIColor whiteColor]];
     [headerLabel setFrame:CGRectMake(bareChartView.frame.size.width/2.0 - headerLabel.frame.size.width/2.0, 0, headerLabel.frame.size.width, headerLabel.frame.size.height)];
     [hView addSubview:headerLabel];
     [bareChartView addSubview:hView];
-    
-    UIView *fView = [[UIView alloc] initWithFrame:CGRectMake(0, 155+10, bareChartView.frame.size.width, 20)];
-    bareChartView.progressView = nil;
-    bareChartView.progressView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 20)];
-    bareChartView.progressView.backgroundColor = [UIColor greenColor];
-    UILabel *leftLegendLabel = [UILabel new];
-    UILabel *rightLegendLabel = [UILabel new];
-    leftLegendLabel.text = @"start";
-    rightLegendLabel.text = @"end";
-    leftLegendLabel.font = [UIFont systemFontOfSize:12.f];
-    rightLegendLabel.font = [UIFont systemFontOfSize:12.f];
-    [leftLegendLabel sizeToFit];
-    [rightLegendLabel sizeToFit];
-    [leftLegendLabel setFrame:CGRectMake(5, 0,
-                                         leftLegendLabel.frame.size.width, leftLegendLabel.frame.size.height)];
-    [rightLegendLabel setFrame:CGRectMake(bareChartView.frame.size.width - rightLegendLabel.frame.size.width, 0,
-                                          rightLegendLabel.frame.size.width, rightLegendLabel.frame.size.height)];
-    [fView addSubview:leftLegendLabel];
-    [fView addSubview:rightLegendLabel];
-    [fView addSubview:bareChartView.progressView];
-    fView.backgroundColor = [UIColor lightGrayColor];
-    [bareChartView addSubview:fView];
-    
+        
     CGFloat totalDurationInMinutes = [self.currentProfile.duration floatValue];
     NSLog(@"totalDurationInMinutes:%f", totalDurationInMinutes);
     CGFloat pointsPerMinute = bareChartView.frame.size.width / totalDurationInMinutes;
@@ -254,7 +243,7 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
         NSLog(@"%d->lapNumber:%d, barWidth:%f, intensity:%d, duration:%d", i, [thisLap.lapNumber intValue], barWidth, [thisLap.lapIntensity intValue], [thisLap.lapTime intValue]);
         CGFloat barHeight = [thisLap.lapIntensity floatValue] * 20.f;
         UIView *lapBarView = [[UIView alloc] initWithFrame:CGRectMake(xPos,
-                                                                      bareChartView.frame.size.height - barHeight - 50.0,
+                                                                      bareChartView.frame.size.height - barHeight - 70.0,
                                                                       barWidth,
                                                                       barHeight + 20.f)];
         xPos += barWidth;
@@ -272,29 +261,6 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
             [newIntensityLabel sizeToFit];
         }
         previousDuration = currentDuration;
-    }
-    
-    if (canEdit) {
-        UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [leftButton setTitle:@"<" forState:UIControlStateNormal];
-        [leftButton addTarget:bareChartView action:@selector(userChangedProfileLeft) forControlEvents:UIControlEventTouchUpInside];
-        [leftButton sizeToFit];
-        [leftButton setFrame:CGRectMake(5, bareChartView.frame.size.height/2.0, 20, 20)];
-        UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [rightButton setTitle:@">" forState:UIControlStateNormal];
-        [rightButton addTarget:bareChartView action:@selector(userChangedProfileRight) forControlEvents:UIControlEventTouchUpInside];
-        [rightButton sizeToFit];
-        [rightButton setFrame:CGRectMake(bareChartView.frame.size.width-rightButton.frame.size.width, bareChartView.frame.size.height/2.0, 20, 20)];
-        
-        UISwipeGestureRecognizer *leftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:bareChartView action:@selector(userChangedProfileRight)];
-        [leftGestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
-        UISwipeGestureRecognizer *rightGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:bareChartView action:@selector(userChangedProfileLeft)];
-        [rightGestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-        [bareChartView addGestureRecognizer:rightGestureRecognizer];
-        [bareChartView addGestureRecognizer:leftGestureRecognizer];
-
-        [bareChartView addSubview:leftButton];
-        [bareChartView addSubview:rightButton];
     }
     
     return bareChartView;

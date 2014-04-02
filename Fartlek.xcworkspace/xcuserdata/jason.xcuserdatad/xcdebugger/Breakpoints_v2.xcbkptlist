@@ -120,11 +120,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fartlek/CurrentWorkoutViewController.m"
-            timestampString = "418080182.099923"
+            timestampString = "418161048.676448"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
             landmarkName = "-audioSessionInterrupted:"
             landmarkType = "5">
          </BreakpointContent>
@@ -152,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fartlek/RunManager.m"
-            timestampString = "418067666.711376"
+            timestampString = "418162536.7932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
             landmarkName = "-chartViewForProfileCanEdit:"
             landmarkType = "5">
          </BreakpointContent>
@@ -168,27 +168,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fartlek/CurrentWorkoutViewController.m"
-            timestampString = "418080182.099923"
+            timestampString = "418162536.7932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
-            landmarkName = "-setupChart"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Fartlek/CurrentWorkoutViewController.m"
-            timestampString = "418080182.099923"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
             landmarkName = "-timerDidFire"
             landmarkType = "5">
          </BreakpointContent>
@@ -199,29 +183,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fartlek/FartlekChartView.m"
-            timestampString = "417989401.991193"
+            filePath = "Fartlek/ChooseRunViewController.m"
+            timestampString = "418158059.652078"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "-userChangedProfileLeft"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Fartlek/FartlekChartView.m"
-            timestampString = "417989403.044289"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "-userChangedProfileRight"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "-fetchAction:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -232,12 +200,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fartlek/ChooseRunViewController.m"
-            timestampString = "418079327.484906"
+            timestampString = "418158059.652078"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "-fetchAction:"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "-setupSummaryText"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
