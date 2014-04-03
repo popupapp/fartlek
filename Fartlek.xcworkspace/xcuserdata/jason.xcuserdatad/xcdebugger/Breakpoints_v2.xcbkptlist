@@ -152,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fartlek/RunManager.m"
-            timestampString = "418162536.7932"
+            timestampString = "418180819.535971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "-chartViewForProfileCanEdit:"
             landmarkType = "5">
          </BreakpointContent>

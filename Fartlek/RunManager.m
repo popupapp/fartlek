@@ -51,28 +51,35 @@ static RunManager *g_runManager = nil;
     
     self.currentLapsTotal = (int)[[self.currentProfile.laps allObjects] count];
     self.currentLapNumber = 0;
-    if (self.currentLapsTotal == self.currentLapNumber) {
-        [[[UIAlertView alloc] initWithTitle:@"Good Job!" message:@"Workout Finished!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-        AVSpeechSynthesizer *av = [AVSpeechSynthesizer new];
-        AVSpeechUtterance *synUtt = [[AVSpeechUtterance alloc] initWithString:@"Nice Job. Workout finished."];
-        synUtt.rate = 0.4;
-        [synUtt setVoice:[AVSpeechSynthesisVoice voiceWithLanguage:[AVSpeechSynthesisVoice currentLanguageCode]]];
-        [av speakUtterance:synUtt];
-    } else {
-        [self startLapNumber:self.currentLapNumber];
-    }
+    self.currentLapDistanceTotal = 0;
+    self.currentRunDistanceTotal = 0;
+    [self startLapNumber:self.currentLapNumber];
+}
+
+- (float)currentPaceOfRun
+{
+    // run pace = # minutes elapsed in run / # miles traveled this run
+    float runPace = (self.currentRunSecondsElapsed / 60.f) / self.currentRunDistanceTotal;
+    return runPace;
+}
+
+- (float)currentPaceOfLap
+{
+    // lap pace = # minutes elapsed in lap / # miles traveled this lap
+    float lapPace = (self.currentLapSecond / 60.f) / self.currentLapDistanceTotal;
+    return lapPace;
 }
 
 - (float)progressOfRun
 {
     float secondsInProfile = [self.currentProfile.duration floatValue] * 60.f;
-    return self.currentProfileSecondsElapsed/secondsInProfile;
+    return self.currentRunSecondsElapsed/secondsInProfile;
 }
 
 - (int)secondsLeftInRun
 {
     int secondsInProfile = [self.currentProfile.duration intValue] * 60;
-    return secondsInProfile - self.currentProfileSecondsElapsed;
+    return secondsInProfile - self.currentRunSecondsElapsed;
 }
 
 - (int)secondsLeftInLap
@@ -88,11 +95,12 @@ static RunManager *g_runManager = nil;
 
 - (int)secondsElapsedInRun
 {
-    return self.currentProfileSecondsElapsed;
+    return self.currentRunSecondsElapsed;
 }
 
 - (void)startLapNumber:(int)lapNumber
 {
+    NSLog(@"startLapNumber:%d, orderedLapsForProfile:%d", lapNumber, self.orderedLapsForProfile.count);
     if (self.isPaused) {
         [Flurry logEvent:@"START_LAP_RESUME"];
         // run is resuming from a paused state
@@ -124,10 +132,10 @@ static RunManager *g_runManager = nil;
 - (void)updateTimer
 {
     [self.delegate timerDidFire];
-    self.currentProfileSecondsElapsed += 1;
+    self.currentRunSecondsElapsed += 1;
     // runs every second
     if (self.currentLapSecond == 0) {
-        
+        self.currentLapDistanceTotal = 0;
         NSError *activationError = nil;
         BOOL success = [[AVAudioSession sharedInstance] setActive:YES
                                                       withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
@@ -135,7 +143,6 @@ static RunManager *g_runManager = nil;
         if (!success) {
             NSLog(@"AUDIO ACTIVATION ERROR:%@", activationError.localizedDescription);
         }
-        
         AVSpeechSynthesizer *av = [AVSpeechSynthesizer new];
         AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:self.currentLap.lapStartSpeechString];
 //        utterance.pitchMultiplier = 0.75;
@@ -155,8 +162,30 @@ static RunManager *g_runManager = nil;
         // start next lap
         self.currentLapNumber += 1;
         [self.currentTimer invalidate];
-        [self startLapNumber:self.currentLapNumber];
+        if (self.currentLapNumber < self.orderedLapsForProfile.count) {
+//            if (self.currentLapsTotal == self.currentLapNumber) {
+                [self startLapNumber:self.currentLapNumber];
+        } else {
+            [[[UIAlertView alloc] initWithTitle:@"Good Job!" message:@"Workout Finished!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+            AVSpeechSynthesizer *av = [AVSpeechSynthesizer new];
+            AVSpeechUtterance *synUtt = [[AVSpeechUtterance alloc] initWithString:@"Nice Job. Workout finished."];
+            synUtt.rate = 0.3;
+            [synUtt setVoice:[AVSpeechSynthesisVoice voiceWithLanguage:[AVSpeechSynthesisVoice currentLanguageCode]]];
+            [av speakUtterance:synUtt];
+        }
     }
+}
+
+- (void)addLocationToRun:(NSArray*)locations
+{
+    NSLog(@"addLocationToRun:%@", locations);
+    CLLocation *lastLoc = [self.runLocations lastObject];
+    CLLocation *thisLoc = locations[0];
+    double distanceFromLastLocation = [lastLoc distanceFromLocation:thisLoc];
+    self.currentRunDistanceTotal += (int)distanceFromLastLocation;
+    self.currentLapDistanceTotal += (int)distanceFromLastLocation;
+    NSLog(@"currentRunDistanceTotal:%d", self.currentRunDistanceTotal);
+    [self.runLocations addObject:thisLoc];
 }
 
 -(void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer
@@ -325,7 +354,10 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
     [self.currentTimer invalidate];
     self.currentTimer = nil;
     self.currentLapSecondsTotal = 0;
-    self.currentProfileSecondsElapsed = 0;
+    self.currentRunSecondsElapsed= 0;
+    self.currentLapDistanceTotal = 0;
+    self.currentRunDistanceTotal = 0;
+    [self.runLocations removeAllObjects];
 }
 
 @end

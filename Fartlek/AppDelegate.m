@@ -53,7 +53,6 @@
 
 - (void)continueOrStartLocationUpdating
 {
-    // LOCATION
     if (!self.isUpdatingLocation) {
         self.isUpdatingLocation = YES;
         self.deferringUpdates = NO;
@@ -73,14 +72,12 @@
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations
 {
-    // Add the new locations to the hike
-//    [self.hike addLocations:locations];
+    [[RunManager sharedManager] addLocationToRun:locations];
     
     [self resetKeepAliveTimer];
     
-    // Defer updates until the user hikes a certain distance
+    // Defer updates until the user runs a certain distance
     // or when a certain amount of time has passed.
-//    NSLog(@"got a location: %@", locations[0]);
     NSLog(@"got a location");
 #warning CURRENTLY USING DEFERRED UPDATES
     if (!self.deferringUpdates) {

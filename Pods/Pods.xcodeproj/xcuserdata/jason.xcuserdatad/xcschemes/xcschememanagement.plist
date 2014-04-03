@@ -19,16 +19,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-JBChartView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-Ono.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-TestFlightSDK.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,37 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>03FD7E8DA9B548409807197F</key>
+		<key>15FD0127842D46FCA4BB6F35</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0FB99270BB1D4565AAD13073</key>
+		<key>1E275A1E7C2C453F9085A60C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3098385FED0F4EF6B8D1681A</key>
+		<key>564531A9F79A4FF5953C2E81</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7C9C56C42C4540EEA9EF2DC2</key>
+		<key>5E3C26B58AAE41F080939D5B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BB8FCB886B9748E597B016C0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F3BB2356DA9141F2B4D4CB0E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FBCD80203E6448CC87933819</key>
+		<key>A6834E1A750548E59F3F79FE</key>
 		<dict>
 			<key>primary</key>
 			<true/>

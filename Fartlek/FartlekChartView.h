@@ -14,7 +14,7 @@
 @end
 
 @interface FartlekChartView : UIView
-@property (nonatomic, strong) id <FartlekChartDelegate> delegate;
+@property (nonatomic, weak) id <FartlekChartDelegate> delegate;
 @property (strong, nonatomic) UIView *progressView;
 
 @end
