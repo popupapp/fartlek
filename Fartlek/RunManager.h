@@ -35,7 +35,7 @@
 - (int)secondsElapsedInLap;
 - (int)secondsElapsedInRun;
 - (FartlekChartView*)chartViewForProfileCanEdit:(BOOL)canEdit;
-- (void)addLocationToRun:(NSArray*)locations;
+- (void)addLocationToRun:(CLLocation*)location;
 
 @property (strong, nonatomic) NSMutableArray *runLocations;
 
@@ -51,7 +51,7 @@
 
 @property (assign, nonatomic) int currentLapSecondsTotal;
 @property (assign, nonatomic) int currentRunSecondsElapsed;
-@property (assign, nonatomic) int currentLapDistanceTotal;
-@property (assign, nonatomic) int currentRunDistanceTotal;
+@property (assign, nonatomic) float currentLapDistanceTotal;
+@property (assign, nonatomic) float currentRunDistanceTotal;
 
 @end

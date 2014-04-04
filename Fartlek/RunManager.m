@@ -14,13 +14,14 @@
 @import AudioToolbox;
 @import MediaPlayer;
 #import "FartlekChartView.h"
+#import "LocationManager.h"
 
 static RunManager *g_runManager = nil;
 
 @interface RunManager () <AVSpeechSynthesizerDelegate, FartlekChartDelegate>
 @property (strong, nonatomic) NSArray *orderedLapsForProfile;
 @property (assign, nonatomic) int currentLapNumber;
-@property (assign, nonatomic) int currentLapSecond;
+@property (assign, nonatomic) int currentLapElapsedSeconds;
 @property (assign, nonatomic) int currentLapsTotal;
 @end
 
@@ -30,6 +31,7 @@ static RunManager *g_runManager = nil;
 {
     if ((self = [super init])) {
         self.isPaused = NO;
+        self.runLocations = [NSMutableArray array];
     }
     return self;
 }
@@ -44,6 +46,7 @@ static RunManager *g_runManager = nil;
 
 - (void)startRun
 {
+    [[LocationManager sharedManager] restartStandardLocationCheck];
     [Flurry logEvent:@"START_RUN"];
     [self.delegate runDidBegin];
     NSArray *lapsForProfile = [self.currentProfile.laps allObjects];
@@ -59,14 +62,14 @@ static RunManager *g_runManager = nil;
 - (float)currentPaceOfRun
 {
     // run pace = # minutes elapsed in run / # miles traveled this run
-    float runPace = (self.currentRunSecondsElapsed / 60.f) / self.currentRunDistanceTotal;
+    float runPace = (self.currentRunSecondsElapsed / 60.f) / (self.currentRunDistanceTotal * METERS_PER_MILE);
     return runPace;
 }
 
 - (float)currentPaceOfLap
 {
     // lap pace = # minutes elapsed in lap / # miles traveled this lap
-    float lapPace = (self.currentLapSecond / 60.f) / self.currentLapDistanceTotal;
+    float lapPace = (self.currentLapElapsedSeconds / 60.f) / (self.currentLapDistanceTotal / METERS_PER_MILE);
     return lapPace;
 }
 
@@ -85,12 +88,12 @@ static RunManager *g_runManager = nil;
 - (int)secondsLeftInLap
 {
 //    int secondsInLap = [self.currentLap.lapTime intValue] * 60;
-    return self.currentLapSecondsTotal - self.currentLapSecond;
+    return self.currentLapSecondsTotal - self.currentLapElapsedSeconds;
 }
 
 - (int)secondsElapsedInLap
 {
-    return self.currentLapSecond;
+    return self.currentLapElapsedSeconds;
 }
 
 - (int)secondsElapsedInRun
@@ -100,11 +103,12 @@ static RunManager *g_runManager = nil;
 
 - (void)startLapNumber:(int)lapNumber
 {
-    NSLog(@"startLapNumber:%d, orderedLapsForProfile:%d", lapNumber, self.orderedLapsForProfile.count);
+    NSLog(@"startLapNumber:%d, orderedLapsForProfile:%lu", lapNumber, (unsigned long)self.orderedLapsForProfile.count);
     if (self.isPaused) {
         [Flurry logEvent:@"START_LAP_RESUME"];
         // run is resuming from a paused state
 //        int secondsPassedBeforePausing = self.currentProfileSecondsElapsed;
+        
         self.currentTimer = [NSTimer timerWithTimeInterval:1.0f
                                                     target:self
                                                   selector:@selector(updateTimer)
@@ -118,7 +122,7 @@ static RunManager *g_runManager = nil;
         self.currentLap = (Lap*)self.orderedLapsForProfile[lapNumber];
         [self.delegate lapDidBegin:lapNumber+1];
         self.currentLapSecondsTotal = [self.currentLap.lapTime intValue];
-        self.currentLapSecond = 0;
+        self.currentLapElapsedSeconds = 0;
         self.currentTimer = [NSTimer timerWithTimeInterval:1.0f
                                                     target:self
                                                   selector:@selector(updateTimer)
@@ -134,7 +138,7 @@ static RunManager *g_runManager = nil;
     [self.delegate timerDidFire];
     self.currentRunSecondsElapsed += 1;
     // runs every second
-    if (self.currentLapSecond == 0) {
+    if (self.currentLapElapsedSeconds == 0) {
         self.currentLapDistanceTotal = 0;
         NSError *activationError = nil;
         BOOL success = [[AVAudioSession sharedInstance] setActive:YES
@@ -156,7 +160,7 @@ static RunManager *g_runManager = nil;
         }
         [av speakUtterance:utterance];
     }
-    self.currentLapSecond += 1;
+    self.currentLapElapsedSeconds += 1;
     self.currentLapSecondsTotal -= 1;
     if (self.currentLapSecondsTotal == 0) {
         // start next lap
@@ -176,15 +180,20 @@ static RunManager *g_runManager = nil;
     }
 }
 
-- (void)addLocationToRun:(NSArray*)locations
+- (void)addLocationToRun:(CLLocation*)location
 {
-    NSLog(@"addLocationToRun:%@", locations);
+    NSLog(@"currentRunDistanceTotal:%f", self.currentRunDistanceTotal);
     CLLocation *lastLoc = [self.runLocations lastObject];
-    CLLocation *thisLoc = locations[0];
-    double distanceFromLastLocation = [lastLoc distanceFromLocation:thisLoc];
-    self.currentRunDistanceTotal += (int)distanceFromLastLocation;
-    self.currentLapDistanceTotal += (int)distanceFromLastLocation;
-    NSLog(@"currentRunDistanceTotal:%d", self.currentRunDistanceTotal);
+    if (!lastLoc) {
+        lastLoc = location;
+    }
+    CLLocation *thisLoc = location;
+    double distanceFromLastLocation = [thisLoc distanceFromLocation:lastLoc];
+    if (distanceFromLastLocation > 0) {
+        self.currentRunDistanceTotal += (float)distanceFromLastLocation;
+        self.currentLapDistanceTotal += (float)distanceFromLastLocation;
+    }
+//    NSLog(@"currentRunDistanceTotal:%.5f", self.currentRunDistanceTotal);
     [self.runLocations addObject:thisLoc];
 }
 
@@ -206,10 +215,12 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
         self.isPaused = YES;
         [self.currentTimer invalidate];
         [self.delegate runDidPause];
+        [[LocationManager sharedManager] stopLocationUpdates];
     } else {
         [self startLapNumber:self.currentLapNumber];
         self.isPaused = NO;
         [self.delegate runDidResume];
+        [[LocationManager sharedManager] restartStandardLocationCheck];
     }
 }
 
@@ -358,6 +369,7 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
     self.currentLapDistanceTotal = 0;
     self.currentRunDistanceTotal = 0;
     [self.runLocations removeAllObjects];
+    [[LocationManager sharedManager] stopLocationUpdates];
 }
 
 @end

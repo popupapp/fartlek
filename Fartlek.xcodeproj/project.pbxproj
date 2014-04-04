@@ -52,6 +52,7 @@
 		96A98EF218DA1B5200E55F1D /* WorkoutSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98EF118DA1B5200E55F1D /* WorkoutSummaryViewController.m */; };
 		96A98EF518DA219100E55F1D /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98EF418DA219100E55F1D /* HistoryViewController.m */; };
 		96CEE41A18E5EB5000562FEE /* FartlekChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CEE41918E5EB5000562FEE /* FartlekChartView.m */; };
+		96FD4FF018EF1DAD00A2E5F7 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FD4FEF18EF1DAD00A2E5F7 /* LocationManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +138,8 @@
 		96A98EF418DA219100E55F1D /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		96CEE41818E5EB5000562FEE /* FartlekChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FartlekChartView.h; sourceTree = "<group>"; };
 		96CEE41918E5EB5000562FEE /* FartlekChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FartlekChartView.m; sourceTree = "<group>"; };
+		96FD4FEE18EF1DAD00A2E5F7 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
+		96FD4FEF18EF1DAD00A2E5F7 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,6 +329,8 @@
 		96A98EE418DA08A600E55F1D /* helpers */ = {
 			isa = PBXGroup;
 			children = (
+				96FD4FEE18EF1DAD00A2E5F7 /* LocationManager.h */,
+				96FD4FEF18EF1DAD00A2E5F7 /* LocationManager.m */,
 				963E438518E2121A0073EFB8 /* RunManager.h */,
 				963E438618E2121A0073EFB8 /* RunManager.m */,
 				968BBB5718DCEBFF00766D59 /* NSDate+Formatting.h */,
@@ -498,6 +503,7 @@
 				968BBB5918DCEBFF00766D59 /* NSDate+Formatting.m in Sources */,
 				96A98EB818DA079700E55F1D /* AppDelegate.m in Sources */,
 				963E438A18E216D90073EFB8 /* CurrentWorkoutViewController.m in Sources */,
+				96FD4FF018EF1DAD00A2E5F7 /* LocationManager.m in Sources */,
 				963E438718E2121A0073EFB8 /* RunManager.m in Sources */,
 				9693DA5A18E9F45E00174175 /* Profile.m in Sources */,
 				968BBB4D18DCE8B400766D59 /* Run.m in Sources */,

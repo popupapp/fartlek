@@ -195,6 +195,9 @@
     self.totalTimeValueLabel.text = [NSString stringWithFormat:@"%d:%.2d", minutesElapsedInRun, secondsElapsedInRun];
 //    self.totalDistanceValueLabel.text = @"";
     
+    self.lapPaceValueLabel.text = [NSString stringWithFormat:@"%.2f mi/min", [[RunManager sharedManager] currentPaceOfLap]];
+    self.totalDistanceValueLabel.text = [NSString stringWithFormat:@"%.4f mi", [[RunManager sharedManager] currentRunDistanceTotal]];
+    
 //    CGRect pFrame = self.bareChartView.progressView.frame;
 //    self.bareChartView.progressView.frame = CGRectMake(pFrame.origin.x, pFrame.origin.y,
 //                                         320.0 * [[RunManager sharedManager] progressOfRun], pFrame.size.height);
