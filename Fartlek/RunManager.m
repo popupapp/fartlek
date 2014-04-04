@@ -62,7 +62,7 @@ static RunManager *g_runManager = nil;
 - (float)currentPaceOfRun
 {
     // run pace = # minutes elapsed in run / # miles traveled this run
-    float runPace = (self.currentRunSecondsElapsed / 60.f) / (self.currentRunDistanceTotal * METERS_PER_MILE);
+    float runPace = (self.currentRunSecondsElapsed / 60.f) / (self.currentRunDistanceTotal / METERS_PER_MILE);
     return runPace;
 }
 
