@@ -17,7 +17,7 @@
 @import MediaPlayer;
 #import "FartlekChartView.h"
 
-@interface CurrentWorkoutViewController () <RunManagerDelegate>
+@interface CurrentWorkoutViewController () <RunManagerDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *currentLapLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timetoNextLapLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentIntensityLabel;
@@ -40,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *totalDistanceHardLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalTimeValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalDistanceValueLabel;
+@property (weak, nonatomic) IBOutlet UIButton *stopButton;
 
 @end
 
@@ -78,6 +79,7 @@
     [self.intensityHardLabel setFont:joseFontBoldItalic22];
     [self.timeToNextLabel setFont:joseFontBoldItalic22];
     [self.pauseButton.titleLabel setFont:joseFontBoldItalic22];
+    [self.stopButton.titleLabel setFont:joseFontBoldItalic22];
     [self.currentLapLabel setFont:joseFontBoldItalic22];
     [self.currentIntensityLabel setFont:joseFontBoldItalic22];
     [self.currentLapHardLabel setFont:joseFontBoldItalic24];
@@ -140,11 +142,43 @@
     }
 }
 
+- (IBAction)stopRunAction:(id)sender
+{
+    if ([self.stopButton.titleLabel.text isEqualToString:@"Stop"]) {
+        UIAlertView *stopRunConfirmAlert = [UIAlertView new];
+        stopRunConfirmAlert.title = @"Are you sure you want to stop the run?";
+        stopRunConfirmAlert.message = nil;
+        stopRunConfirmAlert.delegate = self;
+        [stopRunConfirmAlert addButtonWithTitle:@"Yes"];
+        [stopRunConfirmAlert addButtonWithTitle:@"No"];
+        [stopRunConfirmAlert show];
+    } else {
+        
+    }
+}
+
+#pragma mark - UIAlertView Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        // end run
+        [[RunManager sharedManager] saveAndStopRun];
+        self.pauseButton.enabled = NO;
+        [self.stopButton setTitle:@"Save" forState:UIControlStateNormal];
+    } else {
+        // don't end run
+    }
+}
+
+
 #pragma mark - RunManagerDelegate
 
 - (void)runDidBegin
 {
     NSLog(@"runDidBegin");
+    self.pauseButton.enabled = YES;
+    self.stopButton.enabled = YES;
 }
 
 - (void)lapDidBegin:(int)lapNumber

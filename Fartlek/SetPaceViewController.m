@@ -27,12 +27,9 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
                                                  forBarPosition:UIBarPositionAny
                                                      barMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.backgroundColor = FARTLEK_YELLOW;
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    self.navigationController.navigationBar.barTintColor = FARTLEK_YELLOW;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gotham-Book" size:20.0], NSFontAttributeName, nil];
-    self.view.backgroundColor = FARTLEK_YELLOW;
     
     UIFont *joseFontBoldItalic18 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:18.f];
     UIFont *joseFontBoldItalic22 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:22.f];

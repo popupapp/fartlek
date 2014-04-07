@@ -12,6 +12,7 @@
 #import "Lap.h"
 #import "User.h"
 #import "Profile.h"
+#import "LapLocation.h"
 
 @interface DataManager : NSObject
 
@@ -39,6 +40,10 @@
 - (Run*)findRunByID:(NSString *)runID;
 - (Run*)createRun;
 - (NSArray*)findAllRuns;
+
+- (LapLocation*)findLapLocationByID:(NSString *)lapLocationID;
+- (LapLocation*)createLapLocation;
+- (NSArray*)findAllLapLocations;
 
 - (Profile *)findProfileWithDuration:(NSNumber*)profileDuration
                         andIntensity:(NSNumber*)profileIntensity

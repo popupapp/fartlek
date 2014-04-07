@@ -9,6 +9,8 @@
 #import "RunManager.h"
 #import "Profile+Database.h"
 #import "Lap+Database.h"
+#import "Run+Database.h"
+#import "LapLocation+Database.h"
 #import "DataManager.h"
 @import AVFoundation;
 @import AudioToolbox;
@@ -44,10 +46,15 @@ static RunManager *g_runManager = nil;
     return g_runManager;
 }
 
+#pragma mark - START RUN
+
 - (void)startRun
 {
     [[LocationManager sharedManager] restartStandardLocationCheck];
     [Flurry logEvent:@"START_RUN"];
+    // CREATE currentRun OBJECT
+    self.currentRun = [[DataManager sharedManager] createRun];
+    self.currentRun.profile = self.currentProfile;
     [self.delegate runDidBegin];
     NSArray *lapsForProfile = [self.currentProfile.laps allObjects];
     self.orderedLapsForProfile = [[DataManager sharedManager] orderedLapsByLapNumber:lapsForProfile];
@@ -56,50 +63,29 @@ static RunManager *g_runManager = nil;
     self.currentLapNumber = 0;
     self.currentLapDistanceTotal = 0;
     self.currentRunDistanceTotal = 0;
-    [self startLapNumber:self.currentLapNumber];
+    [self.currentRun saveSuccess:^{
+        NSLog(@"SUCCESSFULLY SAVED RUN(1): %@", self.currentRun);
+        [self startLapNumber:self.currentLapNumber];
+    } failure:^(NSError *error) {
+        NSLog(@"FAILED RUN SAVE(1): %@", error);
+        [[[UIAlertView alloc] initWithTitle:@"RUN SAVE FAIL" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+    }];
 }
 
-- (float)currentPaceOfRun
+#pragma mark - SAVE AND STOP RUN
+
+- (void)saveAndStopRun
 {
-    // run pace = # minutes elapsed in run / # miles traveled this run
-    float runPace = (self.currentRunSecondsElapsed / 60.f) / (self.currentRunDistanceTotal / METERS_PER_MILE);
-    return runPace;
+    [self.currentRun saveSuccess:^{
+        NSLog(@"SUCCESSFULLY SAVED RUN: %@", self.currentRun);
+        [self resetManager];
+    } failure:^(NSError *error) {
+        NSLog(@"FAILED RUN SAVE: %@", error);
+        [self resetManager];
+    }];
 }
 
-- (float)currentPaceOfLap
-{
-    // lap pace = # minutes elapsed in lap / # miles traveled this lap
-    float lapPace = (self.currentLapElapsedSeconds / 60.f) / (self.currentLapDistanceTotal / METERS_PER_MILE);
-    return lapPace;
-}
-
-- (float)progressOfRun
-{
-    float secondsInProfile = [self.currentProfile.duration floatValue] * 60.f;
-    return self.currentRunSecondsElapsed/secondsInProfile;
-}
-
-- (int)secondsLeftInRun
-{
-    int secondsInProfile = [self.currentProfile.duration intValue] * 60;
-    return secondsInProfile - self.currentRunSecondsElapsed;
-}
-
-- (int)secondsLeftInLap
-{
-//    int secondsInLap = [self.currentLap.lapTime intValue] * 60;
-    return self.currentLapSecondsTotal - self.currentLapElapsedSeconds;
-}
-
-- (int)secondsElapsedInLap
-{
-    return self.currentLapElapsedSeconds;
-}
-
-- (int)secondsElapsedInRun
-{
-    return self.currentRunSecondsElapsed;
-}
+#pragma mark - START A NEW LAP
 
 - (void)startLapNumber:(int)lapNumber
 {
@@ -107,8 +93,6 @@ static RunManager *g_runManager = nil;
     if (self.isPaused) {
         [Flurry logEvent:@"START_LAP_RESUME"];
         // run is resuming from a paused state
-//        int secondsPassedBeforePausing = self.currentProfileSecondsElapsed;
-        
         self.currentTimer = [NSTimer timerWithTimeInterval:1.0f
                                                     target:self
                                                   selector:@selector(updateTimer)
@@ -120,6 +104,9 @@ static RunManager *g_runManager = nil;
         [Flurry logEvent:@"START_LAP_NEW"];
         // normal start lap route
         self.currentLap = (Lap*)self.orderedLapsForProfile[lapNumber];
+        // CREATE LAP AND ASSIGN TO CURRENT RUN
+        self.currentLap.lapRun = self.currentRun;
+//        [self.currentRun addLapsObject:self.currentLap];
         [self.delegate lapDidBegin:lapNumber+1];
         self.currentLapSecondsTotal = [self.currentLap.lapTime intValue];
         self.currentLapElapsedSeconds = 0;
@@ -176,9 +163,12 @@ static RunManager *g_runManager = nil;
             synUtt.rate = 0.3;
             [synUtt setVoice:[AVSpeechSynthesisVoice voiceWithLanguage:[AVSpeechSynthesisVoice currentLanguageCode]]];
             [av speakUtterance:synUtt];
+#pragma warning SAVE RUN HERE?
         }
     }
 }
+
+#pragma mark - ADD LOCATION TO RUN
 
 - (void)addLocationToRun:(CLLocation*)location
 {
@@ -187,49 +177,51 @@ static RunManager *g_runManager = nil;
     if (!lastLoc) {
         lastLoc = location;
     }
+    
     CLLocation *thisLoc = location;
     double distanceFromLastLocation = [thisLoc distanceFromLocation:lastLoc];
     if (distanceFromLastLocation > 0) {
         self.currentRunDistanceTotal += (float)distanceFromLastLocation;
         self.currentLapDistanceTotal += (float)distanceFromLastLocation;
     }
-//    NSLog(@"currentRunDistanceTotal:%.5f", self.currentRunDistanceTotal);
     [self.runLocations addObject:thisLoc];
+    
+    if (self.currentLap) {
+        NSLog(@".. self.currentLap is not nil");
+        LapLocation *lapLoc = [[DataManager sharedManager] createLapLocation];
+        lapLoc.lat = @(location.coordinate.latitude);
+        lapLoc.lng = @(location.coordinate.longitude);
+        lapLoc.horizAcc = @(location.horizontalAccuracy);
+        lapLoc.timestamp = location.timestamp;
+        lapLoc.altitude = @(location.altitude);
+        lapLoc.lap = self.currentLap;
+        [lapLoc saveSuccess:^{
+            NSLog(@"lap loc saved!");
+        } failure:^(NSError *error) {
+            NSLog(@"LAP LOC SAVE ERROR: %@", error);
+        }];
+
+    } else {
+        NSLog(@"!! self.currentLap IS NIL");
+    }
 }
+
+#pragma mark - SPEECH SYNTHESIZER
 
 -(void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer
 didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
 {
     [[AVAudioSession sharedInstance] setActive:NO withOptions:0 error:nil];
-//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
-//                                     withOptions:AVAudioSessionCategoryOptionDuckOthers
-//                                           error:nil];
-//    [[AVAudioSession sharedInstance] setActive:YES withOptions: 0 error:nil];
-
 }
 
-- (void)pauseRun
-{
-    [Flurry logEvent:@"PAUSE_RUN"];
-    if ([self.currentTimer isValid]) {
-        self.isPaused = YES;
-        [self.currentTimer invalidate];
-        [self.delegate runDidPause];
-        [[LocationManager sharedManager] stopLocationUpdates];
-    } else {
-        [self startLapNumber:self.currentLapNumber];
-        self.isPaused = NO;
-        [self.delegate runDidResume];
-        [[LocationManager sharedManager] restartStandardLocationCheck];
-    }
-}
+#pragma mark - CHART VIEW GENERATION
 
 - (FartlekChartView*)chartViewForProfileCanEdit:(BOOL)canEdit
 {
     if (!self.currentProfile) {
         NSLog(@"!self.currentProfile");
     }
-    FartlekChartView *bareChartView = [[FartlekChartView alloc] initWithFrame:CGRectMake(56, 150, 210, 284)]; //56, 150, 210, 284 //0, 324, 320, 155
+    FartlekChartView *bareChartView = [[FartlekChartView alloc] initWithFrame:CGRectMake(56, 150, 210, 284)];
     bareChartView.delegate = self;
     bareChartView.backgroundColor = [UIColor clearColor];
     
@@ -306,6 +298,49 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
     return bareChartView;
 }
 
+#pragma mark - RUN STATS
+
+- (float)currentPaceOfRun
+{
+    // run pace = # minutes elapsed in run / # miles traveled this run
+    float runPace = (self.currentRunSecondsElapsed / 60.f) / (self.currentRunDistanceTotal / METERS_PER_MILE);
+    return runPace;
+}
+
+- (float)currentPaceOfLap
+{
+    // lap pace = # minutes elapsed in lap / # miles traveled this lap
+    float lapPace = (self.currentLapElapsedSeconds / 60.f) / (self.currentLapDistanceTotal / METERS_PER_MILE);
+    return lapPace;
+}
+
+- (float)progressOfRun
+{
+    float secondsInProfile = [self.currentProfile.duration floatValue] * 60.f;
+    return self.currentRunSecondsElapsed/secondsInProfile;
+}
+
+- (int)secondsLeftInRun
+{
+    int secondsInProfile = [self.currentProfile.duration intValue] * 60;
+    return secondsInProfile - self.currentRunSecondsElapsed;
+}
+
+- (int)secondsLeftInLap
+{
+    return self.currentLapSecondsTotal - self.currentLapElapsedSeconds;
+}
+
+- (int)secondsElapsedInLap
+{
+    return self.currentLapElapsedSeconds;
+}
+
+- (int)secondsElapsedInRun
+{
+    return self.currentRunSecondsElapsed;
+}
+
 #pragma mark - DYNAMIC PROPERTIES
 
 - (NSNumber *)userPaceMinutes
@@ -360,8 +395,8 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
 
 - (void)resetManager
 {
-    self.currentProfile = nil;
-    self.currentLap = nil;
+//    self.currentProfile = nil;
+//    self.currentLap = nil;
     [self.currentTimer invalidate];
     self.currentTimer = nil;
     self.currentLapSecondsTotal = 0;

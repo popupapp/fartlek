@@ -47,16 +47,12 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
                                                  forBarPosition:UIBarPositionAny
                                                      barMetrics:UIBarMetricsDefault];
-//    self.navigationController.navigationBar.backgroundColor = FARTLEK_YELLOW;
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-//    self.navigationController.navigationBar.barTintColor = FARTLEK_YELLOW;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Gotham-Book" size:20.0], NSFontAttributeName, nil];
-//    self.view.backgroundColor = FARTLEK_YELLOW;
     
     [self setupWorkoutLengthPickerView];
     [self setupWorkoutIntensityPickerView];
-//    [self setupSummaryText];
     [[RunManager sharedManager] setUserIntensity:@(1)];
     [[RunManager sharedManager] setUserDuration:@(30)];
     
@@ -65,7 +61,6 @@
     UIFont *joseFontBoldItalic24 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:24.f];
     
     NSString *deviceName = [[UIDevice currentDevice] name];
-//    NSLog(@"user name 1: %@", userName);
     NSString *userName = @"user";
     NSRange firstApostropheRange = [deviceName rangeOfString:@"'"];
     if (firstApostropheRange.location == NSNotFound) {
@@ -74,7 +69,6 @@
         NSInteger firstApostropheLocation = firstApostropheRange.location;
         userName = [deviceName substringWithRange:NSMakeRange(0, firstApostropheLocation)];
     }
-//    NSLog(@"user name 2: %@", userName);
     self.readyForRunLabel.text = [NSString stringWithFormat:@"%@, are you ready to go for a fun run?", userName];
     
     [self.readyForRunLabel setFont:joseFontBoldItalic22];
@@ -94,7 +88,6 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:USER_SIGNED_IN_KEY]) {
         // user has "signed in" and entered their run pace
         NSLog(@"WELCOME!");
-//        [self setupSummaryText];
     } else {
         // user hasn't yet "signed in" and entered their run pace
         [self performSegueWithIdentifier:@"setPaceSegue" sender:nil];
@@ -104,6 +97,11 @@
 - (IBAction)setMyPaceAction:(id)sender
 {
     [self performSegueWithIdentifier:@"setPaceSegue" sender:nil];
+}
+
+- (IBAction)viewPastRunsAction:(id)sender
+{
+    [self performSegueWithIdentifier:@"runHistorySegue" sender:nil];
 }
 
 #pragma mark - unwind segue

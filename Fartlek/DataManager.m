@@ -248,6 +248,37 @@ static DataManager *g_dataManager = nil;
     }
 }
 
+-(NSArray *)findAllLapLocations
+{
+    NSError *error = nil;
+    NSArray *allLapLocations = [self.managedObjectContext executeFetchRequest:[NSFetchRequest fetchRequestWithEntityName:@"LapLocation"]
+                                                                 error:&error];
+    if (error) {
+        [self handleError:error];
+        return nil;
+    } else {
+        return allLapLocations;
+    }
+}
+
+-(LapLocation *)findLapLocationByID:(NSString *)lapLocationID
+{
+    NSError *error = nil;
+    NSArray *senders = [self.managedObjectContext executeFetchRequest:[self requestForLapLocationWithID:lapLocationID]
+                                                                error:&error];
+    if (error) {
+        [self handleError:error];
+        return nil;
+    }
+    else {
+        if ([senders count] > 0) {
+            return [senders objectAtIndex:0];
+        } else {
+            return nil;
+        }
+    }
+}
+
 -(NSArray *)findAllProfiles
 {
     NSError *error = nil;
@@ -299,6 +330,12 @@ static DataManager *g_dataManager = nil;
         insertIntoManagedObjectContext:self.managedObjectContext];
 }
 
+-(LapLocation *)createLapLocation
+{
+    return [[LapLocation alloc] initWithEntity:[self entityForName:@"LapLocation"]
+                insertIntoManagedObjectContext:self.managedObjectContext];
+}
+
 -(Profile *)createProfile
 {
     return [[Profile alloc] initWithEntity:[self entityForName:@"Profile"]
@@ -337,6 +374,12 @@ static DataManager *g_dataManager = nil;
 {
     return [self requestForEntityName:@"Run"
                         withPredicate:[NSPredicate predicateWithFormat:@"runID == %@", runID]];
+}
+
+- (NSFetchRequest *)requestForLapLocationWithID:(NSString*)lapLocationID
+{
+    return [self requestForEntityName:@"LapLocation"
+                        withPredicate:[NSPredicate predicateWithFormat:@"lapLocationID == %@", lapLocationID]];
 }
 
 - (NSFetchRequest *)requestForProfileWithID:(NSString*)profileID

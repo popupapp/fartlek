@@ -18,7 +18,7 @@
 - (void)timerDidFire;
 @end
 
-@class Profile, Lap, FartlekChartView;
+@class Profile, Lap, FartlekChartView, Run;
 
 @interface RunManager : NSObject
 
@@ -26,6 +26,7 @@
 + (RunManager*)sharedManager;
 - (void)resetManager;
 - (void)startRun;
+- (void)saveAndStopRun;
 - (void)pauseRun;
 - (float)progressOfRun;
 - (float)currentPaceOfRun;
@@ -46,6 +47,7 @@
 
 @property (assign, nonatomic) BOOL isPaused;
 @property (strong, nonatomic) Profile *currentProfile;
+@property (strong, nonatomic) Run *currentRun;
 @property (strong, nonatomic) Lap *currentLap;
 @property (strong, nonatomic) NSTimer *currentTimer;
 

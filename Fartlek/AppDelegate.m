@@ -33,8 +33,6 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-//    [[LocationManager sharedManager] restartStandardLocationCheck];
-    
 //    if ([launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey]) {
 //        NSLog(@"local notif app did finish launching");
 //    }
