@@ -65,8 +65,6 @@
         self.workoutSummaryLabel.text = @"";
     }
     [[RunManager sharedManager] resetManager];
-    [self setupChart];
-    
     [self fetchAction:nil];
 }
 
@@ -75,7 +73,6 @@
     self.chartView = [[RunManager sharedManager] chartViewForProfileCanEdit:YES];
     NSLog(@"chartView:%@", self.chartView);
     self.chartView.delegate = self;
-//    [self.view addSubview:self.chartView];
     [self.view insertSubview:self.chartView belowSubview:self.workoutSummaryLabel];
 }
 
@@ -86,9 +83,10 @@
     self.currentProfile = nil;
 //    [Lap deleteAll];
 //    [Profile deleteAll];
-    for (UIView *v in self.chartView.subviews) {
-        [v removeFromSuperview];
-    }
+//    for (UIView *v in self.chartView.subviews) {
+//        [v removeFromSuperview];
+//    }
+    [self.chartView removeFromSuperview];
     [[DataManager sharedManager] markAllProfilesAsNotCurrent];
     
 //    NSString *profileIntensity = self.workoutIntensityField.text;

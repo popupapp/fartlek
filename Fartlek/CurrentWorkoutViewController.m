@@ -99,7 +99,6 @@
     
     [self registerForAudioNotifications];
     [self setupAudioSession];
-//    [self setupChart];
     
     // start run
     if ([[RunManager sharedManager] currentProfile]) {
@@ -109,9 +108,80 @@
     }
 }
 
--(void)backAction
+- (void)goBackNow
 {
     [self.navigationController popViewControllerAnimated:YES];
+    [[RunManager sharedManager] resetManager];
+    [[RunManager sharedManager] setCurrentRun:nil];
+}
+
+-(void)backAction
+{
+    if ([self.stopButton.titleLabel.text isEqualToString:@"Stop"]) {
+        UIAlertView *goBackConfirmAlert = [UIAlertView new];
+        goBackConfirmAlert.title = @"Are you sure you want to stop this run?";
+        goBackConfirmAlert.message = nil;
+        goBackConfirmAlert.delegate = self;
+        goBackConfirmAlert.tag = 1;
+        [goBackConfirmAlert addButtonWithTitle:@"Yes"];
+        [goBackConfirmAlert addButtonWithTitle:@"No"];
+        [goBackConfirmAlert show];
+    } else {
+        UIAlertView *dontSaveConfirmAlert = [UIAlertView new];
+        dontSaveConfirmAlert.title = @"Save this run?";
+        dontSaveConfirmAlert.message = nil;
+        dontSaveConfirmAlert.delegate = self;
+        dontSaveConfirmAlert.tag = 3;
+        [dontSaveConfirmAlert addButtonWithTitle:@"Save"];
+        [dontSaveConfirmAlert addButtonWithTitle:@"Discard"];
+        [dontSaveConfirmAlert show];
+    }
+}
+
+- (IBAction)stopOrSaveRunAction:(id)sender
+{
+    if ([self.stopButton.titleLabel.text isEqualToString:@"Stop"]) {
+        UIAlertView *stopRunConfirmAlert = [UIAlertView new];
+        stopRunConfirmAlert.title = @"Are you sure you want to stop this run?";
+        stopRunConfirmAlert.message = nil;
+        stopRunConfirmAlert.delegate = self;
+        stopRunConfirmAlert.tag = 2;
+        [stopRunConfirmAlert addButtonWithTitle:@"Yes"];
+        [stopRunConfirmAlert addButtonWithTitle:@"No"];
+        [stopRunConfirmAlert show];
+    } else if ([self.stopButton.titleLabel.text isEqualToString:@"Save"]) {
+        // save run
+        [[RunManager sharedManager] saveRun];
+    }
+}
+
+#pragma mark - UIAlertView Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 1) {
+        // back
+        if (buttonIndex == 0) {
+            [[RunManager sharedManager] stopRun];
+            [[RunManager sharedManager] deleteRun];
+            [self goBackNow];
+        }
+    } else if (alertView.tag == 2) {
+        // stop
+        if (buttonIndex == 0) {
+            [[RunManager sharedManager] stopRun];
+        }
+    } else if (alertView.tag == 3) {
+        // back after stopped
+        if (buttonIndex == 0) {
+            // save
+            [self goBackNow];
+        } else {
+            // delete
+            [[RunManager sharedManager] deleteRun];
+            [self goBackNow];
+        }
+    }
 }
 
 - (void)registerForAudioNotifications
@@ -142,36 +212,6 @@
     }
 }
 
-- (IBAction)stopRunAction:(id)sender
-{
-    if ([self.stopButton.titleLabel.text isEqualToString:@"Stop"]) {
-        UIAlertView *stopRunConfirmAlert = [UIAlertView new];
-        stopRunConfirmAlert.title = @"Are you sure you want to stop the run?";
-        stopRunConfirmAlert.message = nil;
-        stopRunConfirmAlert.delegate = self;
-        [stopRunConfirmAlert addButtonWithTitle:@"Yes"];
-        [stopRunConfirmAlert addButtonWithTitle:@"No"];
-        [stopRunConfirmAlert show];
-    } else {
-        
-    }
-}
-
-#pragma mark - UIAlertView Delegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) {
-        // end run
-        [[RunManager sharedManager] saveAndStopRun];
-        self.pauseButton.enabled = NO;
-        [self.stopButton setTitle:@"Save" forState:UIControlStateNormal];
-    } else {
-        // don't end run
-    }
-}
-
-
 #pragma mark - RunManagerDelegate
 
 - (void)runDidBegin
@@ -193,6 +233,23 @@
     } else {
         self.currentIntensityLabel.text = [NSString stringWithFormat:@"%@ Gear!", ordinalString];
     }
+}
+
+- (void)runDidStop
+{
+    self.pauseButton.enabled = NO;
+    [self.stopButton setTitle:@"Save" forState:UIControlStateNormal];
+}
+
+- (void)runDidSave
+{
+    [[[UIAlertView alloc] initWithTitle:@"Run Saved" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+    [self goBackNow];
+}
+
+- (void)runDidNotSave
+{
+    [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Run did not save." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
 }
 
 - (NSString*)getOrdinalSuffix:(int)number

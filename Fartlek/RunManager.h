@@ -14,6 +14,9 @@
 - (void)runDidBegin;
 - (void)runDidPause;
 - (void)runDidResume;
+- (void)runDidStop;
+- (void)runDidSave;
+- (void)runDidNotSave;
 - (void)lapDidBegin:(int)lapNumber;
 - (void)timerDidFire;
 @end
@@ -26,7 +29,9 @@
 + (RunManager*)sharedManager;
 - (void)resetManager;
 - (void)startRun;
-- (void)saveAndStopRun;
+- (void)saveRun;
+- (void)stopRun;
+- (void)deleteRun;
 - (void)pauseRun;
 - (float)progressOfRun;
 - (float)currentPaceOfRun;

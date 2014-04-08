@@ -16,5 +16,7 @@
 + (void)deleteAll;
 - (void)saveSuccess:(void (^)(void))success
             failure:(void (^)(NSError *error))failure;
+- (void)deleteSuccess:(void (^)(void))success
+              failure:(void (^)(NSError *error))failure;
 
 @end

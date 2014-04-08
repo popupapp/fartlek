@@ -96,18 +96,35 @@ static RunManager *g_runManager = nil;
 
 #pragma mark - SAVE AND STOP RUN
 
-- (void)saveAndStopRun
+- (void)saveRun
 {
+    [self.delegate runDidSave];
+}
+
+- (void)stopRun
+{
+    [self.delegate runDidStop];
     NSLog(@"runDistance: %@", @(self.currentRunDistanceTotal));
     self.currentRun.runDistance = @(self.currentRunDistanceTotal);
     float runPace = (self.currentRunSecondsElapsed / 60.f) / (self.currentRunDistanceTotal / METERS_PER_MILE);
     NSLog(@"runPace: %.4f", runPace);
     self.currentRun.runPace = @(runPace);
     [self.currentRun saveSuccess:^{
-        NSLog(@"SUCCESSFULLY SAVED RUN: %@", self.currentRun);
+        NSLog(@"SUCCESSFULLY SAVED RUN2: %@", self.currentRun);
         [self resetManager];
     } failure:^(NSError *error) {
-        NSLog(@"FAILED RUN SAVE: %@", error);
+        NSLog(@"FAILED RUN SAVE2: %@", error);
+        [self resetManager];
+    }];
+}
+
+- (void)deleteRun
+{
+    [self.currentRun deleteSuccess:^{
+        NSLog(@"SUCCESSFUL RUN DELETE");
+        [self resetManager];
+    } failure:^(NSError *error) {
+        NSLog(@"FAILED RUN DELETE: %@", error);
         [self resetManager];
     }];
 }
@@ -197,7 +214,7 @@ static RunManager *g_runManager = nil;
             synUtt.rate = 0.3;
             [synUtt setVoice:[AVSpeechSynthesisVoice voiceWithLanguage:[AVSpeechSynthesisVoice currentLanguageCode]]];
             [av speakUtterance:synUtt];
-            [self saveAndStopRun];
+            [self stopRun];
         }
     }
 }
@@ -428,9 +445,11 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:self userInfo:notificationUserInfo];
 }
 
+#pragma mark - RESET MANAGER DATA
+
 - (void)resetManager
 {
-#pragma warning !! nil out self.currentRun
+//    self.currentRun = nil;
     self.currentProfile = nil;
     self.currentLap = nil;
     [self.currentTimer invalidate];
