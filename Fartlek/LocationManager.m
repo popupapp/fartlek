@@ -100,7 +100,7 @@ static LocationManager *g_locationManager;
     
     // Defer updates until the user runs a certain distance
     // or when a certain amount of time has passed.
-    NSLog(@"got a location");
+    NSLog(@"got a location (%f)", lastLocation.horizontalAccuracy);
     if (!self.deferringUpdates) {
         Lap *currentLap = [[RunManager sharedManager] currentLap];
         if (currentLap) {

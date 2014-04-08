@@ -26,6 +26,7 @@ static RunManager *g_runManager = nil;
 @property (assign, nonatomic) int currentLapNumber;
 @property (assign, nonatomic) int currentLapElapsedSeconds;
 @property (assign, nonatomic) int currentLapsTotal;
+@property (assign, nonatomic) int totalNumberOfLocationsAdded;
 @end
 
 @implementation RunManager
@@ -54,6 +55,7 @@ static RunManager *g_runManager = nil;
 {
     [[LocationManager sharedManager] restartStandardLocationCheck];
     [Flurry logEvent:@"START_RUN"];
+    self.totalNumberOfLocationsAdded = 0;
     // CREATE currentRun OBJECT
     self.currentRun = [[DataManager sharedManager] createRun];
     self.currentRun.profile = self.currentProfile;
@@ -73,6 +75,8 @@ static RunManager *g_runManager = nil;
         [[[UIAlertView alloc] initWithTitle:@"FAIL" message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil] show];
     }];
 }
+
+#pragma mark - PAUSE RUN
 
 - (void)pauseRun
 {
@@ -203,6 +207,7 @@ static RunManager *g_runManager = nil;
 - (void)addLocationToRun:(CLLocation*)location
 {
     NSLog(@"currentRunDistanceTotal:%f", self.currentRunDistanceTotal);
+    self.totalNumberOfLocationsAdded += 1;
     CLLocation *lastLoc = [self.runLocationsForDistanceCalculations lastObject];
     if (!lastLoc) {
         lastLoc = location;
@@ -215,7 +220,8 @@ static RunManager *g_runManager = nil;
         self.currentLapDistanceTotal += (float)distanceFromLastLocation;
     }
     NSLog(@"distanceFromLastLocation:%f", (float)distanceFromLastLocation);
-    
+    [self.runLocationsForDistanceCalculations addObject:location];
+//    if (self.currentLap && (self.totalNumberOfLocationsAdded % 10 == 0 || self.totalNumberOfLocationsAdded == 1)) {
     if (self.currentLap) {
         NSLog(@".. self.currentLap is not nil");
         self.currentLap.lapDistance = @(self.currentLapDistanceTotal);
@@ -229,7 +235,6 @@ static RunManager *g_runManager = nil;
         [self.runLocations addObject:runLoc];
         NSData *locationsArrayData = [NSKeyedArchiver archivedDataWithRootObject:[NSArray arrayWithArray:[self.runLocations copy]]];
         self.currentLap.locationsArray = locationsArrayData;
-        [self.runLocationsForDistanceCalculations addObject:thisLoc];
     } else {
         NSLog(@"!! self.currentLap IS NIL");
     }

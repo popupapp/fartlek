@@ -86,21 +86,53 @@
     RunLocation *firstRunLocation;
     NSArray *lapArray = [self.thisRun.runLaps allObjects];
     NSArray *orderedLapsArray = [[DataManager sharedManager] orderedLapsByLapNumber:lapArray];
+    NSMutableArray *polylineLocationsArray = [NSMutableArray array];
+    int numberOfLocations = 0;
     for (int i=0; i < orderedLapsArray.count; i++) {
         Lap *lap = (Lap*)orderedLapsArray[i];
+        NSLog(@"i:%d, lapNumber:%d", i, [lap.lapNumber intValue]);
         // locationsArray contains a bunch of RunLocation objects
         NSArray *locationsArray = [NSKeyedUnarchiver unarchiveObjectWithData:lap.locationsArray];
-//        NSLog(@"lap.locationsArray: %@", locationsArray);
         if (i==0) {
             firstRunLocation = locationsArray[i];
         }
-        RunLocation *thisRunLoc = locationsArray[i];
-        [self.runMapView addAnnotation:thisRunLoc];
+//        [self.runMapView addAnnotations:locationsArray];
+//        [self.runMapView showAnnotations:locationsArray animated:YES];
+        
+//        for (RunLocation *thisRunLoc in locationsArray) {
+        for (int j=0; j<locationsArray.count; j++) {
+            if (j % 5 == 0) {
+                RunLocation *thisRunLoc = locationsArray[j];
+                NSLog(@"numberOfLocations:%d",numberOfLocations);
+                numberOfLocations += 1;
+                [polylineLocationsArray addObject:thisRunLoc];
+            }
+        }
     }
-//    NSLog(@"%@", firstLap);
+    CLLocationCoordinate2D *plotLocation = malloc(sizeof(CLLocationCoordinate2D) * numberOfLocations);
+    for (int i=0; i<polylineLocationsArray.count; i++) {
+        RunLocation *runLoc = polylineLocationsArray[i];
+        plotLocation[i] = runLoc.coordinate;
+    }
+    MKPolyline *runMapLine = [MKPolyline polylineWithCoordinates:plotLocation count:numberOfLocations];
+    [self.runMapView addOverlay:runMapLine];
+//    [self.runMapView setCenterCoordinate:plotLocation[0]];
     float lat = [firstRunLocation.lat floatValue];
     float lng = [firstRunLocation.lng floatValue];
     [self zoomToThisLat:lat Lon:lng];
+}
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView
+            rendererForOverlay:(id<MKOverlay>)overlay
+{
+    if([overlay isKindOfClass:[MKPolyline class]]) {
+        MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
+        renderer.strokeColor = [UIColor redColor];
+        renderer.lineWidth = 1.0;
+        return renderer;
+    } else {
+        return nil;
+    }
 }
 
 - (void)setupTable
