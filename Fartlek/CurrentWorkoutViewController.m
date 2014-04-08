@@ -284,10 +284,23 @@
     [self.timetoNextLapLabel setFont:joseFontBoldItalic22];
     self.elapsedTimeValueLabel.text = [NSString stringWithFormat:@"%d:%.2d", minutesElapsedInLap, secondsElapsedInLap];
     self.totalTimeValueLabel.text = [NSString stringWithFormat:@"%d:%.2d", minutesElapsedInRun, secondsElapsedInRun];
-//    self.totalDistanceValueLabel.text = @"";
-    self.lapDistanceValueLabel.text = [NSString stringWithFormat:@"%.2f mi", [[RunManager sharedManager] currentLapDistanceTotal]];
-    self.lapPaceValueLabel.text = [NSString stringWithFormat:@"%.2f min/mi", [[RunManager sharedManager] currentPaceOfLap]];
-    self.totalDistanceValueLabel.text = [NSString stringWithFormat:@"%.4f mi", [[RunManager sharedManager] currentRunDistanceTotal]];
+    
+    float lapDistanceInMeters = [[RunManager sharedManager] currentLapDistanceTotal];
+    float lapDistanceInMiles = lapDistanceInMeters / METERS_PER_MILE;
+    self.lapDistanceValueLabel.text = [NSString stringWithFormat:@"%.2f mi", lapDistanceInMiles];
+    
+    float currentPaceOfLap = [[RunManager sharedManager] currentPaceOfLap];
+    int minutesPaceOfLap = currentPaceOfLap / 60;
+    int secondsPaceOfLap = (int)currentPaceOfLap % 60;
+    if (currentPaceOfLap == INFINITY) {
+        self.lapPaceValueLabel.text = @"0:00 min/mi";
+    } else {
+        self.lapPaceValueLabel.text = [NSString stringWithFormat:@"%d:%.2d min/mi", minutesPaceOfLap, secondsPaceOfLap];
+    }
+    
+    float currentRunDistanceInMeters = [[RunManager sharedManager] currentRunDistanceTotal];
+    float currentRunDistanceInMiles = currentRunDistanceInMeters / METERS_PER_MILE;
+    self.totalDistanceValueLabel.text = [NSString stringWithFormat:@"%.2f mi", currentRunDistanceInMiles];
     
 //    CGRect pFrame = self.bareChartView.progressView.frame;
 //    self.bareChartView.progressView.frame = CGRectMake(pFrame.origin.x, pFrame.origin.y,

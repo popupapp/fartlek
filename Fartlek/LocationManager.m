@@ -77,7 +77,7 @@ static LocationManager *g_locationManager;
         self.locationManager = [CLLocationManager new];
         self.locationManager.delegate = self;
         self.locationManager.activityType = CLActivityTypeFitness;
-        self.locationManager.distanceFilter = kCLDistanceFilterNone;
+        self.locationManager.distanceFilter = 5.0; // kCLDistanceFilterNone
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         // setting this to NO is super important to have the lap exist longer in the background
         self.locationManager.pausesLocationUpdatesAutomatically = NO;

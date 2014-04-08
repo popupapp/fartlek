@@ -89,10 +89,20 @@
     Run *thisRun = self.runHistoryArray[indexPath.row];
     cell.profileNameLabel.text = [NSString stringWithFormat:@"%@", thisRun.profile.profileName];
     cell.lapsLabel.text = [NSString stringWithFormat:@"Laps: %d", thisRun.profile.laps.count];
-    cell.distanceLabel.text = [NSString stringWithFormat:@"Distance: %.4f", [thisRun.runDistance floatValue]];
-//    NSLog(@"thisRun:%@", thisRun);
-    NSLog(@"numberOfLaps:%d", thisRun.profile.laps.count);
-    cell.runPaceLabel.text = [NSString stringWithFormat:@"Run Pace: %.4f", [thisRun.runPace floatValue]];
+
+    float runDistanceInMeters = [thisRun.runDistance floatValue];
+    float runDistanceInMiles = runDistanceInMeters / METERS_PER_MILE;
+    cell.distanceLabel.text = [NSString stringWithFormat:@"Distance: %.2f mi", runDistanceInMiles];
+    
+    float paceOfRun = [thisRun.runPace floatValue];
+    int minutesPaceOfRun = paceOfRun / 60;
+    int secondsPaceOfRun = (int)paceOfRun % 60;
+    if (paceOfRun == INFINITY) {
+        cell.runPaceLabel.text = @"Run Pace: 0:00 min/mi";
+    } else {
+        cell.runPaceLabel.text = [NSString stringWithFormat:@"Pace: %d:%.2d min/mi", minutesPaceOfRun, secondsPaceOfRun];
+    }
+    
     return cell;
 }
 

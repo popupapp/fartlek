@@ -71,8 +71,19 @@
 
 - (void)setupTopStatsBox
 {
-    self.distanceLabel.text = [NSString stringWithFormat:@"Distance: %.2fm", [self.thisRun.runDistance floatValue]];
-    self.paceLabel.text = [NSString stringWithFormat:@"Pace: %.2f min/mi", [self.thisRun.runPace floatValue]];
+    float distInMeters = [self.thisRun.runDistance floatValue];
+    float distInMiles = distInMeters / METERS_PER_MILE;
+    self.distanceLabel.text = [NSString stringWithFormat:@"Distance: %.2f mi", distInMiles];
+    
+    float paceOfRun = [self.thisRun.runPace floatValue];
+    int minutesPaceOfRun = paceOfRun / 60;
+    int secondsPaceOfRun = (int)paceOfRun % 60;
+    if (paceOfRun == INFINITY) {
+        self.paceLabel.text = @"Pace: 0:00 min/mi";
+    } else {
+        self.paceLabel.text = [NSString stringWithFormat:@"Pace: %d:%.2d min/mi", minutesPaceOfRun, secondsPaceOfRun];
+    }
+
     
     float secondsInLap = 0;
     for (Lap *lap in self.thisRun.runLaps) {
