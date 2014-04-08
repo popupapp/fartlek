@@ -18,7 +18,6 @@
 @interface WorkoutSummaryViewController () <UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *summaryTable;
 @property (strong, nonatomic) NSArray *lapsArray;
-//@property (strong, nonatomic) NSArray *lapsArray;
 @property (weak, nonatomic) IBOutlet UILabel *runSummaryLabel;
 @property (weak, nonatomic) IBOutlet MKMapView *runMapView;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
@@ -29,9 +28,17 @@
 
 @implementation WorkoutSummaryViewController
 
+- (void)awakeFromNib
+{
+    //
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"thisRun: %@", self.thisRun);
+    NSArray *tempLapsArray = [self.thisRun.runLaps allObjects];
+    self.lapsArray = [[DataManager sharedManager] orderedLapsByLapNumber:tempLapsArray];
     self.navigationController.navigationBar.translucent = YES;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
                                                  forBarPosition:UIBarPositionAny
@@ -47,18 +54,32 @@
     [imgButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = b;
     
-    UIFont *joseFontBoldItalic22 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:22.f];
-    [self.runSummaryLabel setFont:joseFontBoldItalic22];
-    [self.distanceLabel setFont:joseFontBoldItalic22];
-    [self.timeLabel setFont:joseFontBoldItalic22];
-    [self.paceLabel setFont:joseFontBoldItalic22];
+    UIFont *joseFontBoldItalic20 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:20.f];
+    [self.runSummaryLabel setFont:joseFontBoldItalic20];
+    [self.distanceLabel setFont:joseFontBoldItalic20];
+    [self.timeLabel setFont:joseFontBoldItalic20];
+    [self.paceLabel setFont:joseFontBoldItalic20];
     
-    [self setupRunData];
+    [self setupTopStatsBox];
+    [self setupMap];
+    [self setupTable];
 }
 
-- (void)setupRunData
+- (void)setupTopStatsBox
+{
+    self.distanceLabel.text = [NSString stringWithFormat:@"Distance: %.2fm", [self.thisRun.runDistance floatValue]];
+    self.paceLabel.text = [NSString stringWithFormat:@"Pace: %.2f min/mi", [self.thisRun.runPace floatValue]];
+    self.timeLabel.text = [NSString stringWithFormat:@"Time: %d min", [self.thisRun.profile.duration intValue]];
+}
+
+- (void)setupMap
 {
     //
+}
+
+- (void)setupTable
+{
+    [self.summaryTable reloadData];
 }
 
 -(void)backAction
@@ -86,6 +107,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CurrentRunCell *cell = [tableView dequeueReusableCellWithIdentifier:@"workoutSummaryLabelCell"];
+    Lap *thisLap = (Lap*)self.lapsArray[indexPath.row];
+    NSLog(@"thisLap:%@", thisLap);
+    cell.leftLabel.text = [NSString stringWithFormat:@"Lap %d", indexPath.row];
+    cell.rightLabel.text = [NSString stringWithFormat:@"%f m", [thisLap.lapDistance floatValue]];
     return cell;
 }
 

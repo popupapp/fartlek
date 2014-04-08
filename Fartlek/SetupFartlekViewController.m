@@ -11,10 +11,10 @@
 #import "CurrentWorkoutViewController.h"
 #import <Bestly/Bestly.h>
 #import <AFNetworking/AFNetworking.h>
-#import "User+Database.h"
-#import "Lap+Database.h"
-#import "Run+Database.h"
-#import "Profile+Database.h"
+//#import "User+Database.h"
+//#import "Lap+Database.h"
+//#import "Run+Database.h"
+//#import "Profile+Database.h"
 #import "NSObject+Conversions.h"
 @import QuartzCore;
 #import "RunManager.h"
@@ -210,14 +210,6 @@
         [[RunManager sharedManager] setUserIntensity:@(row+1)];
     }
 //    [self setupSummaryText];
-}
-
-- (IBAction)deleteBBIAction:(id)sender
-{
-    [User deleteAll];
-    [Lap deleteAll];
-    [Profile deleteAll];
-    [Run deleteAll];
 }
 
 

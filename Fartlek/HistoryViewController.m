@@ -14,6 +14,7 @@
 #import "Profile+Database.h"
 #import "DataManager.h"
 //#import "RunManager.h"
+#import "WorkoutSummaryViewController.h"
 
 @interface HistoryViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *historyTable;
@@ -57,11 +58,11 @@
 
 -(IBAction)backAction
 {
-    if (self.navigationController) {
-        [self.navigationController popViewControllerAnimated:YES];
-    } else {
+//    if (self.navigationController) {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    } else {
         [self dismissViewControllerAnimated:YES completion:nil];
-    }
+//    }
 }
 
 
@@ -88,23 +89,28 @@
     Run *thisRun = self.runHistoryArray[indexPath.row];
     cell.profileNameLabel.text = [NSString stringWithFormat:@"%@", thisRun.profile.profileName];
     cell.lapsLabel.text = [NSString stringWithFormat:@"Laps: %d", thisRun.profile.laps.count];
-    NSLog(@"thisRun:%@", thisRun);
+    cell.distanceLabel.text = [NSString stringWithFormat:@"Distance: %.4f", [thisRun.runDistance floatValue]];
+//    NSLog(@"thisRun:%@", thisRun);
     NSLog(@"numberOfLaps:%d", thisRun.profile.laps.count);
-    int x = 0;
-//    float y = 0;
-    for (Lap *lap in thisRun.profile.laps) {
-        x += lap.locations.count;
-//        for (LapLocation *lapLoc in lap.locations) {
-//            y += lapLoc.horizAcc;
-//        }
-    }
-    cell.lapLocationsLabel.text = [NSString stringWithFormat:@"Lap Locs: %d", x];
+    cell.runPaceLabel.text = [NSString stringWithFormat:@"Run Pace: %.4f", [thisRun.runPace floatValue]];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    Run *thisRun = self.runHistoryArray[indexPath.row];
+    [self performSegueWithIdentifier:@"runSummarySegue" sender:thisRun];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"runSummarySegue"]) {
+        if ([segue.destinationViewController isKindOfClass:[WorkoutSummaryViewController class]]) {
+            WorkoutSummaryViewController *wvc = (WorkoutSummaryViewController*)segue.destinationViewController;
+            wvc.thisRun = (Run*)sender;
+        }
+    }
 }
 
 

@@ -14,9 +14,11 @@
 @interface Run : NSManagedObject
 
 @property (nonatomic, retain) NSString * runID;
+@property (nonatomic, retain) NSNumber * runDistance;
+@property (nonatomic, retain) NSNumber * runPace;
+@property (nonatomic, retain) Profile *profile;
 @property (nonatomic, retain) NSSet *runLaps;
 @property (nonatomic, retain) User *user;
-@property (nonatomic, retain) Profile *profile;
 @end
 
 @interface Run (CoreDataGeneratedAccessors)

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Lap" representedClassName="Lap" syncable="YES">
+        <attribute name="lapDistance" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="lapID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lapIntensity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="lapNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="lapPace" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="lapStartSpeechString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lapTime" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <relationship name="lapRun" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Run" inverseName="runLaps" inverseEntity="Run" syncable="YES"/>
@@ -30,7 +32,9 @@
         <relationship name="runs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Run" inverseName="profile" inverseEntity="Run" syncable="YES"/>
     </entity>
     <entity name="Run" representedClassName="Run" syncable="YES">
+        <attribute name="runDistance" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="runID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="runPace" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="runs" inverseEntity="Profile" syncable="YES"/>
         <relationship name="runLaps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Lap" inverseName="lapRun" inverseEntity="Lap" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="runs" inverseEntity="User" syncable="YES"/>
@@ -43,10 +47,10 @@
         <relationship name="runs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Run" inverseName="user" inverseEntity="Run" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Lap" positionX="232" positionY="-90" width="128" height="163"/>
+        <element name="Lap" positionX="232" positionY="-90" width="128" height="193"/>
         <element name="LapLocation" positionX="-65" positionY="54" width="128" height="148"/>
         <element name="Profile" positionX="-207" positionY="-229" width="128" height="163"/>
-        <element name="Run" positionX="18" positionY="-207" width="128" height="103"/>
+        <element name="Run" positionX="18" positionY="-207" width="128" height="133"/>
         <element name="User" positionX="279" positionY="-261" width="128" height="118"/>
     </elements>
 </model>

@@ -15,8 +15,10 @@
 @implementation Run
 
 @dynamic runID;
+@dynamic runDistance;
+@dynamic runPace;
+@dynamic profile;
 @dynamic runLaps;
 @dynamic user;
-@dynamic profile;
 
 @end

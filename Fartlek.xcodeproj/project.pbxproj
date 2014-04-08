@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		8810719FC6CC4ADB9C607D95 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B0F5FC528C449B8826586F /* libPods.a */; };
+		961C3F7D18F3594A00D3AC4B /* RunLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 961C3F7C18F3594A00D3AC4B /* RunLocation.m */; };
+		961C3F7F18F35B1D00D3AC4B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961C3F7E18F35B1D00D3AC4B /* MapKit.framework */; };
+		961C3F8118F35B2400D3AC4B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961C3F8018F35B2400D3AC4B /* CoreData.framework */; };
 		963E438718E2121A0073EFB8 /* RunManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 963E438618E2121A0073EFB8 /* RunManager.m */; };
 		963E438A18E216D90073EFB8 /* CurrentWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963E438918E216D90073EFB8 /* CurrentWorkoutViewController.m */; };
 		9676E31518F312D00024BA69 /* RunHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9676E31418F312D00024BA69 /* RunHistoryCell.m */; };
 		9676E32718F3200A0024BA69 /* LapLocation+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 9676E32618F3200A0024BA69 /* LapLocation+Database.m */; };
 		9676E35C18F342CB0024BA69 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9676E35B18F342CB0024BA69 /* Profile.m */; };
-		9676E35F18F342CC0024BA69 /* Lap.m in Sources */ = {isa = PBXBuildFile; fileRef = 9676E35E18F342CC0024BA69 /* Lap.m */; };
-		9676E36218F342CC0024BA69 /* Run.m in Sources */ = {isa = PBXBuildFile; fileRef = 9676E36118F342CC0024BA69 /* Run.m */; };
 		9676E36518F342CC0024BA69 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 9676E36418F342CC0024BA69 /* User.m */; };
 		9676E36818F342CC0024BA69 /* LapLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9676E36718F342CC0024BA69 /* LapLocation.m */; };
 		968BBB3218DBE01700766D59 /* CurrentRunCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 968BBB3118DBE01700766D59 /* CurrentRunCell.m */; };
@@ -35,6 +36,8 @@
 		9693DA6918EB40CC00174175 /* JosefinSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9693DA6318EB40CC00174175 /* JosefinSans-LightItalic.ttf */; };
 		9693DA6A18EB40CC00174175 /* JosefinSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9693DA6418EB40CC00174175 /* JosefinSans-Regular.ttf */; };
 		9693DA6D18EB4DF200174175 /* ChooseRunViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9693DA6C18EB4DF200174175 /* ChooseRunViewController.m */; };
+		969BAEBE18F3A0F8008F99E1 /* Lap.m in Sources */ = {isa = PBXBuildFile; fileRef = 969BAEBD18F3A0F8008F99E1 /* Lap.m */; };
+		969BAEC118F3A0F9008F99E1 /* Run.m in Sources */ = {isa = PBXBuildFile; fileRef = 969BAEC018F3A0F9008F99E1 /* Run.m */; };
 		96A98EA818DA079700E55F1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA718DA079700E55F1D /* Foundation.framework */; };
 		96A98EAA18DA079700E55F1D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA918DA079700E55F1D /* CoreGraphics.framework */; };
 		96A98EAC18DA079700E55F1D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EAB18DA079700E55F1D /* UIKit.framework */; };
@@ -71,6 +74,10 @@
 /* Begin PBXFileReference section */
 		12542F4918664AC5B3573EB0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		27B0F5FC528C449B8826586F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		961C3F7B18F3594A00D3AC4B /* RunLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunLocation.h; sourceTree = "<group>"; };
+		961C3F7C18F3594A00D3AC4B /* RunLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunLocation.m; sourceTree = "<group>"; };
+		961C3F7E18F35B1D00D3AC4B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		961C3F8018F35B2400D3AC4B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		963E438518E2121A0073EFB8 /* RunManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunManager.h; sourceTree = "<group>"; };
 		963E438618E2121A0073EFB8 /* RunManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunManager.m; sourceTree = "<group>"; };
 		963E438818E216D90073EFB8 /* CurrentWorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentWorkoutViewController.h; sourceTree = "<group>"; };
@@ -82,10 +89,6 @@
 		9676E32C18F336B80024BA69 /* FartlekModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FartlekModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		9676E35A18F342CB0024BA69 /* Profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Profile.h; sourceTree = "<group>"; };
 		9676E35B18F342CB0024BA69 /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
-		9676E35D18F342CC0024BA69 /* Lap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lap.h; sourceTree = "<group>"; };
-		9676E35E18F342CC0024BA69 /* Lap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lap.m; sourceTree = "<group>"; };
-		9676E36018F342CC0024BA69 /* Run.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Run.h; sourceTree = "<group>"; };
-		9676E36118F342CC0024BA69 /* Run.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Run.m; sourceTree = "<group>"; };
 		9676E36318F342CC0024BA69 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		9676E36418F342CC0024BA69 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		9676E36618F342CC0024BA69 /* LapLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LapLocation.h; sourceTree = "<group>"; };
@@ -119,6 +122,10 @@
 		9693DA6418EB40CC00174175 /* JosefinSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JosefinSans-Regular.ttf"; sourceTree = "<group>"; };
 		9693DA6B18EB4DF200174175 /* ChooseRunViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseRunViewController.h; sourceTree = "<group>"; };
 		9693DA6C18EB4DF200174175 /* ChooseRunViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseRunViewController.m; sourceTree = "<group>"; };
+		969BAEBC18F3A0F8008F99E1 /* Lap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lap.h; sourceTree = "<group>"; };
+		969BAEBD18F3A0F8008F99E1 /* Lap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lap.m; sourceTree = "<group>"; };
+		969BAEBF18F3A0F9008F99E1 /* Run.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Run.h; sourceTree = "<group>"; };
+		969BAEC018F3A0F9008F99E1 /* Run.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Run.m; sourceTree = "<group>"; };
 		96A98EA418DA079700E55F1D /* Fartlek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fartlek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A98EA718DA079700E55F1D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		96A98EA918DA079700E55F1D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -157,6 +164,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				961C3F8118F35B2400D3AC4B /* CoreData.framework in Frameworks */,
+				961C3F7F18F35B1D00D3AC4B /* MapKit.framework in Frameworks */,
 				96A98EDF18DA07BB00E55F1D /* AVFoundation.framework in Frameworks */,
 				96A98EDD18DA07B500E55F1D /* CoreLocation.framework in Frameworks */,
 				96A98EAA18DA079700E55F1D /* CoreGraphics.framework in Frameworks */,
@@ -222,6 +231,8 @@
 		96A98EA618DA079700E55F1D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				961C3F8018F35B2400D3AC4B /* CoreData.framework */,
+				961C3F7E18F35B1D00D3AC4B /* MapKit.framework */,
 				96A98EDE18DA07BB00E55F1D /* AVFoundation.framework */,
 				96A98EDC18DA07B500E55F1D /* CoreLocation.framework */,
 				96A98EA718DA079700E55F1D /* Foundation.framework */,
@@ -294,6 +305,12 @@
 		96A98EE118DA07C800E55F1D /* models */ = {
 			isa = PBXGroup;
 			children = (
+				969BAEBF18F3A0F9008F99E1 /* Run.h */,
+				969BAEC018F3A0F9008F99E1 /* Run.m */,
+				969BAEBC18F3A0F8008F99E1 /* Lap.h */,
+				969BAEBD18F3A0F8008F99E1 /* Lap.m */,
+				961C3F7B18F3594A00D3AC4B /* RunLocation.h */,
+				961C3F7C18F3594A00D3AC4B /* RunLocation.m */,
 				9676E32518F3200A0024BA69 /* LapLocation+Database.h */,
 				9676E32618F3200A0024BA69 /* LapLocation+Database.m */,
 				9693DA6B18EB4DF200174175 /* ChooseRunViewController.h */,
@@ -311,10 +328,6 @@
 				968BBB3F18DCE5C300766D59 /* FartlekModel.xcdatamodeld */,
 				9676E35A18F342CB0024BA69 /* Profile.h */,
 				9676E35B18F342CB0024BA69 /* Profile.m */,
-				9676E35D18F342CC0024BA69 /* Lap.h */,
-				9676E35E18F342CC0024BA69 /* Lap.m */,
-				9676E36018F342CC0024BA69 /* Run.h */,
-				9676E36118F342CC0024BA69 /* Run.m */,
 				9676E36318F342CC0024BA69 /* User.h */,
 				9676E36418F342CC0024BA69 /* User.m */,
 				9676E36618F342CC0024BA69 /* LapLocation.h */,
@@ -509,14 +522,15 @@
 			files = (
 				968BBB5318DCEAA600766D59 /* FartlekUser.m in Sources */,
 				968BBB5018DCE9E000766D59 /* DataManager.m in Sources */,
-				9676E35F18F342CC0024BA69 /* Lap.m in Sources */,
 				968BBB4118DCE5C300766D59 /* FartlekModel.xcdatamodeld in Sources */,
+				969BAEBE18F3A0F8008F99E1 /* Lap.m in Sources */,
 				96A98EEF18DA17FF00E55F1D /* WorkoutViewController.m in Sources */,
 				96A98EF218DA1B5200E55F1D /* WorkoutSummaryViewController.m in Sources */,
 				96A98EBE18DA079700E55F1D /* SetupFartlekViewController.m in Sources */,
 				968BBB5F18DCF08B00766D59 /* User+Database.m in Sources */,
 				968BBB6218DCF0A200766D59 /* Profile+Database.m in Sources */,
 				9676E36818F342CC0024BA69 /* LapLocation.m in Sources */,
+				961C3F7D18F3594A00D3AC4B /* RunLocation.m in Sources */,
 				968BBB5918DCEBFF00766D59 /* NSDate+Formatting.m in Sources */,
 				9676E31518F312D00024BA69 /* RunHistoryCell.m in Sources */,
 				96A98EB818DA079700E55F1D /* AppDelegate.m in Sources */,
@@ -533,9 +547,9 @@
 				968BBB6818DCF0BE00766D59 /* Lap+Database.m in Sources */,
 				9676E36518F342CC0024BA69 /* User.m in Sources */,
 				9693DA5D18EA457300174175 /* SetPaceViewController.m in Sources */,
+				969BAEC118F3A0F9008F99E1 /* Run.m in Sources */,
 				96A98EF518DA219100E55F1D /* HistoryViewController.m in Sources */,
 				9693DA6D18EB4DF200174175 /* ChooseRunViewController.m in Sources */,
-				9676E36218F342CC0024BA69 /* Run.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,7 +615,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jason Humphries (T8L863N55H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jason Humphries (T8L863N55H)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -619,6 +634,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "FD337B8D-5E3D-4D5B-A74A-1588CD6CB1F9";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -639,7 +655,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: PopUp Inc (V6XSFQJX4G)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: PopUp Inc (V6XSFQJX4G)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -650,6 +667,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PROVISIONING_PROFILE = "B420FEDB-F5F7-4F18-B387-97848480C221";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -661,7 +679,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jason Humphries (Q4J5Y9XJ62)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Fartlek/Fartlek-Prefix.pch";
 				INFOPLIST_FILE = "Fartlek/Fartlek-Info.plist";
@@ -671,7 +689,7 @@
 					"$(PROJECT_DIR)/Fartlek",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B420FEDB-F5F7-4F18-B387-97848480C221";
+				PROVISIONING_PROFILE = "FD337B8D-5E3D-4D5B-A74A-1588CD6CB1F9";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

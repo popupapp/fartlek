@@ -10,13 +10,14 @@
 #import "Profile+Database.h"
 #import "Lap+Database.h"
 #import "Run+Database.h"
-#import "LapLocation+Database.h"
+//#import "LapLocation+Database.h"
 #import "DataManager.h"
 @import AVFoundation;
 @import AudioToolbox;
 @import MediaPlayer;
 #import "FartlekChartView.h"
 #import "LocationManager.h"
+#import "RunLocation.h"
 
 static RunManager *g_runManager = nil;
 
@@ -68,7 +69,7 @@ static RunManager *g_runManager = nil;
         [self startLapNumber:self.currentLapNumber];
     } failure:^(NSError *error) {
         NSLog(@"FAILED RUN SAVE(1): %@", error);
-        [[[UIAlertView alloc] initWithTitle:@"RUN SAVE FAIL" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"FAIL" message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil] show];
     }];
 }
 
@@ -76,6 +77,11 @@ static RunManager *g_runManager = nil;
 
 - (void)saveAndStopRun
 {
+    NSLog(@"runDistance: %@", @(self.currentRunDistanceTotal));
+    self.currentRun.runDistance = @(self.currentRunDistanceTotal);
+    float runPace = (self.currentRunSecondsElapsed / 60.f) / (self.currentRunDistanceTotal / METERS_PER_MILE);
+    NSLog(@"runPace: %.4f", runPace);
+    self.currentRun.runPace = @(runPace);
     [self.currentRun saveSuccess:^{
         NSLog(@"SUCCESSFULLY SAVED RUN: %@", self.currentRun);
         [self resetManager];
@@ -102,6 +108,12 @@ static RunManager *g_runManager = nil;
         [runLoop addTimer:self.currentTimer forMode:NSDefaultRunLoopMode];
     } else {
         [Flurry logEvent:@"START_LAP_NEW"];
+//        // if not the first lap, save the lap pace and distance to the previous lap
+//        if (self.currentLap) {
+//            self.currentLap.lapDistance = @(self.currentLapDistanceTotal);
+//            float lapPace = (self.currentLapElapsedSeconds / 60.f) / (self.currentLapDistanceTotal / METERS_PER_MILE);
+//            self.currentLap.lapPace = @(lapPace);
+//        }
         // normal start lap route
         self.currentLap = (Lap*)self.orderedLapsForProfile[lapNumber];
         // CREATE LAP AND ASSIGN TO CURRENT RUN
@@ -163,7 +175,7 @@ static RunManager *g_runManager = nil;
             synUtt.rate = 0.3;
             [synUtt setVoice:[AVSpeechSynthesisVoice voiceWithLanguage:[AVSpeechSynthesisVoice currentLanguageCode]]];
             [av speakUtterance:synUtt];
-#pragma warning SAVE RUN HERE?
+            [self saveAndStopRun];
         }
     }
 }
@@ -184,23 +196,21 @@ static RunManager *g_runManager = nil;
         self.currentRunDistanceTotal += (float)distanceFromLastLocation;
         self.currentLapDistanceTotal += (float)distanceFromLastLocation;
     }
-    [self.runLocations addObject:thisLoc];
+    NSLog(@"distanceFromLastLocation:%f", (float)distanceFromLastLocation);
+//    [self.runLocations addObject:thisLoc];
     
     if (self.currentLap) {
         NSLog(@".. self.currentLap is not nil");
-        LapLocation *lapLoc = [[DataManager sharedManager] createLapLocation];
-        lapLoc.lat = @(location.coordinate.latitude);
-        lapLoc.lng = @(location.coordinate.longitude);
-        lapLoc.horizAcc = @(location.horizontalAccuracy);
-        lapLoc.timestamp = location.timestamp;
-        lapLoc.altitude = @(location.altitude);
-        lapLoc.lap = self.currentLap;
-        [lapLoc saveSuccess:^{
-            NSLog(@"lap loc saved!");
-        } failure:^(NSError *error) {
-            NSLog(@"LAP LOC SAVE ERROR: %@", error);
-        }];
-
+        self.currentLap.lapDistance = @(self.currentLapDistanceTotal);
+//        LapLocation *lapLoc = [[DataManager sharedManager] createLapLocation];
+        RunLocation *runLoc = [RunLocation new];
+        runLoc.lat = @(location.coordinate.latitude);
+        runLoc.lng = @(location.coordinate.longitude);
+        runLoc.horizAcc = @(location.horizontalAccuracy);
+        runLoc.timestamp = location.timestamp;
+        runLoc.altitude = @(location.altitude);
+        runLoc.lap = self.currentLap;
+        [self.runLocations addObject:thisLoc];
     } else {
         NSLog(@"!! self.currentLap IS NIL");
     }
@@ -311,6 +321,7 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
 {
     // lap pace = # minutes elapsed in lap / # miles traveled this lap
     float lapPace = (self.currentLapElapsedSeconds / 60.f) / (self.currentLapDistanceTotal / METERS_PER_MILE);
+    self.currentLap.lapPace = @(lapPace);
     return lapPace;
 }
 
@@ -395,8 +406,9 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
 
 - (void)resetManager
 {
-//    self.currentProfile = nil;
-//    self.currentLap = nil;
+#pragma warning !! nil out self.currentRun
+    self.currentProfile = nil;
+    self.currentLap = nil;
     [self.currentTimer invalidate];
     self.currentTimer = nil;
     self.currentLapSecondsTotal = 0;

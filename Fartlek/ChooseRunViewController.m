@@ -84,8 +84,8 @@
 - (IBAction)fetchAction:(id)sender
 {
     self.currentProfile = nil;
-    [Lap deleteAll];
-    [Profile deleteAll];
+//    [Lap deleteAll];
+//    [Profile deleteAll];
     for (UIView *v in self.chartView.subviews) {
         [v removeFromSuperview];
     }

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class Run;
+
 @interface WorkoutSummaryViewController : UIViewController
+
+@property (strong, nonatomic) Run *thisRun;
 
 @end
