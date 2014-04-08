@@ -14,6 +14,7 @@
 #import "Run+Database.h"
 #import "Lap+Database.h"
 #import "Profile+Database.h"
+#import "RunLocation.h"
 
 @interface WorkoutSummaryViewController () <UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *summaryTable;
@@ -82,20 +83,23 @@
 
 - (void)setupMap
 {
-    NSDictionary *firstLapDict;
+    RunLocation *firstRunLocation;
     NSArray *lapArray = [self.thisRun.runLaps allObjects];
     NSArray *orderedLapsArray = [[DataManager sharedManager] orderedLapsByLapNumber:lapArray];
     for (int i=0; i < orderedLapsArray.count; i++) {
         Lap *lap = (Lap*)orderedLapsArray[i];
+        // locationsArray contains a bunch of RunLocation objects
         NSArray *locationsArray = [NSKeyedUnarchiver unarchiveObjectWithData:lap.locationsArray];
 //        NSLog(@"lap.locationsArray: %@", locationsArray);
         if (i==0) {
-            firstLapDict = locationsArray[i];
+            firstRunLocation = locationsArray[i];
         }
+        RunLocation *thisRunLoc = locationsArray[i];
+        [self.runMapView addAnnotation:thisRunLoc];
     }
 //    NSLog(@"%@", firstLap);
-    float lat = [firstLapDict[@"lat"] floatValue];
-    float lng = [firstLapDict[@"lng"] floatValue];
+    float lat = [firstRunLocation.lat floatValue];
+    float lng = [firstRunLocation.lng floatValue];
     [self zoomToThisLat:lat Lon:lng];
 }
 

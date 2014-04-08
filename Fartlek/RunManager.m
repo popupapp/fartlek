@@ -74,6 +74,22 @@ static RunManager *g_runManager = nil;
     }];
 }
 
+- (void)pauseRun
+{
+    [Flurry logEvent:@"PAUSE_RUN"];
+    if ([self.currentTimer isValid]) {
+        self.isPaused = YES;
+        [self.currentTimer invalidate];
+        [self.delegate runDidPause];
+        [[LocationManager sharedManager] stopLocationUpdates];
+    } else {
+        [self startLapNumber:self.currentLapNumber];
+        self.isPaused = NO;
+        [self.delegate runDidResume];
+        [[LocationManager sharedManager] restartStandardLocationCheck];
+    }
+}
+
 #pragma mark - SAVE AND STOP RUN
 
 - (void)saveAndStopRun
@@ -204,19 +220,13 @@ static RunManager *g_runManager = nil;
         NSLog(@".. self.currentLap is not nil");
         self.currentLap.lapDistance = @(self.currentLapDistanceTotal);
 //        LapLocation *lapLoc = [[DataManager sharedManager] createLapLocation];
-//        RunLocation *runLoc = [RunLocation new];
-//        runLoc.lat = @(location.coordinate.latitude);
-//        runLoc.lng = @(location.coordinate.longitude);
-//        runLoc.horizAcc = @(location.horizontalAccuracy);
-//        runLoc.timestamp = location.timestamp;
-//        runLoc.altitude = @(location.altitude);
-//        runLoc.lap = self.currentLap;
-        NSDictionary *runLocation = @{ @"lat"       : @(location.coordinate.latitude),
-                                       @"lng"       : @(location.coordinate.longitude),
-                                       @"hAccuracy" : @(location.horizontalAccuracy),
-                                       @"timestamp" : location.timestamp,
-                                       @"altitude"  : @(location.altitude) };
-        [self.runLocations addObject:runLocation];
+        RunLocation *runLoc = [RunLocation new];
+        runLoc.lat = @(location.coordinate.latitude);
+        runLoc.lng = @(location.coordinate.longitude);
+        runLoc.horizAcc = @(location.horizontalAccuracy);
+        runLoc.timestamp = location.timestamp;
+        runLoc.altitude = @(location.altitude);
+        [self.runLocations addObject:runLoc];
         NSData *locationsArrayData = [NSKeyedArchiver archivedDataWithRootObject:[NSArray arrayWithArray:[self.runLocations copy]]];
         self.currentLap.locationsArray = locationsArrayData;
         [self.runLocationsForDistanceCalculations addObject:thisLoc];

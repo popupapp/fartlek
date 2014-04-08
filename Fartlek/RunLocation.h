@@ -6,18 +6,18 @@
 //  Copyright (c) 2014 PopUp Inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import CoreLocation;
+@import MapKit;
 
-@class Lap;
+@interface RunLocation : NSObject <MKAnnotation, NSCoding>
 
-@interface RunLocation : NSObject
-
-@property (nonatomic, retain) NSNumber * altitude;
-@property (nonatomic, retain) NSNumber * horizAcc;
-@property (nonatomic, retain) NSNumber * lapLocationID;
-@property (nonatomic, retain) NSNumber * lat;
-@property (nonatomic, retain) NSNumber * lng;
-@property (nonatomic, retain) NSDate * timestamp;
-@property (nonatomic, retain) Lap *lap;
+@property (nonatomic, strong) NSNumber * altitude;
+@property (nonatomic, strong) NSNumber * horizAcc;
+@property (nonatomic, strong) NSNumber * lapLocationID;
+@property (nonatomic, strong) NSNumber * lat;
+@property (nonatomic, strong) NSNumber * lng;
+@property (nonatomic, strong) NSDate * timestamp;
+//@property (nonatomic, strong) Lap *lap;
 
 @end

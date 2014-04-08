@@ -207,10 +207,10 @@
 - (void)timerDidFire
 {
 //    NSLog(@"timerDidFire");
-    Lap *currentLap = [[RunManager sharedManager] currentLap];
+//    Lap *currentLap = [[RunManager sharedManager] currentLap];
     int timeLeftInLap = [[RunManager sharedManager] currentLapSecondsTotal];
 //    int lapDistance = [currentLap.lapTime intValue] * 60;
-    int secondsLeftInRun = [[RunManager sharedManager] secondsLeftInRun];
+//    int secondsLeftInRun = [[RunManager sharedManager] secondsLeftInRun];
     
     int totalSecondsElapsedInRun = [[RunManager sharedManager] secondsElapsedInRun];
     int minutesElapsedInRun = totalSecondsElapsedInRun / 60;

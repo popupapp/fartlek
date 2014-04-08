@@ -21,7 +21,7 @@
 #import "FartlekChartView.h"
 #import "SetPaceViewController.h"
 
-@interface SetupFartlekViewController () <UIPickerViewDataSource, UIPickerViewDelegate, FartlekChartDelegate>
+@interface SetupFartlekViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *workoutLengthField;
 @property (weak, nonatomic) IBOutlet UITextField *workoutIntensityField;
 @property (strong, nonatomic) UIPickerView *lengthPickerView;

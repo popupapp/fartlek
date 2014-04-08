@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @protocol FartlekChartDelegate <NSObject>
-- (void)didChangeProfileLeft;
-- (void)didChangeProfileRight;
+//- (void)didChangeProfileLeft;
+//- (void)didChangeProfileRight;
 @end
 
 @interface FartlekChartView : UIView
