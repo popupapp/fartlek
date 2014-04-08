@@ -289,7 +289,7 @@
     float lapDistanceInMiles = lapDistanceInMeters / METERS_PER_MILE;
     self.lapDistanceValueLabel.text = [NSString stringWithFormat:@"%.2f mi", lapDistanceInMiles];
     
-    float currentPaceOfLap = [[RunManager sharedManager] currentPaceOfLap];
+    float currentPaceOfLap = [[RunManager sharedManager] currentPaceOfLap]; // min / mi
     int minutesPaceOfLap = currentPaceOfLap / 60;
     int secondsPaceOfLap = (int)currentPaceOfLap % 60;
     if (currentPaceOfLap == INFINITY) {
