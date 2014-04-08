@@ -35,6 +35,7 @@ static RunManager *g_runManager = nil;
     if ((self = [super init])) {
         self.isPaused = NO;
         self.runLocations = [NSMutableArray array];
+        self.runLocationsForDistanceCalculations = [NSMutableArray array];
     }
     return self;
 }
@@ -185,7 +186,7 @@ static RunManager *g_runManager = nil;
 - (void)addLocationToRun:(CLLocation*)location
 {
     NSLog(@"currentRunDistanceTotal:%f", self.currentRunDistanceTotal);
-    CLLocation *lastLoc = [self.runLocations lastObject];
+    CLLocation *lastLoc = [self.runLocationsForDistanceCalculations lastObject];
     if (!lastLoc) {
         lastLoc = location;
     }
@@ -197,20 +198,27 @@ static RunManager *g_runManager = nil;
         self.currentLapDistanceTotal += (float)distanceFromLastLocation;
     }
     NSLog(@"distanceFromLastLocation:%f", (float)distanceFromLastLocation);
-//    [self.runLocations addObject:thisLoc];
     
     if (self.currentLap) {
         NSLog(@".. self.currentLap is not nil");
         self.currentLap.lapDistance = @(self.currentLapDistanceTotal);
 //        LapLocation *lapLoc = [[DataManager sharedManager] createLapLocation];
-        RunLocation *runLoc = [RunLocation new];
-        runLoc.lat = @(location.coordinate.latitude);
-        runLoc.lng = @(location.coordinate.longitude);
-        runLoc.horizAcc = @(location.horizontalAccuracy);
-        runLoc.timestamp = location.timestamp;
-        runLoc.altitude = @(location.altitude);
-        runLoc.lap = self.currentLap;
-        [self.runLocations addObject:thisLoc];
+//        RunLocation *runLoc = [RunLocation new];
+//        runLoc.lat = @(location.coordinate.latitude);
+//        runLoc.lng = @(location.coordinate.longitude);
+//        runLoc.horizAcc = @(location.horizontalAccuracy);
+//        runLoc.timestamp = location.timestamp;
+//        runLoc.altitude = @(location.altitude);
+//        runLoc.lap = self.currentLap;
+        NSDictionary *runLocation = @{ @"lat"       : @(location.coordinate.latitude),
+                                       @"lng"       : @(location.coordinate.longitude),
+                                       @"hAccuracy" : @(location.horizontalAccuracy),
+                                       @"timestamp" : location.timestamp,
+                                       @"altitude"  : @(location.altitude) };
+        [self.runLocations addObject:runLocation];
+        NSData *locationsArrayData = [NSKeyedArchiver archivedDataWithRootObject:[NSArray arrayWithArray:[self.runLocations copy]]];
+        self.currentLap.locationsArray = locationsArrayData;
+        [self.runLocationsForDistanceCalculations addObject:thisLoc];
     } else {
         NSLog(@"!! self.currentLap IS NIL");
     }

@@ -2,7 +2,7 @@
 //  Lap.h
 //  Fartlek
 //
-//  Created by Jason Humphries on 4/7/14.
+//  Created by Jason Humphries on 4/8/14.
 //  Copyright (c) 2014 PopUp Inc. All rights reserved.
 //
 
@@ -13,13 +13,14 @@
 
 @interface Lap : NSManagedObject
 
+@property (nonatomic, retain) NSNumber * lapDistance;
 @property (nonatomic, retain) NSString * lapID;
 @property (nonatomic, retain) NSNumber * lapIntensity;
 @property (nonatomic, retain) NSNumber * lapNumber;
+@property (nonatomic, retain) NSNumber * lapPace;
 @property (nonatomic, retain) NSString * lapStartSpeechString;
 @property (nonatomic, retain) NSNumber * lapTime;
-@property (nonatomic, retain) NSNumber * lapPace;
-@property (nonatomic, retain) NSNumber * lapDistance;
+@property (nonatomic, retain) NSData * locationsArray;
 @property (nonatomic, retain) Run *lapRun;
 @property (nonatomic, retain) NSSet *locations;
 @property (nonatomic, retain) Profile *profile;

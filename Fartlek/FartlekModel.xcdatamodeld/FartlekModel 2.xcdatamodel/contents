@@ -8,6 +8,7 @@
         <attribute name="lapPace" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="lapStartSpeechString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lapTime" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="locationsArray" optional="YES" attributeType="Binary" syncable="YES"/>
         <relationship name="lapRun" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Run" inverseName="runLaps" inverseEntity="Run" syncable="YES"/>
         <relationship name="locations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LapLocation" inverseName="lap" inverseEntity="LapLocation" syncable="YES"/>
         <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="laps" inverseEntity="Profile" syncable="YES"/>
@@ -47,7 +48,7 @@
         <relationship name="runs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Run" inverseName="user" inverseEntity="Run" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Lap" positionX="232" positionY="-90" width="128" height="193"/>
+        <element name="Lap" positionX="232" positionY="-90" width="128" height="208"/>
         <element name="LapLocation" positionX="-65" positionY="54" width="128" height="148"/>
         <element name="Profile" positionX="-207" positionY="-229" width="128" height="163"/>
         <element name="Run" positionX="18" positionY="-207" width="128" height="133"/>

@@ -38,6 +38,7 @@
 - (FartlekChartView*)chartViewForProfileCanEdit:(BOOL)canEdit;
 - (void)addLocationToRun:(CLLocation*)location;
 
+@property (strong, nonatomic) NSMutableArray *runLocationsForDistanceCalculations;
 @property (strong, nonatomic) NSMutableArray *runLocations;
 
 @property (strong, nonatomic) NSNumber *userPaceMinutes;

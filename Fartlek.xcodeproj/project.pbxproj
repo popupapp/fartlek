@@ -11,6 +11,7 @@
 		961C3F7D18F3594A00D3AC4B /* RunLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 961C3F7C18F3594A00D3AC4B /* RunLocation.m */; };
 		961C3F7F18F35B1D00D3AC4B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961C3F7E18F35B1D00D3AC4B /* MapKit.framework */; };
 		961C3F8118F35B2400D3AC4B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961C3F8018F35B2400D3AC4B /* CoreData.framework */; };
+		963B024818F3B1E600F4DC7C /* Lap.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B024718F3B1E600F4DC7C /* Lap.m */; };
 		963E438718E2121A0073EFB8 /* RunManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 963E438618E2121A0073EFB8 /* RunManager.m */; };
 		963E438A18E216D90073EFB8 /* CurrentWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963E438918E216D90073EFB8 /* CurrentWorkoutViewController.m */; };
 		9676E31518F312D00024BA69 /* RunHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9676E31418F312D00024BA69 /* RunHistoryCell.m */; };
@@ -36,7 +37,6 @@
 		9693DA6918EB40CC00174175 /* JosefinSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9693DA6318EB40CC00174175 /* JosefinSans-LightItalic.ttf */; };
 		9693DA6A18EB40CC00174175 /* JosefinSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9693DA6418EB40CC00174175 /* JosefinSans-Regular.ttf */; };
 		9693DA6D18EB4DF200174175 /* ChooseRunViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9693DA6C18EB4DF200174175 /* ChooseRunViewController.m */; };
-		969BAEBE18F3A0F8008F99E1 /* Lap.m in Sources */ = {isa = PBXBuildFile; fileRef = 969BAEBD18F3A0F8008F99E1 /* Lap.m */; };
 		969BAEC118F3A0F9008F99E1 /* Run.m in Sources */ = {isa = PBXBuildFile; fileRef = 969BAEC018F3A0F9008F99E1 /* Run.m */; };
 		96A98EA818DA079700E55F1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA718DA079700E55F1D /* Foundation.framework */; };
 		96A98EAA18DA079700E55F1D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A98EA918DA079700E55F1D /* CoreGraphics.framework */; };
@@ -78,6 +78,8 @@
 		961C3F7C18F3594A00D3AC4B /* RunLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunLocation.m; sourceTree = "<group>"; };
 		961C3F7E18F35B1D00D3AC4B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		961C3F8018F35B2400D3AC4B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		963B024618F3B1E600F4DC7C /* Lap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lap.h; sourceTree = "<group>"; };
+		963B024718F3B1E600F4DC7C /* Lap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lap.m; sourceTree = "<group>"; };
 		963E438518E2121A0073EFB8 /* RunManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunManager.h; sourceTree = "<group>"; };
 		963E438618E2121A0073EFB8 /* RunManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunManager.m; sourceTree = "<group>"; };
 		963E438818E216D90073EFB8 /* CurrentWorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentWorkoutViewController.h; sourceTree = "<group>"; };
@@ -122,8 +124,6 @@
 		9693DA6418EB40CC00174175 /* JosefinSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JosefinSans-Regular.ttf"; sourceTree = "<group>"; };
 		9693DA6B18EB4DF200174175 /* ChooseRunViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseRunViewController.h; sourceTree = "<group>"; };
 		9693DA6C18EB4DF200174175 /* ChooseRunViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseRunViewController.m; sourceTree = "<group>"; };
-		969BAEBC18F3A0F8008F99E1 /* Lap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lap.h; sourceTree = "<group>"; };
-		969BAEBD18F3A0F8008F99E1 /* Lap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lap.m; sourceTree = "<group>"; };
 		969BAEBF18F3A0F9008F99E1 /* Run.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Run.h; sourceTree = "<group>"; };
 		969BAEC018F3A0F9008F99E1 /* Run.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Run.m; sourceTree = "<group>"; };
 		96A98EA418DA079700E55F1D /* Fartlek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fartlek.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -305,10 +305,10 @@
 		96A98EE118DA07C800E55F1D /* models */ = {
 			isa = PBXGroup;
 			children = (
+				963B024618F3B1E600F4DC7C /* Lap.h */,
+				963B024718F3B1E600F4DC7C /* Lap.m */,
 				969BAEBF18F3A0F9008F99E1 /* Run.h */,
 				969BAEC018F3A0F9008F99E1 /* Run.m */,
-				969BAEBC18F3A0F8008F99E1 /* Lap.h */,
-				969BAEBD18F3A0F8008F99E1 /* Lap.m */,
 				961C3F7B18F3594A00D3AC4B /* RunLocation.h */,
 				961C3F7C18F3594A00D3AC4B /* RunLocation.m */,
 				9676E32518F3200A0024BA69 /* LapLocation+Database.h */,
@@ -523,7 +523,7 @@
 				968BBB5318DCEAA600766D59 /* FartlekUser.m in Sources */,
 				968BBB5018DCE9E000766D59 /* DataManager.m in Sources */,
 				968BBB4118DCE5C300766D59 /* FartlekModel.xcdatamodeld in Sources */,
-				969BAEBE18F3A0F8008F99E1 /* Lap.m in Sources */,
+				963B024818F3B1E600F4DC7C /* Lap.m in Sources */,
 				96A98EEF18DA17FF00E55F1D /* WorkoutViewController.m in Sources */,
 				96A98EF218DA1B5200E55F1D /* WorkoutSummaryViewController.m in Sources */,
 				96A98EBE18DA079700E55F1D /* SetupFartlekViewController.m in Sources */,

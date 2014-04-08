@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *paceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lapsLabel;
 
 @end
 
@@ -55,7 +56,9 @@
     self.navigationItem.leftBarButtonItem = b;
     
     UIFont *joseFontBoldItalic20 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:20.f];
-    [self.runSummaryLabel setFont:joseFontBoldItalic20];
+    UIFont *joseFontBoldItalic22 = [UIFont fontWithName:@"JosefinSans-BoldItalic" size:22.f];
+    [self.runSummaryLabel setFont:joseFontBoldItalic22];
+    [self.lapsLabel setFont:joseFontBoldItalic22];
     [self.distanceLabel setFont:joseFontBoldItalic20];
     [self.timeLabel setFont:joseFontBoldItalic20];
     [self.paceLabel setFont:joseFontBoldItalic20];
@@ -74,7 +77,21 @@
 
 - (void)setupMap
 {
-    //
+    NSDictionary *firstLapDict;
+    NSArray *lapArray = [self.thisRun.runLaps allObjects];
+    NSArray *orderedLapsArray = [[DataManager sharedManager] orderedLapsByLapNumber:lapArray];
+    for (int i=0; i < orderedLapsArray.count; i++) {
+        Lap *lap = (Lap*)orderedLapsArray[i];
+        NSArray *locationsArray = [NSKeyedUnarchiver unarchiveObjectWithData:lap.locationsArray];
+//        NSLog(@"lap.locationsArray: %@", locationsArray);
+        if (i==0) {
+            firstLapDict = locationsArray[i];
+        }
+    }
+//    NSLog(@"%@", firstLap);
+    float lat = [firstLapDict[@"lat"] floatValue];
+    float lng = [firstLapDict[@"lng"] floatValue];
+    [self zoomToThisLat:lat Lon:lng];
 }
 
 - (void)setupTable
@@ -108,7 +125,7 @@
 {
     CurrentRunCell *cell = [tableView dequeueReusableCellWithIdentifier:@"workoutSummaryLabelCell"];
     Lap *thisLap = (Lap*)self.lapsArray[indexPath.row];
-    NSLog(@"thisLap:%@", thisLap);
+//    NSLog(@"thisLap:%@", thisLap);
     cell.leftLabel.text = [NSString stringWithFormat:@"Lap %d", indexPath.row];
     cell.rightLabel.text = [NSString stringWithFormat:@"%f m", [thisLap.lapDistance floatValue]];
     return cell;
@@ -117,6 +134,24 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - map action
+
+-(void)zoomToThisLat:(float)lat
+                 Lon:(float)lon
+{
+    // pan to this location
+    MKCoordinateRegion region;
+    CLLocationCoordinate2D center;
+    center.latitude = lat;
+    center.longitude = lon;
+    MKCoordinateSpan span;
+    span.latitudeDelta = 0.002f;
+    span.longitudeDelta = 0.002f;
+    region.center = center;
+    region.span = span;
+    [self.runMapView setRegion:region animated:YES];
 }
 
 
