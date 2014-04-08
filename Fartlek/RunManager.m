@@ -161,6 +161,7 @@ static RunManager *g_runManager = nil;
         [av speakUtterance:utterance];
     }
     self.currentLapElapsedSeconds += 1;
+    self.currentLap.lapElapsedSeconds = @(self.currentLapElapsedSeconds);
     self.currentLapSecondsTotal -= 1;
     if (self.currentLapSecondsTotal == 0) {
         // start next lap

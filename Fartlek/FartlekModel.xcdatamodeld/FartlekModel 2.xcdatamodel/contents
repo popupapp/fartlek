@@ -2,6 +2,7 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Lap" representedClassName="Lap" syncable="YES">
         <attribute name="lapDistance" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="lapElapsedSeconds" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="lapID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lapIntensity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="lapNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -48,7 +49,7 @@
         <relationship name="runs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Run" inverseName="user" inverseEntity="Run" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Lap" positionX="232" positionY="-90" width="128" height="208"/>
+        <element name="Lap" positionX="232" positionY="-90" width="128" height="223"/>
         <element name="LapLocation" positionX="-65" positionY="54" width="128" height="148"/>
         <element name="Profile" positionX="-207" positionY="-229" width="128" height="163"/>
         <element name="Run" positionX="18" positionY="-207" width="128" height="133"/>

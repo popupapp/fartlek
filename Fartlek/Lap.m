@@ -22,6 +22,7 @@
 @dynamic lapStartSpeechString;
 @dynamic lapTime;
 @dynamic locationsArray;
+@dynamic lapElapsedSeconds;
 @dynamic lapRun;
 @dynamic locations;
 @dynamic profile;

@@ -72,7 +72,12 @@
 {
     self.distanceLabel.text = [NSString stringWithFormat:@"Distance: %.2fm", [self.thisRun.runDistance floatValue]];
     self.paceLabel.text = [NSString stringWithFormat:@"Pace: %.2f min/mi", [self.thisRun.runPace floatValue]];
-    self.timeLabel.text = [NSString stringWithFormat:@"Time: %d min", [self.thisRun.profile.duration intValue]];
+    
+    float secondsInLap = 0;
+    for (Lap *lap in self.thisRun.runLaps) {
+        secondsInLap += [lap.lapElapsedSeconds floatValue];
+    }
+    self.timeLabel.text = [NSString stringWithFormat:@"Time: %.1f min", secondsInLap/60.0];
 }
 
 - (void)setupMap

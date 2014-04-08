@@ -21,6 +21,7 @@
 @property (nonatomic, retain) NSString * lapStartSpeechString;
 @property (nonatomic, retain) NSNumber * lapTime;
 @property (nonatomic, retain) NSData * locationsArray;
+@property (nonatomic, retain) NSNumber * lapElapsedSeconds;
 @property (nonatomic, retain) Run *lapRun;
 @property (nonatomic, retain) NSSet *locations;
 @property (nonatomic, retain) Profile *profile;
