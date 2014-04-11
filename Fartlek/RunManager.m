@@ -53,7 +53,7 @@ static RunManager *g_runManager = nil;
 
 - (void)startRun
 {
-    [[LocationManager sharedManager] restartStandardLocationCheck];
+    [[LocationManager sharedManager] restartStandardLocationCheckAndResetLocationCount:YES];
     [Flurry logEvent:@"START_RUN"];
     self.totalNumberOfLocationsAdded = 0;
     // CREATE currentRun OBJECT
@@ -90,7 +90,7 @@ static RunManager *g_runManager = nil;
         [self startLapNumber:self.currentLapNumber];
         self.isPaused = NO;
         [self.delegate runDidResume];
-        [[LocationManager sharedManager] restartStandardLocationCheck];
+        [[LocationManager sharedManager] restartStandardLocationCheckAndResetLocationCount:NO];
     }
 }
 
@@ -152,6 +152,10 @@ static RunManager *g_runManager = nil;
 //            float lapPace = (self.currentLapElapsedSeconds / 60.f) / (self.currentLapDistanceTotal / METERS_PER_MILE);
 //            self.currentLap.lapPace = @(lapPace);
 //        }
+#warning ADDED april 11 19:08 - needs testing
+        // the idea is to clear out self.runLocations at the beginning of each lap
+        // at the start of each lap after the 1st, self.runLocations contains all the locations for the preceding laps, so they need to be cleared out
+        [self.runLocations removeAllObjects];
         // normal start lap route
         self.currentLap = (Lap*)self.orderedLapsForProfile[lapNumber];
         // CREATE LAP AND ASSIGN TO CURRENT RUN
@@ -225,8 +229,10 @@ static RunManager *g_runManager = nil;
 {
     NSLog(@"currentRunDistanceTotal:%f", self.currentRunDistanceTotal);
     self.totalNumberOfLocationsAdded += 1;
+    NSLog(@"totalNumberOfLocationsAdded:%d", self.totalNumberOfLocationsAdded);
     CLLocation *lastLoc = [self.runLocationsForDistanceCalculations lastObject];
     if (!lastLoc) {
+        NSLog(@".. in the lastLoc guard block");
         lastLoc = location;
     }
     
@@ -249,8 +255,10 @@ static RunManager *g_runManager = nil;
         runLoc.horizAcc = @(location.horizontalAccuracy);
         runLoc.timestamp = location.timestamp;
         runLoc.altitude = @(location.altitude);
+#pragma warning !! self.runLocations needs to be cleared out at the end of each lap
         [self.runLocations addObject:runLoc];
         NSData *locationsArrayData = [NSKeyedArchiver archivedDataWithRootObject:[NSArray arrayWithArray:[self.runLocations copy]]];
+//        self.currentLap.locationsArray = nil;
         self.currentLap.locationsArray = locationsArrayData;
     } else {
         NSLog(@"!! self.currentLap IS NIL");
@@ -449,7 +457,7 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
 
 - (void)resetManager
 {
-//    self.currentRun = nil;
+    self.currentRun = nil;
     self.currentProfile = nil;
     self.currentLap = nil;
     [self.currentTimer invalidate];
@@ -459,6 +467,7 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
     self.currentLapDistanceTotal = 0;
     self.currentRunDistanceTotal = 0;
     [self.runLocations removeAllObjects];
+    [self.runLocationsForDistanceCalculations removeAllObjects];
     [[LocationManager sharedManager] stopLocationUpdates];
 }
 

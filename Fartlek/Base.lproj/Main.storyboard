@@ -102,6 +102,16 @@
                                     <action selector="viewPastRunsAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="vRQ-aV-Edb"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzY-Fs-HxK">
+                                <rect key="frame" x="137" y="462" width="33" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="MAP">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="mapAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="2wo-5X-y22"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.98823535442352295" green="0.24705883860588074" blue="0.039215687662363052" alpha="1" colorSpace="deviceRGB"/>
@@ -117,6 +127,7 @@
                         <segue destination="Mxk-R9-puB" kind="modal" identifier="setPaceSegue" modalTransitionStyle="coverVertical" id="nl8-51-1ho"/>
                         <segue destination="wuI-Rg-c5x" kind="push" identifier="chooseRunSegue" id="QSs-eC-Y4x"/>
                         <segue destination="4gZ-Xg-LZk" kind="modal" identifier="runHistorySegue" modalTransitionStyle="coverVertical" id="HEL-BB-1dJ"/>
+                        <segue destination="ufO-tZ-uu9" kind="modal" identifier="testMapSegue" id="h1g-KY-y3e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -285,6 +296,13 @@
                                     <action selector="stopOrSaveRunAction:" destination="3Kx-14-Ymz" eventType="touchUpInside" id="3x3-dF-DPZ"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="l" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZTy-UW-gNk">
+                                <rect key="frame" x="29" y="88" width="31" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.98823535439999999" green="0.2470588386" blue="0.039215687659999998" alpha="1" colorSpace="deviceRGB"/>
@@ -294,6 +312,7 @@
                         <outlet property="currentIntensityLabel" destination="mDH-kl-RG2" id="AeW-Lo-p3e"/>
                         <outlet property="currentLapHardLabel" destination="Sio-iH-qmS" id="6VX-Pg-OAG"/>
                         <outlet property="currentLapLabel" destination="yIb-sJ-zIL" id="ugM-0J-mp2"/>
+                        <outlet property="debug_NumberOfLocations" destination="ZTy-UW-gNk" id="i8h-Qm-KAh"/>
                         <outlet property="elapsedTimeHardLabel" destination="SJA-x1-HVL" id="3zC-fQ-O91"/>
                         <outlet property="elapsedTimeValueLabel" destination="648-3s-VLH" id="2GB-lo-ssC"/>
                         <outlet property="lapDistanceHardLabel" destination="KBC-t9-pk4" id="fpm-s4-dLq"/>
@@ -629,6 +648,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bid-Gd-XwM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-353" y="154"/>
+        </scene>
+        <!--Test Map Lines View Controller-->
+        <scene sceneID="KvW-sm-AkV">
+            <objects>
+                <viewController storyboardIdentifier="testMapVC" id="ufO-tZ-uu9" customClass="TestMapLinesViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Tea-cx-l8e"/>
+                        <viewControllerLayoutGuide type="bottom" id="zlg-LK-koA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BRo-9f-rcz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ElW-B0-1Xt">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ufO-tZ-uu9" id="sPA-dw-MPu"/>
+                                </connections>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AMB-5u-d1G">
+                                <rect key="frame" x="243" y="508" width="57" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="backAction:" destination="ufO-tZ-uu9" eventType="touchUpInside" id="Qtl-YC-cyv"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="ElW-B0-1Xt" id="mbf-xp-0Ov"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="myq-PP-qns" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-6" y="-521"/>
         </scene>
         <!--Set Pace View Controller-->
         <scene sceneID="5yC-H4-e0B">

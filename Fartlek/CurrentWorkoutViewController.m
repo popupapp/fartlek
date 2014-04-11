@@ -16,6 +16,7 @@
 @import AudioToolbox;
 @import MediaPlayer;
 #import "FartlekChartView.h"
+#import "LocationManager.h"
 
 @interface CurrentWorkoutViewController () <RunManagerDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *currentLapLabel;
@@ -41,6 +42,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *totalTimeValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalDistanceValueLabel;
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;
+@property (weak, nonatomic) IBOutlet UILabel *debug_NumberOfLocations;
 
 @end
 
@@ -268,6 +270,8 @@
     int timeLeftInLap = [[RunManager sharedManager] currentLapSecondsTotal];
 //    int lapDistance = [currentLap.lapTime intValue] * 60;
 //    int secondsLeftInRun = [[RunManager sharedManager] secondsLeftInRun];
+    
+    self.debug_NumberOfLocations.text = [NSString stringWithFormat:@"%d", [[LocationManager sharedManager] numberOfLocationUpdates]];
     
     int totalSecondsElapsedInRun = [[RunManager sharedManager] secondsElapsedInRun];
     int minutesElapsedInRun = totalSecondsElapsedInRun / 60;

@@ -18,7 +18,7 @@
 @property (assign, nonatomic) int numberOfLocationUpdates;
 @property (nonatomic, assign) BOOL isUpdatingLocation;
 
-- (void)restartStandardLocationCheck;
+- (void)restartStandardLocationCheckAndResetLocationCount:(BOOL)resetCount;
 - (void)stopLocationUpdates;
 
 @end

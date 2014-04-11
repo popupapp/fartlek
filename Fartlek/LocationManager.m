@@ -63,9 +63,11 @@ static LocationManager *g_locationManager;
     [self.locationManager stopUpdatingLocation];
 }
 
-- (void)restartStandardLocationCheck
+- (void)restartStandardLocationCheckAndResetLocationCount:(BOOL)resetCount
 {
-    self.numberOfLocationUpdates = 0;
+    if (resetCount) {
+        self.numberOfLocationUpdates = 0;
+    }
     [self continueOrStartStandardLocationCheck];
 }
 

@@ -20,6 +20,7 @@
 #import "RunManager.h"
 #import "FartlekChartView.h"
 #import "SetPaceViewController.h"
+#import "TestMapLinesViewController.h"
 
 @interface SetupFartlekViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *workoutLengthField;
@@ -212,6 +213,10 @@
 //    [self setupSummaryText];
 }
 
+- (IBAction)mapAction:(id)sender
+{
+    [self performSegueWithIdentifier:@"testMapSegue" sender:nil];
+}
 
 
 - (void)didReceiveMemoryWarning

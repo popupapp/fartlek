@@ -28,6 +28,12 @@
     return CLLocationCoordinate2DMake([self.lat floatValue], [self.lng floatValue]);
 }
 
+- (NSString *)description
+{
+    NSString *desc = [NSString stringWithFormat:@"RunLocation:[%.3f,%.3f] (%@)", [self.lat floatValue], [self.lng floatValue], self.timestamp];
+    return desc;
+}
+
 #pragma mark - NSCoding
 
 - (id)initWithCoder:(NSCoder *)aDecoder

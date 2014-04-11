@@ -96,38 +96,58 @@
 {
     RunLocation *firstRunLocation;
     NSArray *lapArray = [self.thisRun.runLaps allObjects];
+    NSLog(@"number of laps: %d", lapArray.count);
     NSArray *orderedLapsArray = [[DataManager sharedManager] orderedLapsByLapNumber:lapArray];
+    NSLog(@"number of ordered laps: %d", orderedLapsArray.count);
     NSMutableArray *polylineLocationsArray = [NSMutableArray array];
     int numberOfLocations = 0;
+    
+    /// LOOP THROUGH EACH LAP
     for (int i=0; i < orderedLapsArray.count; i++) {
         Lap *lap = (Lap*)orderedLapsArray[i];
         NSLog(@"i:%d, lapNumber:%d", i, [lap.lapNumber intValue]);
         // locationsArray contains a bunch of RunLocation objects
         NSArray *locationsArray = [NSKeyedUnarchiver unarchiveObjectWithData:lap.locationsArray];
+        NSLog(@"locationsArray.count:%lu", (unsigned long)locationsArray.count);
         if (i==0) {
             firstRunLocation = locationsArray[i];
         }
 //        [self.runMapView addAnnotations:locationsArray];
 //        [self.runMapView showAnnotations:locationsArray animated:YES];
         
-//        for (RunLocation *thisRunLoc in locationsArray) {
-        for (int j=0; j<locationsArray.count; j++) {
-            if (j % 5 == 0) {
-                RunLocation *thisRunLoc = locationsArray[j];
-                NSLog(@"numberOfLocations:%d",numberOfLocations);
-                numberOfLocations += 1;
-                [polylineLocationsArray addObject:thisRunLoc];
+#warning !! this temporarily fixes the issue. it forces only the last set of locations to be added to the map
+//        [polylineLocationsArray removeAllObjects];
+//        numberOfLocations = 0;
+        // LOOP THROUGH THE ARRAY OF THIS LAP'S LOCATIONS AND ADD TO THE MAIN POLYLINE ARRAY
+            // !! ONLY IF IT'S THE LAST LAP (TEMP FIX)
+//        if (i == orderedLapsArray.count-1) {
+            for (int j=0; j<locationsArray.count; j++) {
+                if (j % 5 == 0) {
+                    RunLocation *thisRunLoc = locationsArray[j];
+                    NSLog(@"numberOfLocations: %d", numberOfLocations);
+                    numberOfLocations += 1;
+                    [polylineLocationsArray addObject:thisRunLoc];
+                }
             }
-        }
+//        }
+        locationsArray = nil;
     }
-    CLLocationCoordinate2D *plotLocation = malloc(sizeof(CLLocationCoordinate2D) * numberOfLocations);
+    // END OF LOOPING THROUGH EACH LAP
+    
+    MKMapPoint *pointArr = malloc(sizeof(MKMapPoint) * numberOfLocations);
+    
+    // LOOP THROUGH THE ARRAY OF LOCATIONS ACCUMULATED FROM THE WHOLE RUN
     for (int i=0; i<polylineLocationsArray.count; i++) {
         RunLocation *runLoc = polylineLocationsArray[i];
-        plotLocation[i] = runLoc.coordinate;
+        NSLog(@"--->timestamp:%d [%.3f,%.3f], %@", i, [runLoc.lat floatValue], [runLoc.lng floatValue], runLoc.timestamp);
+        pointArr[i] = MKMapPointForCoordinate(runLoc.coordinate);
     }
-    MKPolyline *runMapLine = [MKPolyline polylineWithCoordinates:plotLocation count:numberOfLocations];
+    
+    // CREATE LINE WITH pointArr LOCATIONS THEN ADD IT TO MAP
+    MKPolyline *runMapLine = [MKPolyline polylineWithPoints:pointArr count:numberOfLocations];
+    [self.runMapView removeOverlays:self.runMapView.overlays];
     [self.runMapView addOverlay:runMapLine];
-//    [self.runMapView setCenterCoordinate:plotLocation[0]];
+    
     float lat = [firstRunLocation.lat floatValue];
     float lng = [firstRunLocation.lng floatValue];
     [self zoomToThisLat:lat Lon:lng];
