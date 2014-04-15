@@ -95,8 +95,9 @@
     cell.distanceLabel.text = [NSString stringWithFormat:@"Distance: %.2f mi", runDistanceInMiles];
     
     float paceOfRun = [thisRun.runPace floatValue];
-    int minutesPaceOfRun = paceOfRun / 60;
-    int secondsPaceOfRun = (int)paceOfRun % 60;
+    float secondsTotal = paceOfRun * 60.f;
+    int minutesPaceOfRun = secondsTotal / 60;
+    int secondsPaceOfRun = (int)secondsTotal % 60;
     if (paceOfRun == INFINITY) {
         cell.runPaceLabel.text = @"Run Pace: 0:00 min/mi";
     } else {

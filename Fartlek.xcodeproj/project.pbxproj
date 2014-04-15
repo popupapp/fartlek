@@ -12,7 +12,6 @@
 		961C3F7F18F35B1D00D3AC4B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961C3F7E18F35B1D00D3AC4B /* MapKit.framework */; };
 		961C3F8118F35B2400D3AC4B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961C3F8018F35B2400D3AC4B /* CoreData.framework */; };
 		963B024B18F3B9D800F4DC7C /* Lap.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B024A18F3B9D800F4DC7C /* Lap.m */; };
-		963B024E18F714EC00F4DC7C /* TestMapLinesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B024D18F714EC00F4DC7C /* TestMapLinesViewController.m */; };
 		963E438718E2121A0073EFB8 /* RunManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 963E438618E2121A0073EFB8 /* RunManager.m */; };
 		963E438A18E216D90073EFB8 /* CurrentWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963E438918E216D90073EFB8 /* CurrentWorkoutViewController.m */; };
 		9676E31518F312D00024BA69 /* RunHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9676E31418F312D00024BA69 /* RunHistoryCell.m */; };
@@ -81,8 +80,6 @@
 		961C3F8018F35B2400D3AC4B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		963B024918F3B9D800F4DC7C /* Lap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lap.h; sourceTree = "<group>"; };
 		963B024A18F3B9D800F4DC7C /* Lap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lap.m; sourceTree = "<group>"; };
-		963B024C18F714EC00F4DC7C /* TestMapLinesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMapLinesViewController.h; sourceTree = "<group>"; };
-		963B024D18F714EC00F4DC7C /* TestMapLinesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestMapLinesViewController.m; sourceTree = "<group>"; };
 		963E438518E2121A0073EFB8 /* RunManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunManager.h; sourceTree = "<group>"; };
 		963E438618E2121A0073EFB8 /* RunManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunManager.m; sourceTree = "<group>"; };
 		963E438818E216D90073EFB8 /* CurrentWorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentWorkoutViewController.h; sourceTree = "<group>"; };
@@ -342,8 +339,6 @@
 		96A98EE218DA080200E55F1D /* controllers */ = {
 			isa = PBXGroup;
 			children = (
-				963B024C18F714EC00F4DC7C /* TestMapLinesViewController.h */,
-				963B024D18F714EC00F4DC7C /* TestMapLinesViewController.m */,
 				9693DA5B18EA457300174175 /* SetPaceViewController.h */,
 				9693DA5C18EA457300174175 /* SetPaceViewController.m */,
 				963E438818E216D90073EFB8 /* CurrentWorkoutViewController.h */,
@@ -553,7 +548,6 @@
 				9676E36518F342CC0024BA69 /* User.m in Sources */,
 				9693DA5D18EA457300174175 /* SetPaceViewController.m in Sources */,
 				969BAEC118F3A0F9008F99E1 /* Run.m in Sources */,
-				963B024E18F714EC00F4DC7C /* TestMapLinesViewController.m in Sources */,
 				96A98EF518DA219100E55F1D /* HistoryViewController.m in Sources */,
 				9693DA6D18EB4DF200174175 /* ChooseRunViewController.m in Sources */,
 			);

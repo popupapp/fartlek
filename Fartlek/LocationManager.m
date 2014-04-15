@@ -93,27 +93,29 @@ static LocationManager *g_locationManager;
 -(void)locationManager:(CLLocationManager *)manager
     didUpdateLocations:(NSArray *)locations
 {
-    self.numberOfLocationUpdates += 1;
     CLLocation *lastLocation = [locations lastObject];
-    [[RunManager sharedManager] addLocationToRun:lastLocation];
-    self.currentLocation = lastLocation;
-    
-    [self resetKeepAliveTimer];
-    
-    // Defer updates until the user runs a certain distance
-    // or when a certain amount of time has passed.
-    NSLog(@"got a location (%f)", lastLocation.horizontalAccuracy);
-    if (!self.deferringUpdates) {
-        Lap *currentLap = [[RunManager sharedManager] currentLap];
-        if (currentLap) {
-            //            CLLocationDistance distance = 100.f;
-            NSTimeInterval time = [[RunManager sharedManager] secondsLeftInLap];
-            NSLog(@"setting allowDeferredLocationUpdates (time:%d)", (int)time);
-            [self.locationManager allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax
-                                                                    timeout:time];
-            self.deferringUpdates = YES;
+//    if (lastLocation.horizontalAccuracy < 150) {
+        self.numberOfLocationUpdates += 1;
+        [[RunManager sharedManager] addLocationToRun:lastLocation];
+        self.currentLocation = lastLocation;
+        
+        [self resetKeepAliveTimer];
+        
+        // Defer updates until the user runs a certain distance
+        // or when a certain amount of time has passed.
+        NSLog(@"got a location (%f)", lastLocation.horizontalAccuracy);
+        if (!self.deferringUpdates) {
+            Lap *currentLap = [[RunManager sharedManager] currentLap];
+            if (currentLap) {
+//                CLLocationDistance distance = 100.f;
+                NSTimeInterval time = [[RunManager sharedManager] secondsLeftInLap];
+                NSLog(@"setting allowDeferredLocationUpdates (time:%d)", (int)time);
+                [self.locationManager allowDeferredLocationUpdatesUntilTraveled:CLLocationDistanceMax
+                                                                        timeout:time];
+                self.deferringUpdates = YES;
+            }
         }
-    }
+//    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error

@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *workoutSummaryLabel;
 @property (strong, nonatomic) NSArray *orderedLapsForProfile;
 @property (weak, nonatomic) IBOutlet UIButton *beginRunButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *profileAI;
 @end
 
 @implementation ChooseRunViewController
@@ -98,6 +99,7 @@
     
     NSString *getURL = [NSString stringWithFormat:@"http://fartlek.herokuapp.com/profiles/all/%d/%d.json", [profileIntensityNumber intValue], [profileDurationNumber intValue]];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [self.profileAI startAnimating];
     [manager GET:getURL
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -113,10 +115,10 @@
                                                       appendedTo:addedLaps
                                                          success:
                       ^{
-                          BOOL didAddLaps = NO;
-                          if ([addedLaps count] > 0) {
-                              didAddLaps = YES;
-                          }
+//                          BOOL didAddLaps = NO;
+//                          if ([addedLaps count] > 0) {
+//                              didAddLaps = YES;
+//                          }
                           NSLog(@"PROFILE LAPS BUILD SUCCESS");
                           if (!self.currentProfile) {
                               self.currentProfile = [[DataManager sharedManager] findCurrentProfile];
@@ -125,13 +127,18 @@
                               [self setupChart];
                               [self setupSummaryText];
                           }
+                          [self.profileAI stopAnimating];
                       } failure:^(NSError *error) {
                           NSLog(@"PROFILE LAPS FAIL: %@", error.localizedDescription);
+                          [self.profileAI stopAnimating];
                       }];
                  }
+             } else {
+                 [self.profileAI stopAnimating];
              }
          }   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"Error: %@", error);
+             [self.profileAI stopAnimating];
          }];
 }
 

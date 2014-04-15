@@ -315,26 +315,26 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
         BOOL durationDidIncrease = NO;
         CGFloat currentIntensity = [thisLap.lapIntensity floatValue];
         CGFloat currentDuration = [thisLap.lapTime floatValue];
-        if (i == 0) {
+//        if (i == 0) {
             // first lap
-            intensityDidIncrease = NO;
-            durationDidIncrease = NO;
-        } else {
-            if (currentIntensity > previousIntensity) {
-                intensityDidIncrease = YES;
-            }
-            if (currentDuration > previousDuration) {
-                durationDidIncrease = YES;
-            }
-        }
-        oldIntensity = previousIntensity;
-        previousIntensity = currentIntensity;
+//            intensityDidIncrease = NO;
+//            durationDidIncrease = NO;
+//        } else {
+//            if (currentIntensity > previousIntensity) {
+//                intensityDidIncrease = YES;
+//            }
+//            if (currentDuration > previousDuration) {
+//                durationDidIncrease = YES;
+//            }
+//        }
+//        oldIntensity = previousIntensity;
+//        previousIntensity = currentIntensity;
         
         CGFloat barWidth = ([thisLap.lapTime floatValue] / 60.0) * pointsPerMinute;
         NSLog(@"%d->lapNumber:%d, barWidth:%f, intensity:%d, duration:%d", i, [thisLap.lapNumber intValue], barWidth, [thisLap.lapIntensity intValue], [thisLap.lapTime intValue]);
         CGFloat barHeight = [thisLap.lapIntensity floatValue] * 20.f;
         UIView *lapBarView = [[UIView alloc] initWithFrame:CGRectMake(xPos,
-                                                                      bareChartView.frame.size.height - barHeight - 70.0,
+                                                                      bareChartView.frame.size.height - barHeight - 110.0,
                                                                       barWidth,
                                                                       barHeight + 20.f)];
         xPos += barWidth;
@@ -457,7 +457,7 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
 
 - (void)resetManager
 {
-    self.currentRun = nil;
+//    self.currentRun = nil;
     self.currentProfile = nil;
     self.currentLap = nil;
     [self.currentTimer invalidate];

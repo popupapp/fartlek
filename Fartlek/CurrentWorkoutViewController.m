@@ -177,6 +177,8 @@
         // back after stopped
         if (buttonIndex == 0) {
             // save
+//            [[RunManager sharedManager] stopRun];
+//            [[RunManager sharedManager] saveRun];
             [self goBackNow];
         } else {
             // delete
@@ -293,13 +295,15 @@
     float lapDistanceInMiles = lapDistanceInMeters / METERS_PER_MILE;
     self.lapDistanceValueLabel.text = [NSString stringWithFormat:@"%.2f mi", lapDistanceInMiles];
     
+    // returns in minutes
     float currentPaceOfLap = [[RunManager sharedManager] currentPaceOfLap]; // min / mi
-    int minutesPaceOfLap = currentPaceOfLap / 60;
-    int secondsPaceOfLap = (int)currentPaceOfLap % 60;
+    int mins = floorf(currentPaceOfLap);
+    float secsPercentage = currentPaceOfLap - mins;
+    int secs = secsPercentage * 60.0;
     if (currentPaceOfLap == INFINITY) {
-        self.lapPaceValueLabel.text = @"0:00 min/mi";
+        self.lapPaceValueLabel.text = @"calculating...";
     } else {
-        self.lapPaceValueLabel.text = [NSString stringWithFormat:@"%d:%.2d min/mi", minutesPaceOfLap, secondsPaceOfLap];
+        self.lapPaceValueLabel.text = [NSString stringWithFormat:@"%d:%.2d min/mi", mins, secs];
     }
     
     float currentRunDistanceInMeters = [[RunManager sharedManager] currentRunDistanceTotal];

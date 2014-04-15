@@ -76,8 +76,9 @@
     self.distanceLabel.text = [NSString stringWithFormat:@"Distance: %.2f mi", distInMiles];
     
     float paceOfRun = [self.thisRun.runPace floatValue];
-    int minutesPaceOfRun = paceOfRun / 60;
-    int secondsPaceOfRun = (int)paceOfRun % 60;
+    float secondsTotal = paceOfRun * 60.f;
+    int minutesPaceOfRun = secondsTotal / 60;
+    int secondsPaceOfRun = (int)secondsTotal % 60;
     if (paceOfRun == INFINITY) {
         self.paceLabel.text = @"Pace: 0:00 min/mi";
     } else {
@@ -115,21 +116,16 @@
 //        [self.runMapView addAnnotations:locationsArray];
 //        [self.runMapView showAnnotations:locationsArray animated:YES];
         
-#warning !! this temporarily fixes the issue. it forces only the last set of locations to be added to the map
-//        [polylineLocationsArray removeAllObjects];
-//        numberOfLocations = 0;
         // LOOP THROUGH THE ARRAY OF THIS LAP'S LOCATIONS AND ADD TO THE MAIN POLYLINE ARRAY
             // !! ONLY IF IT'S THE LAST LAP (TEMP FIX)
-//        if (i == orderedLapsArray.count-1) {
-            for (int j=0; j<locationsArray.count; j++) {
-                if (j % 5 == 0) {
-                    RunLocation *thisRunLoc = locationsArray[j];
-                    NSLog(@"numberOfLocations: %d", numberOfLocations);
-                    numberOfLocations += 1;
-                    [polylineLocationsArray addObject:thisRunLoc];
-                }
+        for (int j=0; j<locationsArray.count; j++) {
+            if (j % 5 == 0) {
+                RunLocation *thisRunLoc = locationsArray[j];
+                NSLog(@"numberOfLocations: %d", numberOfLocations);
+                numberOfLocations += 1;
+                [polylineLocationsArray addObject:thisRunLoc];
             }
-//        }
+        }
         locationsArray = nil;
     }
     // END OF LOOPING THROUGH EACH LAP
@@ -147,6 +143,7 @@
     MKPolyline *runMapLine = [MKPolyline polylineWithPoints:pointArr count:numberOfLocations];
     [self.runMapView removeOverlays:self.runMapView.overlays];
     [self.runMapView addOverlay:runMapLine];
+    free(pointArr);
     
     float lat = [firstRunLocation.lat floatValue];
     float lng = [firstRunLocation.lng floatValue];
