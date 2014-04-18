@@ -213,9 +213,17 @@ static RunManager *g_runManager = nil;
                 [self startLapNumber:self.currentLapNumber];
         } else {
             [[[UIAlertView alloc] initWithTitle:@"Good Job!" message:@"Workout Finished!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+            NSError *activationError = nil;
+            BOOL success = [[AVAudioSession sharedInstance] setActive:YES
+                                                          withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
+                                                                error:&activationError];
+            if (!success) {
+                NSLog(@"AUDIO ACTIVATION ERROR:%@", activationError.localizedDescription);
+            }
             AVSpeechSynthesizer *av = [AVSpeechSynthesizer new];
             AVSpeechUtterance *synUtt = [[AVSpeechUtterance alloc] initWithString:@"Nice Job. Workout finished."];
             synUtt.rate = 0.3;
+            av.delegate = self;
             [synUtt setVoice:[AVSpeechSynthesisVoice voiceWithLanguage:[AVSpeechSynthesisVoice currentLanguageCode]]];
             [av speakUtterance:synUtt];
             [self stopRun];
@@ -265,7 +273,7 @@ static RunManager *g_runManager = nil;
     }
 }
 
-#pragma mark - SPEECH SYNTHESIZER
+#pragma mark - SPEECH SYNTHESIZER DELEGATE METHODS
 
 -(void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer
 didFinishSpeechUtterance:(AVSpeechUtterance *)utterance

@@ -22,18 +22,35 @@ PODS:
   - FlurrySDK (4.3.2):
     - FlurrySDK/FlurrySDK
   - FlurrySDK/FlurrySDK (4.3.2)
+  - FontAwesomeKit (2.1.5):
+    - FontAwesomeKit/Core
+    - FontAwesomeKit/FontAwesome
+    - FontAwesomeKit/FoundationIcons
+    - FontAwesomeKit/IonIcons
+    - FontAwesomeKit/Zocial
+  - FontAwesomeKit/Core (2.1.5)
+  - FontAwesomeKit/FontAwesome (2.1.5):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/FoundationIcons (2.1.5):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/IonIcons (2.1.5):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/Zocial (2.1.5):
+    - FontAwesomeKit/Core
   - TestFlightSDK (3.0.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.2)
   - Bestly
   - FlurrySDK (~> 4.3)
+  - FontAwesomeKit (~> 2.1.0)
   - TestFlightSDK (~> 3.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
   Bestly: e0cc91e76e06114a653807389315bbe92c6c27b0
-  FlurrySDK: 0ba42379fd272d69246ae06386a2c5688516ffd8
-  TestFlightSDK: 71e3e78d3a46144dbad975a4bf80a14dae6a818a
+  FlurrySDK: 2b2a1e80385e4716cfefdbc107967a88256531bf
+  FontAwesomeKit: 7d935e100337d503bdaefde2ea16be740b81ed13
+  TestFlightSDK: fe0567a897456b6f65b180541892ef0154986e01
 
 COCOAPODS: 0.29.0

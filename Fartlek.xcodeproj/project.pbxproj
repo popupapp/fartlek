@@ -14,6 +14,8 @@
 		963B024B18F3B9D800F4DC7C /* Lap.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B024A18F3B9D800F4DC7C /* Lap.m */; };
 		963E438718E2121A0073EFB8 /* RunManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 963E438618E2121A0073EFB8 /* RunManager.m */; };
 		963E438A18E216D90073EFB8 /* CurrentWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963E438918E216D90073EFB8 /* CurrentWorkoutViewController.m */; };
+		9673799618FDC54A0022AE7B /* TabOneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9673799518FDC54A0022AE7B /* TabOneViewController.m */; };
+		9673799918FDC5540022AE7B /* TabTwoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9673799818FDC5540022AE7B /* TabTwoViewController.m */; };
 		9676E31518F312D00024BA69 /* RunHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9676E31418F312D00024BA69 /* RunHistoryCell.m */; };
 		9676E32718F3200A0024BA69 /* LapLocation+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 9676E32618F3200A0024BA69 /* LapLocation+Database.m */; };
 		9676E35C18F342CB0024BA69 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9676E35B18F342CB0024BA69 /* Profile.m */; };
@@ -84,6 +86,10 @@
 		963E438618E2121A0073EFB8 /* RunManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunManager.m; sourceTree = "<group>"; };
 		963E438818E216D90073EFB8 /* CurrentWorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentWorkoutViewController.h; sourceTree = "<group>"; };
 		963E438918E216D90073EFB8 /* CurrentWorkoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentWorkoutViewController.m; sourceTree = "<group>"; };
+		9673799418FDC54A0022AE7B /* TabOneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabOneViewController.h; sourceTree = "<group>"; };
+		9673799518FDC54A0022AE7B /* TabOneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabOneViewController.m; sourceTree = "<group>"; };
+		9673799718FDC5540022AE7B /* TabTwoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabTwoViewController.h; sourceTree = "<group>"; };
+		9673799818FDC5540022AE7B /* TabTwoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabTwoViewController.m; sourceTree = "<group>"; };
 		9676E31318F312D00024BA69 /* RunHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunHistoryCell.h; sourceTree = "<group>"; };
 		9676E31418F312D00024BA69 /* RunHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunHistoryCell.m; sourceTree = "<group>"; };
 		9676E32518F3200A0024BA69 /* LapLocation+Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LapLocation+Database.h"; sourceTree = "<group>"; };
@@ -339,6 +345,10 @@
 		96A98EE218DA080200E55F1D /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9673799418FDC54A0022AE7B /* TabOneViewController.h */,
+				9673799518FDC54A0022AE7B /* TabOneViewController.m */,
+				9673799718FDC5540022AE7B /* TabTwoViewController.h */,
+				9673799818FDC5540022AE7B /* TabTwoViewController.m */,
 				9693DA5B18EA457300174175 /* SetPaceViewController.h */,
 				9693DA5C18EA457300174175 /* SetPaceViewController.m */,
 				963E438818E216D90073EFB8 /* CurrentWorkoutViewController.h */,
@@ -521,6 +531,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				968BBB5318DCEAA600766D59 /* FartlekUser.m in Sources */,
+				9673799918FDC5540022AE7B /* TabTwoViewController.m in Sources */,
 				968BBB5018DCE9E000766D59 /* DataManager.m in Sources */,
 				968BBB4118DCE5C300766D59 /* FartlekModel.xcdatamodeld in Sources */,
 				963B024B18F3B9D800F4DC7C /* Lap.m in Sources */,
@@ -547,6 +558,7 @@
 				968BBB6818DCF0BE00766D59 /* Lap+Database.m in Sources */,
 				9676E36518F342CC0024BA69 /* User.m in Sources */,
 				9693DA5D18EA457300174175 /* SetPaceViewController.m in Sources */,
+				9673799618FDC54A0022AE7B /* TabOneViewController.m in Sources */,
 				969BAEC118F3A0F9008F99E1 /* Run.m in Sources */,
 				96A98EF518DA219100E55F1D /* HistoryViewController.m in Sources */,
 				9693DA6D18EB4DF200174175 /* ChooseRunViewController.m in Sources */,
