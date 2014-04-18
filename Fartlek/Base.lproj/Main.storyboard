@@ -80,9 +80,13 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cz5-pm-1AU">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cz5-pm-1AU">
                                 <rect key="frame" x="20" y="518" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Y7v-bH-j3w"/>
+                                    <constraint firstAttribute="width" constant="97" id="rSU-qv-98I"/>
+                                </constraints>
                                 <state key="normal" title="reset my pace">
                                     <color key="titleColor" red="0.92941182850000004" green="0.96470594409999999" blue="0.2470588386" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -91,9 +95,13 @@
                                     <action selector="setMyPaceAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="sYw-RH-7Ff"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYM-Tk-Lco">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYM-Tk-Lco">
                                 <rect key="frame" x="200" y="518" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="9NM-7m-DoD"/>
+                                    <constraint firstAttribute="width" constant="100" id="OmJ-jM-ilD"/>
+                                </constraints>
                                 <state key="normal" title="view past runs">
                                     <color key="titleColor" red="0.92941182850000004" green="0.96470594409999999" blue="0.2470588386" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -105,6 +113,12 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.98823535442352295" green="0.24705883860588074" blue="0.039215687662363052" alpha="1" colorSpace="deviceRGB"/>
+                        <constraints>
+                            <constraint firstItem="cz5-pm-1AU" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="Ety-Gx-ZuO"/>
+                            <constraint firstAttribute="trailing" secondItem="aYM-Tk-Lco" secondAttribute="trailing" constant="20" id="FE7-sV-hx6"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="aYM-Tk-Lco" secondAttribute="bottom" constant="20" id="YPh-Bp-Bfp"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="cz5-pm-1AU" secondAttribute="bottom" constant="20" id="kvK-oS-DHA"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="yPa-tm-n2J"/>
                     <connections>
@@ -353,15 +367,13 @@
                             <view alpha="0.20000000000000001" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GwZ-iv-UgJ" customClass="FartlekChartView">
                                 <rect key="frame" x="56" y="150" width="210" height="244"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Hkg-V2-gDy">
-                                        <rect key="frame" x="87" y="103" width="37" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </activityIndicatorView>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Hkg-V2-gDy">
+                                <rect key="frame" x="141" y="266" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oxg-be-zvY" userLabel="Begin Run Button">
                                 <rect key="frame" x="0.0" y="402" width="320" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

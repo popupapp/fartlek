@@ -1,56 +1,39 @@
 PODS:
-  - AFNetworking (2.2.1):
+  - AFNetworking (2.2.2):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
     - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.2.1):
+  - AFNetworking/NSURLConnection (2.2.2):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.2.1):
+  - AFNetworking/NSURLSession (2.2.2):
     - AFNetworking/NSURLConnection
-  - AFNetworking/Reachability (2.2.1)
-  - AFNetworking/Security (2.2.1)
-  - AFNetworking/Serialization (2.2.1)
-  - AFNetworking/UIKit (2.2.1):
+  - AFNetworking/Reachability (2.2.2)
+  - AFNetworking/Security (2.2.2)
+  - AFNetworking/Serialization (2.2.2)
+  - AFNetworking/UIKit (2.2.2):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Bestly (1.1.1)
-  - FlurrySDK (4.3.2):
+  - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK
-  - FlurrySDK/FlurrySDK (4.3.2)
-  - FontAwesomeKit (2.1.5):
-    - FontAwesomeKit/Core
-    - FontAwesomeKit/FontAwesome
-    - FontAwesomeKit/FoundationIcons
-    - FontAwesomeKit/IonIcons
-    - FontAwesomeKit/Zocial
-  - FontAwesomeKit/Core (2.1.5)
-  - FontAwesomeKit/FontAwesome (2.1.5):
-    - FontAwesomeKit/Core
-  - FontAwesomeKit/FoundationIcons (2.1.5):
-    - FontAwesomeKit/Core
-  - FontAwesomeKit/IonIcons (2.1.5):
-    - FontAwesomeKit/Core
-  - FontAwesomeKit/Zocial (2.1.5):
-    - FontAwesomeKit/Core
+  - FlurrySDK/FlurrySDK (4.4.0)
   - TestFlightSDK (3.0.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.2)
   - Bestly
   - FlurrySDK (~> 4.3)
-  - FontAwesomeKit (~> 2.1.0)
   - TestFlightSDK (~> 3.0)
 
 SPEC CHECKSUMS:
-  AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
+  AFNetworking: dd8c1868e57451e3d17ebd3516f2a8c16f9646fe
   Bestly: e0cc91e76e06114a653807389315bbe92c6c27b0
-  FlurrySDK: 2b2a1e80385e4716cfefdbc107967a88256531bf
-  FontAwesomeKit: 7d935e100337d503bdaefde2ea16be740b81ed13
+  FlurrySDK: 2cd8f2ce2383ca152c5d96fa34cb9ef29706feda
   TestFlightSDK: fe0567a897456b6f65b180541892ef0154986e01
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.32.1

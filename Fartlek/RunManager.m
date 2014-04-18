@@ -152,7 +152,6 @@ static RunManager *g_runManager = nil;
 //            float lapPace = (self.currentLapElapsedSeconds / 60.f) / (self.currentLapDistanceTotal / METERS_PER_MILE);
 //            self.currentLap.lapPace = @(lapPace);
 //        }
-#warning ADDED april 11 19:08 - needs testing
         // the idea is to clear out self.runLocations at the beginning of each lap
         // at the start of each lap after the 1st, self.runLocations contains all the locations for the preceding laps, so they need to be cleared out
         [self.runLocations removeAllObjects];
@@ -314,13 +313,13 @@ didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
     NSArray *lapsForProfile = [self.currentProfile.laps allObjects];
     self.orderedLapsForProfile = [[DataManager sharedManager] orderedLapsByLapNumber:lapsForProfile];
     NSLog(@"number of laps: %d", [lapsForProfile count]);
-    CGFloat oldIntensity = 0.f;
-    CGFloat previousIntensity = 0.f;
+//    CGFloat oldIntensity = 0.f;
+//    CGFloat previousIntensity = 0.f;
     CGFloat previousDuration = 0.f;
     for (int i=0; i < self.currentProfile.laps.count; i++) {
         Lap *thisLap = (Lap*)self.orderedLapsForProfile[i];
         BOOL intensityDidIncrease = NO;
-        BOOL durationDidIncrease = NO;
+//        BOOL durationDidIncrease = NO;
         CGFloat currentIntensity = [thisLap.lapIntensity floatValue];
         CGFloat currentDuration = [thisLap.lapTime floatValue];
 //        if (i == 0) {

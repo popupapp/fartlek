@@ -19,11 +19,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-FontAwesomeKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-TestFlightSDK.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,32 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>260160C8F1FB419882D0015F</key>
+		<key>69A194A250D24BC99382A6D6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4928E45A4E554F87AF9C9EE9</key>
+		<key>79A1BE3768A547B1AD158FF5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>594AB6A1DF2942FBBCCB6EF1</key>
+		<key>A3F2560C0F94478399D0987E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5D1079F13542454EBF1CBBDB</key>
+		<key>F573601338F24980924F383D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DF8B4443FF8A4FE49580D81A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E3F14C4489FF463AA87F250F</key>
+		<key>FA4E45BE30A04F75A21BD488</key>
 		<dict>
 			<key>primary</key>
 			<true/>

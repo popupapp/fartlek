@@ -19,7 +19,6 @@
 #import "RunManager.h"
 #import "FartlekChartView.h"
 #import "SetPaceViewController.h"
-#import <FontAwesomeKit/FontAwesomeKit.h>
 
 @interface SetupFartlekViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *workoutLengthField;
@@ -84,26 +83,6 @@
     [self.workoutIntensityField setFont:joseFontBoldItalic22];
     [self.workoutLengthField setTextColor:[UIColor whiteColor]];
     [self.workoutIntensityField setTextColor:[UIColor whiteColor]];
-    
-    [self tryFontAwesome];
-}
-
-- (void)tryFontAwesome
-{
-    FAKFontAwesome *cameraIcon = [FAKFontAwesome cameraIconWithSize:60.f];
-    FAKIonIcons *imagesIcon = [FAKIonIcons imagesIconWithSize:60.f];
-    FAKZocial *twitterIcon = [FAKZocial twitterIconWithSize:15];
-    FAKIonIcons *mailIcon = [FAKIonIcons ios7EmailIconWithSize:48];
-    [cameraIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    [imagesIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *cameraIconImg = [cameraIcon imageWithSize:CGSizeMake(90, 90)];
-    UIImage *imagesIconImg = [imagesIcon imageWithSize:CGSizeMake(90, 90)];
-    UIImage *twitterIconImg = [twitterIcon imageWithSize:CGSizeMake(60, 60)];
-    UIImage *mailIconImg = [mailIcon imageWithSize:CGSizeMake(90, 90)];
-    self.faIcon.image = cameraIconImg;
-    self.faIcon2.image = imagesIconImg;
-    self.faIcon3.image = twitterIconImg;
-    self.faIcon4.image = mailIconImg;
 }
 
 - (void)viewDidAppear:(BOOL)animated

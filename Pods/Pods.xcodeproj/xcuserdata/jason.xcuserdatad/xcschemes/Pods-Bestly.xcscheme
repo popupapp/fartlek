@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0500"
+   LastUpgradeVersion = "0510"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5D1079F13542454EBF1CBBDB"
+               BlueprintIdentifier = "F573601338F24980924F383D"
                BuildableName = "libPods-Bestly.a"
                BlueprintName = "Pods-Bestly"
                ReferencedContainer = "container:Pods.xcodeproj">

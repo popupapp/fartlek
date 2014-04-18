@@ -52,6 +52,8 @@
     UIBarButtonItem *b = [[UIBarButtonItem alloc] initWithCustomView:imgButton];
     [imgButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = b;
+    
+    [self fetchAction:nil];
 }
 
 -(void)backAction
@@ -66,7 +68,6 @@
         self.workoutSummaryLabel.text = @"";
     }
     [[RunManager sharedManager] resetManager];
-    [self fetchAction:nil];
 }
 
 - (void)setupChart
